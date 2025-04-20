@@ -9,6 +9,7 @@
 /storage/framework
 /storage/logs
 /bootstrap/cache
+/public/license_images
 
 /vendor
 .env.backup

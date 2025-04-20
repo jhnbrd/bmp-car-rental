@@ -30,8 +30,10 @@ Route::middleware('guest')->group(function() {
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Customer Specific Routes
-    Route::middleware('checkRole:Customer')->name('customer.')->group(function () {
-        Route::get('../', [CustomerController::class, 'home'])->name('home');
+    Route::middleware('checkRole:Customer')->group(function () {
+        Route::get('/cars', [CustomerController::class, 'cars'])->name('cars');
+        Route::get('/booking', [CustomerController::class, 'booking'])->name('booking');
+        Route::get('/contacts', [CustomerController::class, 'contacts'])->name('contacts');
     });
 
     // Employee Specific Routes
@@ -39,6 +41,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('dashboard');
         Route::get('/customers', [EmployeeController::class, 'customer_records'])->name('customer-records');
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
+        Route::get('/bookings', [EmployeeController::class, 'booking_management'])->name('booking-management');
     });
 
 });

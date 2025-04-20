@@ -3,96 +3,169 @@
 @section('content')
 
     <div class="container px-6 mx-auto grid">
-        <h2 class="my-6 text-2xl font-semibold text-gray-700">
+        <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
             Dashboard
         </h2>
+
         <!-- CTA -->
-        <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-purple-100 bg-purple-600 rounded-lg shadow-md focus:outline-none focus:shadow-outline-purple hidden"
-            href="https://github.com/estevanmaito/windmill-dashboard">
+        <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-white rounded-lg shadow-md focus:outline-none focus:shadow-outline-blue" href="{{ url('/bookings') }}"
+            style="background-color: #0F3460;" href="https://github.com/estevanmaito/windmill-dashboard">
             <div class="flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path
-                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                        d="M10 3C5.455 3 1.731 6.28.458 10c1.273 3.72 4.997 7 9.542 7s8.269-3.28 9.542-7C18.269 6.28 14.545 3 10 3zm0 12c-3.163 0-5.95-2.058-7.003-5C4.05 7.058 6.837 5 10 5s5.95 2.058 7.003 5c-1.053 2.942-3.84 5-7.003 5zm0-8a3 3 0 110 6 3 3 0 010-6z">
                     </path>
                 </svg>
-                <span>Star this project on GitHub</span>
+                <span>View Upcoming Reservations</span>
             </div>
             <span>View more &RightArrow;</span>
         </a>
-        <!-- Cards -->
-        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
-                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z">
-                        </path>
-                    </svg>
+
+        <div id="custom-controls-gallery" class="relative w-full mb-5 z-0" data-carousel="slide">
+            <!-- Carousel wrapper -->
+            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
+                <!-- Item 1 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+                        class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
                 </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600">
-                        Total clients
-                    </p>
-                    <p class="text-lg font-semibold text-gray-700">
-                        6389
-                    </p>
+                <!-- Item 2 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item="active">
+                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
+                        class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
                 </div>
-            </div>
-            <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
-                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M4 4a2 2 0 00-2 2v4a2 2 0 002 2V6h10a2 2 0 00-2-2H4zm2 6a2 2 0 012-2h8a2 2 0 012 2v4a2 2 0 01-2 2H8a2 2 0 01-2-2v-4zm6 4a2 2 0 100-4 2 2 0 000 4z"
-                            clip-rule="evenodd"></path>
-                    </svg>
+                <!-- Item 3 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
+                        class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
                 </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600">
-                        Account balance
-                    </p>
-                    <p class="text-lg font-semibold text-gray-700">
-                        $ 46,760.89
-                    </p>
+                <!-- Item 4 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
+                        class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
                 </div>
-            </div>
-            <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
-                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z">
-                        </path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600">
-                        New sales
-                    </p>
-                    <p class="text-lg font-semibold text-gray-700">
-                        376
-                    </p>
-                </div>
-            </div>
-            <!-- Card -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs">
-                <div class="p-3 mr-4 text-teal-500 bg-teal-100 rounded-full">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd"
-                            d="M18 5v8a2 2 0 01-2 2h-5l-5 4v-4H4a2 2 0 01-2-2V5a2 2 0 012-2h12a2 2 0 012 2zM7 8H5v2h2V8zm2 0h2v2H9V8zm6 0h-2v2h2V8z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600">
-                        Pending contacts
-                    </p>
-                    <p class="text-lg font-semibold text-gray-700">
-                        35
-                    </p>
+                <!-- Item 5 -->
+                <div class="hidden duration-700 ease-in-out" data-carousel-item>
+                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
+                        class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="">
                 </div>
             </div>
         </div>
 
+        <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
+            <!-- Card: Total Clients -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
+                    <!-- Users Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M13 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path fill-rule="evenodd" d="M5 14s1-2 5-2 5 2 5 2v1H5v-1z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Clients</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">305</p>
+                </div>
+            </div>
+
+            <!-- Card: Cars Available -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                    <!-- Car Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M3 10h14l1 4H2l1-4zm0 6a1 1 0 001 1h1v2h2v-2h6v2h2v-2h1a1 1 0 001-1H3z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Available</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">105</p>
+                </div>
+            </div>
+
+            <!-- Card: Cars Currently Rented -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-yellow-500 bg-yellow-100 rounded-full dark:text-yellow-100 dark:bg-yellow-500">
+                    <!-- Rental Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 10h16v5H2v-5zm14 3H4v-1h12v1z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Currently Rented</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">30</p>
+                </div>
+            </div>
+
+            <!-- Card: Cars Under Maintenance -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
+                    <!-- Wrench Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M11.293 9.707a1 1 0 010-1.414L13.586 6H10V4h6v6h-2V7.414l-2.293 2.293a1 1 0 01-1.414 0z">
+                        </path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Under Maintenance</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">5</p>
+                </div>
+            </div>
+
+            <!-- Card: Car Damage -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-red-600 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-600">
+                    <!-- Exclamation Triangle Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M10 2a8 8 0 100 16 8 8 0 000-16zM9 7h2v5H9V7zm0 6h2v2H9v-2z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Car Damage</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">1</p>
+                </div>
+            </div>
+
+            <!-- Card: Pending Bookings -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-purple-500 bg-purple-100 rounded-full dark:text-purple-100 dark:bg-purple-500">
+                    <!-- Clock Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 9H7V9h3V5h2v6z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Pending Bookings</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">20</p>
+                </div>
+            </div>
+
+            <!-- Card: Total Revenue -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
+                    <!-- Dollar Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9V9h2v4zm0-6H9V5h2v2z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Revenue</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">$120,000</p>
+                </div>
+            </div>
+
+            <!-- Card: Total Cost -->
+            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
+                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-ora~nge-500">
+                    <!-- Money Icon -->
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M2 10h16v5H2v-5zm14 3H4v-1h12v1z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Cost</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">$120,000</p>
+                </div>
+            </div>
+        </div>
 @endsection

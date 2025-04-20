@@ -17,24 +17,11 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('role');
+            $table->enum('role', ['Admin', 'Mechanic', 'Cashier']);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
-
-        // $user = User::create([
-        //     'username' => 'admin',
-        //     'email' => 'admin@test.com',
-        //     'password' => Hash::make('bmpcars2025'),
-        //     'role' => 'Employee',
-        // ]);
-
-        // Employee::create([
-        //     'first_name' => 'System',
-        //     'last_name' => 'Admin',
-        //     'user_id' => $user->id,
-        //     'role' => 'Admin',
-        // ]);
-        
+    
     }
 
     

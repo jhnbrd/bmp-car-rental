@@ -30,5 +30,11 @@ class EmployeeController extends Controller
         return view('employee.employee', ['employees' => $employees]);
     }
 
+    public function booking_management(): View
+    {
+        $bookings = Employee::all();
+        return view('employee.bookings', ['bookings' => $bookings]);
+    }
+
     
 }

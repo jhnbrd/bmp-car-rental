@@ -5,10 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BMP Car Rental - Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+    darkMode: 'class', // or 'media'
+    theme: {
+      extend: {
+        colors: {
+          primary: '#1D4ED8',
+        },
+      },
+    },
+  }
+</script>
+<script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/flowbite@1.4.4/dist/flowbite.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
@@ -26,8 +43,6 @@
     ></script>
     <script src="./assets/js/charts-lines.js" defer></script>
     <script src="./assets/js/charts-pie.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
   </head>
   <body>
     <div
@@ -58,42 +73,16 @@
               </li>
           </ul>
           <ul>
-              <li class="relative px-6 py-3">
-                  <button
-                      class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                      @click="togglePagesMenuBookings" aria-haspopup="true">
-                      <span class="inline-flex items-center">
-                          <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                              <path
-                                  d="M8 2v2M16 2v2M3 8h18M4 6h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zM8 12h4M8 16h8">
-                              </path>
-                          </svg>
-                          <span class="ml-4">Bookings</span>
-                      </span>
-                      <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                          <path fill-rule="evenodd"
-                              d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                              clip-rule="evenodd"></path>
-                      </svg>
-                  </button>
-                  <template x-if="isPagesMenuOpenBookings">
-                      <ul x-transition:enter="transition-all ease-in-out duration-300"
-                          x-transition:enter-start="opacity-25 max-h-0" x-transition:enter-end="opacity-100 max-h-xl"
-                          x-transition:leave="transition-all ease-in-out duration-300"
-                          x-transition:leave-start="opacity-100 max-h-xl" x-transition:leave-end="opacity-0 max-h-0"
-                          class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
-                          aria-label="submenu">
-                          <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-upcoming_bookings') }}">Upcoming Bookings</a>
-                          </li>
-                          <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-active_bookings') }}">
-                                  Active Bookings
-                              </a>
-                          </li>
-                      </ul>
-                  </template>
+          <li class="relative px-6 py-3">
+                  <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    href="{{ url('/bookings') }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                      <span class="ml-4">Booking</span>
+                  </a>
               </li>
               <li class="relative px-6 py-3">
                   <button
@@ -430,7 +419,7 @@
                 </div>
               </div>
             </div>
-            <ul class="flex items-center flex-shrink-0 space-x-6 ">
+            <ul class="flex items-center flex-shrink-0 space-x-3 ">
               <!-- Theme toggler -->
               <li class="flex" hidden>
                 <button
@@ -465,7 +454,13 @@
                     </svg>
                   </template>
                 </button>
-              </li> 
+              </li>
+              <li>
+                <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  {{ Auth::user()->employee->first_name ?? '' }}
+                  {{ Auth::user()->employee->last_name ?? '' }}
+                </p>
+              </li>
               <!-- Profile menu -->
               <li class="relative">
                 <button

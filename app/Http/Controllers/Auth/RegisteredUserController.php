@@ -53,6 +53,8 @@ class RegisteredUserController extends Controller
             'is_banned' => ['required', 'boolean']
         ]);
 
+
+
         try {
             DB::beginTransaction();
             DB::enableQueryLog();
@@ -132,21 +134,29 @@ class RegisteredUserController extends Controller
     private function fetchNameFromApi(string $code, string $endpoint): ?string
     {
         try {
-            $response = Http::get("https://psgc.gitlab.io/api/{$endpoint}/");
-
-            if ($response->successful()) {
-                $data = $response->json();
-                foreach ($data as $location) {
-                    // Add logging here to inspect each location's code
-                    Log::info("Checking {$endpoint}: Code from API: " . ($location['code'] ?? 'No Code') . ", Code from Request: " . $code);
-                    if (isset($location['code']) && $location['code'] === $code) {
-                        return $location['name'] ?? null;
+            $client = new \GuzzleHttp\Client([
+                'verify' => false, // This line bypasses certificate verification (USE WITH CAUTION!)
+            ]);
+            $response = $client->get("https://psgc.gitlab.io/api/{$endpoint}/");
+    
+            // Check if the request was successful (status code in the 2xx range)
+            if ($response->getStatusCode() >= 200 && $response->getStatusCode() < 300) {
+                $data = json_decode($response->getBody(), true);
+                if (is_array($data)) {
+                    foreach ($data as $location) {
+                        Log::info("Checking {$endpoint}: Code from API: " . ($location['code'] ?? 'No Code') . ", Code from Request: " . $code);
+                        if (isset($location['code']) && $location['code'] === $code) {
+                            return $location['name'] ?? null;
+                        }
                     }
+                    Log::warning("PSGC code '{$code}' not found in {$endpoint}.");
+                    return null;
+                } else {
+                    Log::error("PSGC API response for {$endpoint} is not a valid JSON array.");
+                    return null;
                 }
-                Log::warning("PSGC code '{$code}' not found in {$endpoint}.");
-                return null;
             } else {
-                Log::error("PSGC API request failed for {$endpoint}. Status: {$response->status()}");
+                Log::error("PSGC API request failed for {$endpoint}. Status: {$response->getStatusCode()} - " . $response->getReasonPhrase());
                 return null;
             }
         } catch (\Exception $e) {

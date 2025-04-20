@@ -13,10 +13,10 @@
             @auth
                 <a href="{{ url('/dashboard') }}" class="hover:text-gray-700">Dashboard</a>
             @else
-            <a href="#" class="hover:text-gray-700">Home</a>
+            <a href="{{ route('home') }}" class="hover:text-gray-700">Home</a>
             <a href="{{ route('cars') }}" class="hover:text-gray-700">Cars</a>
             <a href="{{ route('booking') }}" class="hover:text-gray-700">Booking</a>
-            <a href="{{ route('contacts') }}" class="hover:text-gray-700">Contacts</a>
+            <a href="{{ route('home') }}" class="hover:text-gray-700">Contacts</a>
             <a href="{{ route('login') }}" class="hover:text-gray-700">
                 <i class="fa-solid fa-user text-lg"></i>
             </a>
