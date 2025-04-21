@@ -15,9 +15,6 @@ class UsersSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate();
-        Employee::truncate();
-        Customer::truncate();
         $this->admin_account();
         $this->mechanic_account();
         $this->cashier_account();

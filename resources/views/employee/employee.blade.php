@@ -154,7 +154,8 @@
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5">
-                    <form class="space-y-4" action="#">
+                    <form class="space-y-4" action="{{ route('add-employee') }}" method="POST">
+                        @csrf
                         <div class="overflow-y-auto max-h-[500px] border border-gray-300 rounded-lg p-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                                 <div>
@@ -180,13 +181,13 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" />
                                 </div>
                                 <div>
-                                    <label for="category"
+                                    <label for="role"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Employee
                                         Role</label>
-                                    <select id="category"
+                                    <select name="role" id="role"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option selected="">Select role</option>
-                                        <option value="Administrator">Administrator</option>
+                                        <option value="Admin">Admin</option>
                                         <option value="Cashier">Cashier</option>
                                         <option value="Mechanic">Mechanic</option>
                                     </select>

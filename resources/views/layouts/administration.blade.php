@@ -457,8 +457,9 @@
               </li>
               <li>
                 <p class="text-sm font-medium text-gray-900 dark:text-white">
+                  Welcome, 
                   {{ Auth::user()->employee->first_name ?? '' }}
-                  {{ Auth::user()->employee->last_name ?? '' }}
+                  {{ Auth::user()->employee->last_name ?? '' }}!
                 </p>
               </li>
               <!-- Profile menu -->
