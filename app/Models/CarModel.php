@@ -19,6 +19,7 @@ class CarModel extends Model
         'engine_type',
         'engine_displacement',
         'fuel_type',
+        'transmission',
         'seat_capacity',
         'car_dimensions',
         'car_type',

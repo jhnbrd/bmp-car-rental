@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CarModel;
 use Illuminate\View\View;
 
 class CustomerController extends Controller
@@ -13,7 +14,8 @@ class CustomerController extends Controller
 
     public function cars(): View
     {
-        return view('cars');
+        $cars = CarModel::all();
+        return view('cars', ['carModels' => $cars]);
     }
 
     public function booking(): View

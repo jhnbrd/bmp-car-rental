@@ -234,7 +234,7 @@
                 <div
                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Add Employee
+                        Edit Employee
                     </h3>
                     <button type="button"
                         class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
@@ -301,7 +301,7 @@
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
                                 <div>
-                                    <label for="email"
+                                    <label for="phonenumber"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
                                         Number</label>
                                     <input type="phonenumber" name="phonenumber" id="phonenumber"
@@ -309,69 +309,63 @@
                                         placeholder="09123456789" disabled />
                                 </div>
                                 <div>
-                                    <label for="licencenumber"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Licence
-                                        Number</label>
-                                    <input type="licencenumber" name="licencenumber" id="licencenumber"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="L37-86753" disabled />
-                                </div>
-                            </div>
-                            <div class="col-span-full mb-2">
-                                <label for="licenceimage"
-                                    class="block text-sm/6 font-medium text-gray-900 dark:text-gray-200">License
-                                    Image</label>
-                                <div
-                                    class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 dark:border-gray-600 mx-5">
-                                    <!-- Displayed Image -->
-                                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-                                        alt="Uploaded Image" class="mx-auto w-full object-cover rounded-lg">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
-                                <div>
-                                    <label for="licenceexpirationdate"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Licence
-                                        Expiration
-                                        Date</label>
-                                    <input type="licenceexpirationdate" name="licenceexpirationdate"
-                                        id="licenceexpirationdate"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="March 28, 2028" disabled />
-                                </div>
-                                <div>
                                     <label for="accountcreated"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account
                                         Created</label>
-                                    <input type="licenceexpirationdate" name="licenceexpirationdate"
-                                        id="licenceexpirationdate"
+                                    <input type="accountcreated" name="accountcreated" id="accountcreated"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         placeholder="March 28, 2025" disabled />
                                 </div>
-
                             </div>
-                            <div class="rounded-sm gap-2 mb-2">
-                                <!-- Added flex-col for vertical alignment -->
-                                <label class="text-sm font-medium text-gray-900 dark:text-white">
-                                    Disable Account
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
+                                <div>
+                                    <label for="profileImage"
+                                        class="block text-sm font-medium text-gray-900 dark:text-gray-200 mb-2">
+                                        Profile Photo
+                                    </label>
 
-                                    <div class="flex items-center gap-2"> <!-- Toggle switch placed neatly beside label -->
-                                        <input type="checkbox" value="" class="sr-only peer">
-                                        <div
-                                            class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
+                                    <div class="flex items-center gap-4">
+                                        <!-- Profile Image Preview -->
+                                        <img class="h-24 w-24 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
+                                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
+                                            alt="Profile Photo">
+
+                                        <!-- Upload Button -->
+                                        <div>
+                                            <label for="profileImageUpload"
+                                                class="cursor-pointer inline-flex items-center px-4 py-2 bg-blue-700 text-white text-sm font-medium rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                Change Profile
+                                            </label>
+                                            <input type="file" id="profileImageUpload" name="profileImageUpload"
+                                                accept="image/*" class="hidden" />
                                         </div>
                                     </div>
-                                </label>
-                            </div>
-                        </div>
+                                </div>
+                                <div class="rounded-sm gap-2 mb-2">
+                                    <label class="text-sm font-medium text-gray-900 dark:text-white">
+                                        Disable Account
 
-                        <button type="submit"
-                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
-                            Customer</button>
-                        <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
-                            Note: Only status can be updated
-                        </div>
+                                        <div
+                                            class="flex mt-2 items-center gap-4 border border-gray-300 dark:border-gray-600 p-2 rounded-md w-fit">
+                                            <!-- Dynamic Label -->
+                                            <span id="toggle-label"
+                                                class="text-sm font-medium text-gray-700 dark:text-gray-200">Active</span>
+
+                                            <!-- Toggle Switch -->
+                                            <div class="flex items-center gap-2">
+                                                <input type="checkbox" id="toggle-switch" class="sr-only peer"
+                                                    onchange="toggleLabel()">
+                                                <div
+                                                    class="relative w-12 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-7 rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
+                                Employee</button>
                     </form>
                 </div>
             </div>

@@ -48,36 +48,43 @@
 
 
                 <div class="grid grid-cols-4 justify-center gap-[5%] mx-[10%]">
-                    <!-- flex flex-row-->
-
-                    <!-- FIRST CARD -->
-                    <div
-                        class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center">
-                            <img src="{{ asset('assets/user_carpage/car_vios.svg') }}" class="w-3/4" alt="Toyota Vios">
+                @foreach ($carModels as $car)
+                    <!-- CAR CARD -->
+                    <div class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
+                        <div class="bg-gray-100 p-4 flex justify-center h-[150px]">
+                            <img src="{{ asset($car->img_file_path) }}" class="w-3/4" alt="">
                         </div>
-                        <div class="p-5 text-center">
+                        <div class="p-5 text-center w-[270px] h-[240px]">
                             <div class="flex items-center justify-center mb-2">
-                                <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2"
-                                    alt="Toyota Logo">
-                                <h5 class="text-2xl font-bold text-gray-900">VIOS</h5>
+                                @if ($car->brand === 'Toyota')
+                                    <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2" alt="Toyota Logo">
+                                @elseif ($car->brand === 'Nissan')
+                                    <img src="{{ asset('assets/user_carpage/logo_nissan.svg') }}" class="w-12 mr-2" alt="Nissan Logo">
+                                @elseif ($car->brand === 'Mitsubishi')
+                                    <img src="{{ asset('assets/user_carpage/logo_mitsubishi.svg') }}" class="w-12 mr-2" alt="Mitsubishi Logo">
+                                @elseif ($car->brand === 'Suzuki')
+                                    <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" class="w-12 mr-2" alt="Suzuki Logo">
+                                @else
+                                    <span class="w-12 mr-2"></span> {{-- Placeholder if no specific logo --}}
+                                @endif
+                                <h5 class="text-2xl font-bold text-gray-900">{{ $car->model_name }}</h5>
                             </div>
                             <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-car"></i>
-                                    <span>SEDAN</span>
+                                    <span>{{ strtoupper($car->car_type) }}</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-door-open"></i>
-                                    <span>4-5 DOORS</span>
+                                    <span>{{ $car->transmission }}</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-user-group"></i>
-                                    <span>5 PEOPLE</span>
+                                    <span>{{ $car->seat_capacity }} PEOPLE</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-snowflake"></i>
-                                    <span>AC / HEATER</span>
+                                    <span>{{ $car->fuel_type }}</span>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center mt-3">
@@ -95,237 +102,7 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <!-- SECOND CARD -->
-                    <div
-                        class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center">
-                            <img src="{{ asset('assets/user_carpage/car_vios.svg') }}" class="w-3/4" alt="Toyota Vios">
-                        </div>
-                        <div class="p-5 text-center">
-                            <div class="flex items-center justify-center mb-2">
-                                <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2"
-                                    alt="Toyota Logo">
-                                <h5 class="text-2xl font-bold text-gray-900">VIOS</h5>
-                            </div>
-                            <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-car"></i>
-                                    <span>SEDAN</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-door-open"></i>
-                                    <span>4-5 DOORS</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <span>5 PEOPLE</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-snowflake"></i>
-                                    <span>AC / HEATER</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
-                                <!-- Trigger Button -->
-                                <button id="openModal"
-                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                    RENT
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                        viewBox="0 0 14 10">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- THIRD CARD -->
-                    <div
-                        class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center">
-                            <img src="{{ asset('assets/user_carpage/car_vios.svg') }}" class="w-3/4" alt="Toyota Vios">
-                        </div>
-                        <div class="p-5 text-center">
-                            <div class="flex items-center justify-center mb-2">
-                                <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2"
-                                    alt="Toyota Logo">
-                                <h5 class="text-2xl font-bold text-gray-900">VIOS</h5>
-                            </div>
-                            <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-car"></i>
-                                    <span>SEDAN</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-door-open"></i>
-                                    <span>4-5 DOORS</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <span>5 PEOPLE</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-snowflake"></i>
-                                    <span>AC / HEATER</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
-                                <a href="#"
-                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                    RENT
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                        viewBox="0 0 14 10">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- FORTH CARD -->
-                    <div
-                        class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center">
-                            <img src="{{ asset('assets/user_carpage/car_vios.svg') }}" class="w-3/4" alt="Toyota Vios">
-                        </div>
-                        <div class="p-5 text-center">
-                            <div class="flex items-center justify-center mb-2">
-                                <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2"
-                                    alt="Toyota Logo">
-                                <h5 class="text-2xl font-bold text-gray-900">VIOS</h5>
-                            </div>
-                            <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-car"></i>
-                                    <span>SEDAN</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-door-open"></i>
-                                    <span>4-5 DOORS</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <span>5 PEOPLE</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-snowflake"></i>
-                                    <span>AC / HEATER</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
-                                <a href="#"
-                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                    RENT
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                        viewBox="0 0 14 10">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- FIFTH CARD -->
-                    <div
-                        class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center">
-                            <img src="{{ asset('assets/user_carpage/car_vios.svg') }}" class="w-3/4" alt="Toyota Vios">
-                        </div>
-                        <div class="p-5 text-center">
-                            <div class="flex items-center justify-center mb-2">
-                                <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2"
-                                    alt="Toyota Logo">
-                                <h5 class="text-2xl font-bold text-gray-900">VIOS</h5>
-                            </div>
-                            <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-car"></i>
-                                    <span>SEDAN</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-door-open"></i>
-                                    <span>4-5 DOORS</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <span>5 PEOPLE</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-snowflake"></i>
-                                    <span>AC / HEATER</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
-                                <!-- Trigger Button -->
-                                <button id="openModal"
-                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                    RENT
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                        viewBox="0 0 14 10">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- SIXTH CARD -->
-                    <div
-                        class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center">
-                            <img src="{{ asset('assets/user_carpage/car_vios.svg') }}" class="w-3/4" alt="Toyota Vios">
-                        </div>
-                        <div class="p-5 text-center">
-                            <div class="flex items-center justify-center mb-2">
-                                <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2"
-                                    alt="Toyota Logo">
-                                <h5 class="text-2xl font-bold text-gray-900">VIOS</h5>
-                            </div>
-                            <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-car"></i>
-                                    <span>SEDAN</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-door-open"></i>
-                                    <span>4-5 DOORS</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-user-group"></i>
-                                    <span>5 PEOPLE</span>
-                                </div>
-                                <div class="flex items-center space-x-2">
-                                    <i class="fa-solid fa-snowflake"></i>
-                                    <span>AC / HEATER</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
-                                <!-- Trigger Button -->
-                                <button id="openModal"
-                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                    RENT
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                        viewBox="0 0 14 10">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
-                                </button>s
-                            </div>
-                        </div>
-                    </div>
+                @endforeach
 
                     <!-- Modal Background (Hidden by default) -->
                     <div id="modal"

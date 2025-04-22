@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('engine_type');
             $table->integer('engine_displacement');
             $table->enum('fuel_type', ['Gasoline', 'Diesel']);
+            $table->enum('transmission', ['Automatic', 'Manual']);
             $table->integer('seat_capacity');
             $table->string('car_dimensions');
             $table->enum('car_type', ['Sedan', 'SUV', 'Pick-up']);
