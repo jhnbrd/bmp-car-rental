@@ -52,7 +52,7 @@
                     <!-- CAR CARD -->
                     <div class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
                         <div class="bg-gray-100 p-4 flex justify-center h-[150px]">
-                            <img src="{{ asset($car->img_file_path) }}" class="w-3/4" alt="">
+                            <img src="{{ asset($car->img_file_path) }}" class="w-3/4 object-contain h-full" alt="">
                         </div>
                         <div class="p-5 text-center w-[270px] h-[240px]">
                             <div class="flex items-center justify-center mb-2">
@@ -64,6 +64,10 @@
                                     <img src="{{ asset('assets/user_carpage/logo_mitsubishi.svg') }}" class="w-12 mr-2" alt="Mitsubishi Logo">
                                 @elseif ($car->brand === 'Suzuki')
                                     <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" class="w-12 mr-2" alt="Suzuki Logo">
+                                @elseif ($car->brand === 'Honda')
+
+                                @elseif ($car->brand === 'Ford')
+
                                 @else
                                     <span class="w-12 mr-2"></span> {{-- Placeholder if no specific logo --}}
                                 @endif
