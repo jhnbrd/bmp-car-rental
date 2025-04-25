@@ -15,7 +15,6 @@
 
 </head>
 
-
 <body class="font-sans h-screen w-full">
     <!-- MAIN BODY -->
     <div class="bg-white-100 text-black/100 h-screen w-full flex flex-col">
@@ -55,7 +54,7 @@
                             <img src="{{ asset($car->img_file_path) }}" class="w-3/4 object-contain h-full" alt="">
                         </div>
                         <div class="p-5 text-center w-[270px] h-[240px]">
-                            <div class="flex items-center justify-center mb-2">
+                            <div class="flex items-center justify-center mb-2 h-[48px]">
                                 @if ($car->brand === 'Toyota')
                                     <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2" alt="Toyota Logo">
                                 @elseif ($car->brand === 'Nissan')
@@ -110,7 +109,7 @@
 
                     <!-- Modal Background (Hidden by default) -->
                     <div id="modal"
-                        class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
+                        class="fixed text-black inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
                         <div class="bg-white rounded-lg p-6 w-96">
                             <div class="flex justify-between items-center mb-4">
                                 <h2 class="text-xl font-semibold">Confirm Rental</h2>

@@ -14,15 +14,6 @@ class EmployeeController extends Controller
 {
     public function store(Request $request): RedirectResponse
     {
-
-        // dd($request);
-
-    //     "first_name" => "Josh Andrei"
-    //   "last_name" => "Magcalas"
-    //   "email" => "jam04@gmail.com"
-    //   "username" => "jam04"
-    //   "password" => "12345678"
-
         $request->validate([
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -50,6 +41,11 @@ class EmployeeController extends Controller
 
     }
 
+    // public function destroy(Employee $employee)
+    // {
+        
+    // }
+
     public function dashboard(): View
     {
         return view('employee.dashboard');
@@ -75,7 +71,7 @@ class EmployeeController extends Controller
     public function booking_management(): View
     {
         $bookings = Employee::all();
-        return view('employee.bookings', ['bookings' => $bookings]);
+        return view('employee.manage_bookings', ['bookings' => $bookings]);
     }
 
     
