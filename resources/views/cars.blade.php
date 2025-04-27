@@ -29,7 +29,7 @@
             <!-- Hero Section -->
             <!-- FIRST CONTAINER -->
 
-            <section class="relative bg-[#0f1021] text-white py-10 text-center">
+            <section class="relative bg-[#0f1021] text-white pt-10 text-center">
                 <div class="py-10">
                     <p class="text-7xl font-bold">
                         AVAILABLE CARS
@@ -46,11 +46,11 @@
                 </div>
 
 
-                <div class="grid grid-cols-4 justify-center gap-[5%] mx-[10%]">
+                <div class="grid grid-cols-4 justify-center mx-[10%]">
                 @foreach ($carModels as $car)
                     <!-- CAR CARD -->
-                    <div class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200">
-                        <div class="bg-gray-100 p-4 flex justify-center h-[150px]">
+                    <div class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200" style="margin-block: 5%;">
+                        <div class="bg-gray-100 p-4 flex justify-center h-[150px] w-[270px]">
                             <img src="{{ asset($car->img_file_path) }}" class="w-3/4 object-contain h-full" alt="">
                         </div>
                         <div class="p-5 text-center w-[270px] h-[240px]">
@@ -64,9 +64,9 @@
                                 @elseif ($car->brand === 'Suzuki')
                                     <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" class="w-12 mr-2" alt="Suzuki Logo">
                                 @elseif ($car->brand === 'Honda')
-
+                                    <img src="{{ asset('assets/user_carpage/logo_honda.svg') }}" class="w-12 mr-2" alt="Honda Logo">
                                 @elseif ($car->brand === 'Ford')
-
+                                    <img src="{{ asset('assets/user_carpage/logo_ford.svg') }}" class="w-12 mr-2" alt="Ford Logo">
                                 @else
                                     <span class="w-12 mr-2"></span> {{-- Placeholder if no specific logo --}}
                                 @endif
@@ -130,7 +130,12 @@
                     </div>
 
             </section>
-
+            <div class="bg-[#0f1021] flex flex-row mx-auto">
+                <div class="py-8 mx-auto flex justify-end">
+                    {{ $carModels->links() }}
+                </div>
+            </div>
+            
 
             <!-- footer -->
             <div class="flex flex-col min-h-auto bg-white">

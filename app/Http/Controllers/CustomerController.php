@@ -14,7 +14,7 @@ class CustomerController extends Controller
 
     public function cars(): View
     {
-        $cars = CarModel::all();
+        $cars = CarModel::paginate(8);
         return view('cars', ['carModels' => $cars]);
     }
 
