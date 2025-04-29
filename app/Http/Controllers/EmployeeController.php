@@ -48,7 +48,8 @@ class EmployeeController extends Controller
 
     public function dashboard(): View
     {
-        return view('employee.dashboard');
+        $totalCustomers = User::where('role', 'Customer')->count();
+        return view('employee.dashboard', ['totalCustomers' => $totalCustomers]);
     }
 
     public function rental_agreement(): View
