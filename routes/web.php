@@ -37,10 +37,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('checkRole:Employee')->group(function () {
         Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('employee.dashboard');
         Route::get('/customers', [EmployeeController::class, 'customer_records'])->name('customer-records');
-        Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
+        
+        // Booking Management Routes
         Route::get('/bookings/manage', [EmployeeController::class, 'booking_management'])->name('booking-management');
         Route::get('/bookings/history', [EmployeeController::class, 'booking_history'])->name('booking-history');
+        Route::get('/bookings/unsettled', [EmployeeController::class, 'booking_unsettled'])->name('booking-unsettled');
+
+        // Car Management Routes
         Route::get('/cars/modify', [EmployeeController::class, 'car_modification'])->name('cars-modification');
+
+        // Employee Management Routes
+        Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
         Route::post('/employees', [EmployeeController::class, 'store'])->name('add-employee');
     });
     

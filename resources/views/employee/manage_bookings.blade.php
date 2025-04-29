@@ -1,3 +1,4 @@
+
 @extends('layouts.administration')
 
 @section('content')
@@ -54,7 +55,8 @@
             default:
                 return ['text' => 'Unknown', 'color' => 'bg-gray-100 text-gray-700'];
         }
-    }                                                                                                                                                                                                                                                           ?>
+    }
+                                                                                                                                                                                                                                                                                                                    ?>
 
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Manage Bookings
@@ -330,7 +332,7 @@
         $hasOngoing = true;
         $statusBadge = getStatusBadge($client['status']);
         $dropdownId = "approval-toggle-" . $index;
-                                                                                                                                                                                                                                            ?>
+                                                                                                                                                                                                                                                                                ?>
 
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <!-- Ongoing - Client Name Data -->
@@ -469,7 +471,7 @@
         $hasDue = true;
         $statusBadge = getStatusBadge($client['status']);
         $dropdownId = "approval-toggle-" . $index;
-                                                                                                                                                                                                                                            ?>
+                                                                                                                                                                                                                                                                                ?>
 
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <!-- Due - Client Name -->
@@ -732,7 +734,7 @@
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center pb-4 border-b dark:border-gray-700">
-                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white ms-3">Resolve Report</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Resolve Report</h2>
                 <button data-modal-hide="resolve-modal" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
 
@@ -764,32 +766,53 @@
             <!-- Modal Content Grid with Scrollable Sections -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Left Side: Renter Profile (Fixed height) -->
-                <div class="space-y-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm flex flex-col max-h-[100px]">
-                    <div class="flex items-center space-x-4">
-                        <img src="renter-profile.jpg" alt="Renter"
-                            class="w-16 h-16 rounded-full border-2 border-gray-400 shadow-md">
+                <div
+                    class="space-y-4 bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm flex flex-col max-h-[30vh] overflow-y-auto">
+                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Resolvation</h3>
+                    <div class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
                         <div>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-white">John Doe</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">johndoe@example.com</p>
+                            <label class="block font-semibold mb-1">Amount to be Paid</label>
+                            <div class="grid grid-cols-3 gap-3">
+                                <p><strong>Base:</strong><br>$100.00</p>
+                                <p><strong>Late Fee:</strong><br>$20.00</p>
+                                <p><strong>Discount:</strong><br>-$10.00</p>
+                                <p><strong>Tax:</strong><br>$5.00</p>
+                                <p><strong>Paid:</strong><br>$100.00</p>
+                                <p><strong>Balance:</strong><br><span class="text-red-600">$15.00</span></p>
+                            </div>
+
+                            <div class="mt-4 border-t pt-2 dark:border-gray-700">
+                                <p class="text-sm"><strong>Total Due:</strong> <span
+                                        class="text-blue-600 font-bold">$115.00</span>
+                                </p>
+                            </div>
+
+                        </div>
+
+                        <div>
+                            <label class="block font-semibold mb-1">Amount Paid</label>
+                            <input type="number" placeholder="₱0.00"
+                                class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                        </div>
+
+                        <div>
+                            <label class="block font-semibold mb-1">Description</label>
+                            <textarea rows="3" placeholder="Enter details..."
+                                class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+
+                        <div class="flex items-start space-x-2">
+                            <input type="checkbox" id="agreement"
+                                class="mt-1 rounded border-gray-300 focus:ring-blue-500" />
+                            <label for="agreement" class="text-sm text-gray-600 dark:text-gray-300">
+                                I agree to the payment terms and conditions.
+                            </label>
                         </div>
                     </div>
-                    <div class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                        <p><strong>Contact:</strong> +123 456 7890</p>
-                        <p><strong>License #:</strong> D12345678</p>
-                        <p><strong>Expiry:</strong> 2027-05-15</p>
-                    </div>
-                    <!-- Check Profile Button -->
-                    <div class="pt-4">
-                        <a href="#"
-                            class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg transition">
-                            Check Profile
-                        </a>
-                    </div>
                 </div>
-
                 <!-- Right Side: Issue Details (Fixed height, scrollable) -->
                 <div
-                    class="space-y-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm flex flex-col max-h-[100px] overflow-y-auto">
+                    class="space-y-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm flex flex-col max-h-[30vh] overflow-y-auto">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Issue Details</h3>
                     <div class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
                         <!-- Issue Type -->
@@ -811,8 +834,7 @@
                         <!-- Issue Description in Separate Row -->
                         <div class="space-y-3">
                             <label class="block font-medium">Description</label>
-                            <p
-                                class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg text-gray-800 dark:text-gray-200 max-h-24 overflow-y-auto">
+                            <p class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg text-gray-800 dark:text-gray-200">
                                 The front bumper is cracked and has visible paint scratches. Damage likely caused by a minor
                                 collision. The issue is significant enough to affect the car's appearance, and we recommend
                                 a professional repair to restore it to its original condition.
@@ -959,7 +981,9 @@
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center border-b pb-4">
-                <h2 class="text-2xl font-bold text-gray-800 dark:text-white ms-3">Booking Overview</h2>
+                <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    Booking Overview
+                </h5>
                 <button data-modal-toggle="viewdetail-modal"
                     class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
@@ -1216,10 +1240,16 @@
                     <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Customer Profile</h3>
                     <div class="flex items-center gap-4">
                         <img src="profile.jpg" alt="Customer" class="w-24 h-24 object-cover rounded-full border">
-                        <div class="space-y-1">
-                            <p><strong>Name:</strong> John Doe</p>
-                            <p><strong>Email:</strong> johndoe@email.com</p>
-                            <p><strong>Phone:</strong> +123 456 7890</p>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm"><strong>Name:</strong><br>John Doe</p>
+                            </div>
+                            <div>
+                                <p class="text-sm"><strong>Email:</strong><br>johndoe@email.com</p>
+                            </div>
+                            <div>
+                                <p class="text-sm"><strong>Phone:</strong><br>+123 456 7890</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1227,10 +1257,20 @@
                 <!-- Rental Duration -->
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300">
                     <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Rental Duration</h3>
-                    <p><strong>Start:</strong> Apr 10, 10:00 AM</p>
-                    <p><strong>Expected Return:</strong> Apr 12, 10:00 AM</p>
-                    <p><strong>Actual Return:</strong> Apr 12, 11:30 AM</p>
-                    <p><strong>Duration:</strong> 2d, 1.5h</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-sm"><strong>Start:</strong><br>Apr 10, 10:00 AM</p>
+                        </div>
+                        <div>
+                            <p class="text-sm"><strong>Expected Return:</strong><br>Apr 12, 10:00 AM</p>
+                        </div>
+                        <div>
+                            <p class="text-sm"><strong>Actual Return:</strong><br>Apr 12, 11:30 AM</p>
+                        </div>
+                        <div>
+                            <p class="text-sm"><strong>Duration:</strong><br>2d, 1.5h</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -1238,18 +1278,36 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Vehicle Info -->
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300">
-                    <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Vehicle Information</h3>
+                    <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-4">Vehicle Information</h3>
 
-                    <img src="vehicle-image.jpg" alt="Vehicle" class="w-full h-32 object-cover rounded-xl shadow-sm mb-3">
+                    <div class="flex flex-col md:flex-row items-center gap-4">
+                        <!-- Left Side: Vehicle Image -->
+                        <img src="vehicle-image.jpg" alt="Vehicle"
+                            class="w-full md:w-1/2 h-[15vh] object-cover rounded-xl shadow-sm border">
 
-                    <div class="grid grid-cols-3 gap-3">
-                        <p><strong>Model:</strong><br>Toyota Corolla</p>
-                        <p><strong>Plate:</strong><br>ABC1234</p>
-                        <p><strong>Rental ID:</strong><br>#456789</p>
+                        <!-- Right Side: Vehicle Details -->
+                        <div class="w-full md:w-1/2 space-y-4 text-left">
+                            <!-- Model and Plate side by side -->
+                            <div class="flex gap-4">
+                                <div class="w-1/2">
+                                    <p class="font-bold text-gray-800 text-xs">Model</p>
+                                    <p class="text-gray-500">Toyota Corolla</p>
+                                </div>
+                                <div class="w-1/2">
+                                    <p class="font-bold text-gray-800 text-xs">Plate</p>
+                                    <p class="text-gray-500">ABC1234</p>
+                                </div>
+                            </div>
+
+                            <!-- Rental ID alone below -->
+                            <div>
+                                <p class="font-bold text-gray-800 text-xs">Rental ID</p>
+                                <p class=" text-gray-500">#456789</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Charges & Payments -->
                 <!-- Charges & Payments -->
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300">
                     <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Charges & Payments</h3>
@@ -1273,7 +1331,8 @@
             </div>
 
             <!-- Row 3: Vehicle Condition -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300 space-y-4">
+            <div
+                class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300 space-y-4 max-h-[20vh] overflow-y-auto">
                 <h3 class="font-semibold text-base text-gray-800 dark:text-white">Vehicle Condition</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1307,11 +1366,19 @@
                             placeholder="Describe the damage..."></textarea>
                     </div>
                     <div>
-                        <label class="font-semibold block mb-1">Upload Photos</label>
                         <label class="block font-semibold text-gray-800 dark:text-gray-200 mb-1">Upload Evidence
                             (Optional)</label>
-                        <input type="file"
-                            class="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100" />
+                        <div
+                            class="flex items-center justify-between p-4 border border-gray-300 bg-white rounded-lg shadow-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                            <input type="file" id="car-image" name="car-image" accept="image/*" class="hidden" />
+                            <label for="car-image" class="flex items-center space-x-3 text-sm text-gray-700 cursor-pointer">
+                                <span class="flex items-center">
+                                    <i class="bi bi-card-image"></i>&nbsp;&nbsp;
+                                    <span>Choose Image</span>
+                                </span>
+                                <span class="text-gray-400 text-xs text-end">PNG, JPG up to 2mb</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1389,8 +1456,17 @@
                 <div>
                     <label class="block font-semibold text-gray-800 dark:text-gray-200 mb-1">Upload Evidence
                         (Optional)</label>
-                    <input type="file"
-                        class="block w-full text-sm text-gray-600 dark:text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-red-50 file:text-red-700 hover:file:bg-red-100" />
+                    <div
+                        class="flex items-center justify-between p-4 border border-gray-300 bg-white rounded-lg shadow-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
+                        <input type="file" id="car-image" name="car-image" accept="image/*" class="hidden" />
+                        <label for="car-image" class="flex items-center space-x-3 text-sm text-gray-700 cursor-pointer">
+                            <span class="flex items-center">
+                                <i class="bi bi-card-image"></i>&nbsp;&nbsp;
+                                <span>Choose Image</span>
+                            </span>
+                            <span class="text-gray-400 text-xs text-end">PNG,JPG up to 2mb</span>
+                        </label>
+                    </div>
                 </div>
             </div>
 
@@ -1588,104 +1664,104 @@
 
             const printWindow = window.open('', '_blank');
             const html = `
-                                                                                                                        <html>
-                                                                                                                            <head>
-                                                                                                                                <title>Rental Invoice</title>
-                                                                                                                            <style>
-                                                                                                                                @page {
-                                                                                                                                    margin: 0;
-                                                                                                                                }
-                                                                                                                                body {
-                                                                                                                                    margin: 1cm;
-                                                                                                                                    font-family: sans-serif;
-                                                                                                                                    color: #000;
-                                                                                                                                    background-color: #ffffff !important;
-                                                                                                                                }
+                                                                                                                                                            <html>
+                                                                                                                                                                <head>
+                                                                                                                                                                    <title>Rental Invoice</title>
+                                                                                                                                                                <style>
+                                                                                                                                                                    @page {
+                                                                                                                                                                        margin: 0;
+                                                                                                                                                                    }
+                                                                                                                                                                    body {
+                                                                                                                                                                        margin: 1cm;
+                                                                                                                                                                        font-family: sans-serif;
+                                                                                                                                                                        color: #000;
+                                                                                                                                                                        background-color: #ffffff !important;
+                                                                                                                                                                    }
 
-                                                                                                                                /* Print utility classes */
-                                                                                                                                .hidden { display: block !important; }
-                                                                                                                                .print\:block { display: block !important; }
-                                                                                                                                .print\:hidden { display: none !important; }
+                                                                                                                                                                    /* Print utility classes */
+                                                                                                                                                                    .hidden { display: block !important; }
+                                                                                                                                                                    .print\:block { display: block !important; }
+                                                                                                                                                                    .print\:hidden { display: none !important; }
 
-                                                                                                                                /* Utility classes */
-                                                                                                                                .text-center { text-align: center; }
-                                                                                                                                .text-right { text-align: right; }
+                                                                                                                                                                    /* Utility classes */
+                                                                                                                                                                    .text-center { text-align: center; }
+                                                                                                                                                                    .text-right { text-align: right; }
 
-                                                                                                                                .font-sans { font-family: sans-serif; }
-                                                                                                                                .font-bold { font-weight: bold; }
-                                                                                                                                .font-medium { font-weight: 500; }
-                                                                                                                                .font-semibold { font-weight: 600; }
-                                                                                                                                .italic { font-style: italic; }
+                                                                                                                                                                    .font-sans { font-family: sans-serif; }
+                                                                                                                                                                    .font-bold { font-weight: bold; }
+                                                                                                                                                                    .font-medium { font-weight: 500; }
+                                                                                                                                                                    .font-semibold { font-weight: 600; }
+                                                                                                                                                                    .italic { font-style: italic; }
 
-                                                                                                                                .text-sm { font-size: 0.875rem; }
-                                                                                                                                .text-md { font-size: 1rem; }
-                                                                                                                                .text-xl { font-size: 1.25rem; }
-                                                                                                                                .text-2xl { font-size: 1.5rem; }
+                                                                                                                                                                    .text-sm { font-size: 0.875rem; }
+                                                                                                                                                                    .text-md { font-size: 1rem; }
+                                                                                                                                                                    .text-xl { font-size: 1.25rem; }
+                                                                                                                                                                    .text-2xl { font-size: 1.5rem; }
 
-                                                                                                                                .text-gray-800 { color: #1F2937; }
-                                                                                                                                .text-gray-500 { color: #6B7280; }
-                                                                                                                                .text-gray-300 { color: #D1D5DB; }
+                                                                                                                                                                    .text-gray-800 { color: #1F2937; }
+                                                                                                                                                                    .text-gray-500 { color: #6B7280; }
+                                                                                                                                                                    .text-gray-300 { color: #D1D5DB; }
 
-                                                                                                                                .mb-2 { margin-bottom: 0.5rem; }
-                                                                                                                                .mb-4 { margin-bottom: 1rem; }
-                                                                                                                                .mb-6 { margin-bottom: 1.5rem; }
-                                                                                                                                .mt-8 { margin-top: 2rem; }
+                                                                                                                                                                    .mb-2 { margin-bottom: 0.5rem; }
+                                                                                                                                                                    .mb-4 { margin-bottom: 1rem; }
+                                                                                                                                                                    .mb-6 { margin-bottom: 1.5rem; }
+                                                                                                                                                                    .mt-8 { margin-top: 2rem; }
 
-                                                                                                                                .pb-4 { padding-bottom: 1rem; }
-                                                                                                                                .pt-2 { padding-top: 0.5rem; }
-                                                                                                                                .p-6 { padding: 1.5rem; }
-                                                                                                                                .px-8 { padding-left: 2rem; padding-right: 2rem; }
-                                                                                                                                .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+                                                                                                                                                                    .pb-4 { padding-bottom: 1rem; }
+                                                                                                                                                                    .pt-2 { padding-top: 0.5rem; }
+                                                                                                                                                                    .p-6 { padding: 1.5rem; }
+                                                                                                                                                                    .px-8 { padding-left: 2rem; padding-right: 2rem; }
+                                                                                                                                                                    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 
-                                                                                                                                .border { border: 1px solid #000; }
-                                                                                                                                .border-b { border-bottom: 1px solid #000; }
-                                                                                                                                .border-t { border-top: 1px solid #000; }
-                                                                                                                                .border-dashed { border-style: dashed; }
+                                                                                                                                                                    .border { border: 1px solid #000; }
+                                                                                                                                                                    .border-b { border-bottom: 1px solid #000; }
+                                                                                                                                                                    .border-t { border-top: 1px solid #000; }
+                                                                                                                                                                    .border-dashed { border-style: dashed; }
 
-                                                                                                                                .bg-white { background-color: #fff; }
+                                                                                                                                                                    .bg-white { background-color: #fff; }
 
-                                                                                                                                .grid { display: grid; }
-                                                                                                                                .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                                                                                                                                                                    .grid { display: grid; }
+                                                                                                                                                                    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-                                                                                                                                .flex { display: flex; }
-                                                                                                                                .flex-col { flex-direction: column; }
-                                                                                                                                .justify-between { justify-content: space-between; }
-                                                                                                                                .items-center { align-items: center; }
+                                                                                                                                                                    .flex { display: flex; }
+                                                                                                                                                                    .flex-col { flex-direction: column; }
+                                                                                                                                                                    .justify-between { justify-content: space-between; }
+                                                                                                                                                                    .items-center { align-items: center; }
 
-                                                                                                                                .gap-2 { gap: 0.5rem; }
+                                                                                                                                                                    .gap-2 { gap: 0.5rem; }
 
-                                                                                                                                .max-w-3xl { max-width: 768px; }
-                                                                                                                                .mx-auto { margin-left: auto; margin-right: auto; }
+                                                                                                                                                                    .max-w-3xl { max-width: 768px; }
+                                                                                                                                                                    .mx-auto { margin-left: auto; margin-right: auto; }
 
-                                                                                                                                .w-25 { width: 6.25rem; }
-                                                                                                                                .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
-                                                                                                                                .h-12 { height: 3rem; }
-                                                                                                                                .w-14 { width: 3.5rem; } /* Adjusted to match agreement section */
+                                                                                                                                                                    .w-25 { width: 6.25rem; }
+                                                                                                                                                                    .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
+                                                                                                                                                                    .h-12 { height: 3rem; }
+                                                                                                                                                                    .w-14 { width: 3.5rem; } /* Adjusted to match agreement section */
 
-                                                                                                                                .space-y-1 > :not([hidden]) ~ :not([hidden]) {
-                                                                                                                                    margin-top: 0.25rem;
-                                                                                                                                }
+                                                                                                                                                                    .space-y-1 > :not([hidden]) ~ :not([hidden]) {
+                                                                                                                                                                        margin-top: 0.25rem;
+                                                                                                                                                                    }
 
-                                                                                                                                /* Add this rule to reduce spacing in the header and address sections */
-                                                                                                                                .flex > div > p {
-                                                                                                                                    margin-top: 0.2rem;
-                                                                                                                                    margin-bottom: 0.2rem;
-                                                                                                                                }
+                                                                                                                                                                    /* Add this rule to reduce spacing in the header and address sections */
+                                                                                                                                                                    .flex > div > p {
+                                                                                                                                                                        margin-top: 0.2rem;
+                                                                                                                                                                        margin-bottom: 0.2rem;
+                                                                                                                                                                    }
 
-                                                                                                                                /* Add this rule to reduce spacing in the rental information */
-                                                                                                                                .mb-6 > p {
-                                                                                                                                    margin-top: 0.3rem;
-                                                                                                                                    margin-bottom: 0.3rem;
-                                                                                                                                }
+                                                                                                                                                                    /* Add this rule to reduce spacing in the rental information */
+                                                                                                                                                                    .mb-6 > p {
+                                                                                                                                                                        margin-top: 0.3rem;
+                                                                                                                                                                        margin-bottom: 0.3rem;
+                                                                                                                                                                    }
 
 
-                                                                                                                            </style>   
-                                                                                                                            </head>
-                                                                                                                            <body onload="window.print(); window.onafterprint = () => window.close();">
-                                                                                                                                ${invoiceContent}
-                                                                                                                            </body>
-                                                                                                                        </html>
-                                                                                                                    `;
+                                                                                                                                                                </style>   
+                                                                                                                                                                </head>
+                                                                                                                                                                <body onload="window.print(); window.onafterprint = () => window.close();">
+                                                                                                                                                                    ${invoiceContent}
+                                                                                                                                                                </body>
+                                                                                                                                                            </html>
+                                                                                                                                                        `;
 
             printWindow.document.write(html);
             printWindow.document.close();
@@ -1697,133 +1773,133 @@
 
             const printWindow = window.open('', '_blank');
             const html = `
-                                                                                                                <html>
-                                                                                                                    <head>
-                                                                                                                        <title>Rental Agreement</title>
-                                                                                                                        <style>
-                                                                                                                            @page {
-                                                                                                                                margin: 0;
-                                                                                                                            }
-                                                                                                                            body {
-                                                                                                                                margin: 1cm;
-                                                                                                                                font-family: sans-serif;
-                                                                                                                                color: #000;
-                                                                                                                                background-color: #ffffff !important;
-                                                                                                                            }
+                                                                                                                                                    <html>
+                                                                                                                                                        <head>
+                                                                                                                                                            <title>Rental Agreement</title>
+                                                                                                                                                            <style>
+                                                                                                                                                                @page {
+                                                                                                                                                                    margin: 0;
+                                                                                                                                                                }
+                                                                                                                                                                body {
+                                                                                                                                                                    margin: 1cm;
+                                                                                                                                                                    font-family: sans-serif;
+                                                                                                                                                                    color: #000;
+                                                                                                                                                                    background-color: #ffffff !important;
+                                                                                                                                                                }
 
-                                                                                                                            /* Print utility classes */
-                                                                                                                            .hidden { display: block !important; }
-                                                                                                                            .print\\:block { display: block !important; }
-                                                                                                                            .print\\:hidden { display: none !important; }
+                                                                                                                                                                /* Print utility classes */
+                                                                                                                                                                .hidden { display: block !important; }
+                                                                                                                                                                .print\\:block { display: block !important; }
+                                                                                                                                                                .print\\:hidden { display: none !important; }
 
-                                                                                                                            /* Utility classes */
-                                                                                                                            .text-center { text-align: center; }
-                                                                                                                            .text-right { text-align: right; }
+                                                                                                                                                                /* Utility classes */
+                                                                                                                                                                .text-center { text-align: center; }
+                                                                                                                                                                .text-right { text-align: right; }
 
-                                                                                                                            .font-sans { font-family: sans-serif; }
-                                                                                                                            .font-bold { font-weight: bold; }
-                                                                                                                            .font-medium { font-weight: 500; }
-                                                                                                                            .font-semibold { font-weight: 600; }
-                                                                                                                            .italic { font-style: italic; }
+                                                                                                                                                                .font-sans { font-family: sans-serif; }
+                                                                                                                                                                .font-bold { font-weight: bold; }
+                                                                                                                                                                .font-medium { font-weight: 500; }
+                                                                                                                                                                .font-semibold { font-weight: 600; }
+                                                                                                                                                                .italic { font-style: italic; }
 
-                                                                                                                            .text-sm { font-size: 0.875rem; }
-                                                                                                                            .text-md { font-size: 1rem; }
-                                                                                                                            .text-xl { font-size: 1.25rem; }
-                                                                                                                            .text-2xl { font-size: 1.5rem; }
+                                                                                                                                                                .text-sm { font-size: 0.875rem; }
+                                                                                                                                                                .text-md { font-size: 1rem; }
+                                                                                                                                                                .text-xl { font-size: 1.25rem; }
+                                                                                                                                                                .text-2xl { font-size: 1.5rem; }
 
-                                                                                                                            .text-gray-800 { color: #1F2937; }
-                                                                                                                            .text-gray-500 { color: #6B7280; }
-                                                                                                                            .text-gray-300 { color: #D1D5DB; }
+                                                                                                                                                                .text-gray-800 { color: #1F2937; }
+                                                                                                                                                                .text-gray-500 { color: #6B7280; }
+                                                                                                                                                                .text-gray-300 { color: #D1D5DB; }
 
-                                                                                                                            .mb-2 { margin-bottom: 0.5rem; }
-                                                                                                                            .mb-4 { margin-bottom: 1rem; }
-                                                                                                                            .mb-6 { margin-bottom: 1.5rem; }
-                                                                                                                            .mt-8 { margin-top: 2rem; }
+                                                                                                                                                                .mb-2 { margin-bottom: 0.5rem; }
+                                                                                                                                                                .mb-4 { margin-bottom: 1rem; }
+                                                                                                                                                                .mb-6 { margin-bottom: 1.5rem; }
+                                                                                                                                                                .mt-8 { margin-top: 2rem; }
 
-                                                                                                                            .pb-4 { padding-bottom: 1rem; }
-                                                                                                                            .pt-2 { padding-top: 0.5rem; }
-                                                                                                                            .p-6 { padding: 1.5rem; }
-                                                                                                                            .px-8 { padding-left: 2rem; padding-right: 2rem; }
-                                                                                                                            .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+                                                                                                                                                                .pb-4 { padding-bottom: 1rem; }
+                                                                                                                                                                .pt-2 { padding-top: 0.5rem; }
+                                                                                                                                                                .p-6 { padding: 1.5rem; }
+                                                                                                                                                                .px-8 { padding-left: 2rem; padding-right: 2rem; }
+                                                                                                                                                                .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 
-                                                                                                                            .border { border: 1px solid #000; }
-                                                                                                                            .border-b { border-bottom: 1px solid #000; }
-                                                                                                                            .border-t { border-top: 1px solid #000; }
-                                                                                                                            .border-dashed { border-style: dashed; }
+                                                                                                                                                                .border { border: 1px solid #000; }
+                                                                                                                                                                .border-b { border-bottom: 1px solid #000; }
+                                                                                                                                                                .border-t { border-top: 1px solid #000; }
+                                                                                                                                                                .border-dashed { border-style: dashed; }
 
-                                                                                                                            .bg-white { background-color: #fff; }
+                                                                                                                                                                .bg-white { background-color: #fff; }
 
-                                                                                                                            .grid { display: grid; }
-                                                                                                                            .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                                                                                                                                                                .grid { display: grid; }
+                                                                                                                                                                .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-                                                                                                                            .flex { display: flex; }
-                                                                                                                            .flex-col { flex-direction: column; }
-                                                                                                                            .justify-between { justify-content: space-between; }
-                                                                                                                            .items-center { align-items: center; }
+                                                                                                                                                                .flex { display: flex; }
+                                                                                                                                                                .flex-col { flex-direction: column; }
+                                                                                                                                                                .justify-between { justify-content: space-between; }
+                                                                                                                                                                .items-center { align-items: center; }
 
-                                                                                                                            .gap-2 { gap: 0.5rem; }
+                                                                                                                                                                .gap-2 { gap: 0.5rem; }
 
-                                                                                                                            .max-w-4xl { max-width: 896px; } /* Adjusted to match agreement section */
-                                                                                                                            .mx-auto { margin-left: auto; margin-right: auto; }
+                                                                                                                                                                .max-w-4xl { max-width: 896px; } /* Adjusted to match agreement section */
+                                                                                                                                                                .mx-auto { margin-left: auto; margin-right: auto; }
 
-                                                                                                                            .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
-                                                                                                                            .h-14 { height: 3.5rem; } /* Adjusted to match agreement section */
-                                                                                                                            .mb-2 { margin-bottom: 0.5rem; } /* Ensure some bottom margin for the logo */
+                                                                                                                                                                .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
+                                                                                                                                                                .h-14 { height: 3.5rem; } /* Adjusted to match agreement section */
+                                                                                                                                                                .mb-2 { margin-bottom: 0.5rem; } /* Ensure some bottom margin for the logo */
 
-                                                                                                                            .space-y-2 > :not([hidden]) ~ :not([hidden]) {
-                                                                                                                                margin-top: 0.5rem; /* Adjusted to match agreement section */
-                                                                                                                            }
+                                                                                                                                                                .space-y-2 > :not([hidden]) ~ :not([hidden]) {
+                                                                                                                                                                    margin-top: 0.5rem; /* Adjusted to match agreement section */
+                                                                                                                                                                }
 
-                                                                                                                            .leading-relaxed { line-height: 1.625; } /* Added to match agreement text */
-                                                                                                                            .underline { text-decoration: underline; }
-                                                                                                                            .underline-offset-2 { text-underline-offset: 2px; }
-                                                                                                                            .decoration-gray-400 { text-decoration-color: #9CA3AF; }
-                                                                                                                            .list-disc { list-style-type: disc; }
-                                                                                                                            .list-inside { list-style-position: inside; }
-                                                                                                                            .text-gray-700 { color: #374151; }
-                                                                                                                            .dark\:text-gray-300 { color: #D1D5DB; }
-                                                                                                                            .dark\:text-gray-200 { color: #E5E7EB; }
-                                                                                                                            .mt-10 { margin-top: 2.5rem; }
-                                                                                                                            .mt-12 { margin-top: 3rem; }
-                                                                                                                            .w-1\/2 { width: 50%; }
-                                                                                                                            .w-1\/3 { width: 33.333333%; }
-                                                                                                                            .items-end { align-items: flex-end; }
-                                                                                                                            .mb-1 { margin-bottom: 0.25rem; }
-                                                                                                                            .text-gray-600 { color: #4B5563; }
-                                                                                                                            .dark\:text-gray-400 { color: #9CA3AF; }
-                                                                                                                            .pb-3 { padding-bottom: 0.75rem; }
+                                                                                                                                                                .leading-relaxed { line-height: 1.625; } /* Added to match agreement text */
+                                                                                                                                                                .underline { text-decoration: underline; }
+                                                                                                                                                                .underline-offset-2 { text-underline-offset: 2px; }
+                                                                                                                                                                .decoration-gray-400 { text-decoration-color: #9CA3AF; }
+                                                                                                                                                                .list-disc { list-style-type: disc; }
+                                                                                                                                                                .list-inside { list-style-position: inside; }
+                                                                                                                                                                .text-gray-700 { color: #374151; }
+                                                                                                                                                                .dark\:text-gray-300 { color: #D1D5DB; }
+                                                                                                                                                                .dark\:text-gray-200 { color: #E5E7EB; }
+                                                                                                                                                                .mt-10 { margin-top: 2.5rem; }
+                                                                                                                                                                .mt-12 { margin-top: 3rem; }
+                                                                                                                                                                .w-1\/2 { width: 50%; }
+                                                                                                                                                                .w-1\/3 { width: 33.333333%; }
+                                                                                                                                                                .items-end { align-items: flex-end; }
+                                                                                                                                                                .mb-1 { margin-bottom: 0.25rem; }
+                                                                                                                                                                .text-gray-600 { color: #4B5563; }
+                                                                                                                                                                .dark\:text-gray-400 { color: #9CA3AF; }
+                                                                                                                                                                .pb-3 { padding-bottom: 0.75rem; }
 
-                                                                                                                            /* Target the <p> elements within the Rental Information grid */
-                                                                                                                            .mb-4 > .grid > p {
-                                                                                                                                margin-top: 0.1rem; /* Reduce top margin */
-                                                                                                                                margin-bottom: 0.1rem; /* Reduce bottom margin */
-                                                                                                                                line-height: 1.2; /* Optionally reduce line height within the lines */
-                                                                                                                            }
+                                                                                                                                                                /* Target the <p> elements within the Rental Information grid */
+                                                                                                                                                                .mb-4 > .grid > p {
+                                                                                                                                                                    margin-top: 0.1rem; /* Reduce top margin */
+                                                                                                                                                                    margin-bottom: 0.1rem; /* Reduce bottom margin */
+                                                                                                                                                                    line-height: 1.2; /* Optionally reduce line height within the lines */
+                                                                                                                                                                }
 
-                                                                                                                            /* Slightly reduce margin below the Rental Information heading */
-                                                                                                                            .mb-4 > .text-md {
-                                                                                                                                margin-bottom: 0.1rem;
-                                                                                                                            }
+                                                                                                                                                                /* Slightly reduce margin below the Rental Information heading */
+                                                                                                                                                                .mb-4 > .text-md {
+                                                                                                                                                                    margin-bottom: 0.1rem;
+                                                                                                                                                                }
 
-                                                                                                                            /* Center the logo image */
-                                                                                                                            .flex.justify-center > img {
-                                                                                                                                display: block; /* Ensure it behaves as a block-level element */
-                                                                                                                                margin-left: auto; /* Push it to the right */
-                                                                                                                                margin-right: auto; /* Push it to the left */
-                                                                                                                            }
+                                                                                                                                                                /* Center the logo image */
+                                                                                                                                                                .flex.justify-center > img {
+                                                                                                                                                                    display: block; /* Ensure it behaves as a block-level element */
+                                                                                                                                                                    margin-left: auto; /* Push it to the right */
+                                                                                                                                                                    margin-right: auto; /* Push it to the left */
+                                                                                                                                                                }
 
-                                                                                                                            /* Add spacing to the company information */
-                                                                                                                            .flex.justify-between > div > h2.text-sm,
-                                                                                                                            .flex.justify-between > div > p.text-sm {
-                                                                                                                                margin-bottom: 0.2rem; /* Add a small bottom margin to each line */
-                                                                                                                            }
-                                                                                                                        </style>
-                                                                                                                    </head>
-                                                                                                                    <body onload="window.print(); window.onafterprint = () => window.close();">
-                                                                                                                        ${agreementContent}
-                                                                                                                    </body>
-                                                                                                                </html>
-                                                                                                            `;
+                                                                                                                                                                /* Add spacing to the company information */
+                                                                                                                                                                .flex.justify-between > div > h2.text-sm,
+                                                                                                                                                                .flex.justify-between > div > p.text-sm {
+                                                                                                                                                                    margin-bottom: 0.2rem; /* Add a small bottom margin to each line */
+                                                                                                                                                                }
+                                                                                                                                                            </style>
+                                                                                                                                                        </head>
+                                                                                                                                                        <body onload="window.print(); window.onafterprint = () => window.close();">
+                                                                                                                                                            ${agreementContent}
+                                                                                                                                                        </body>
+                                                                                                                                                    </html>
+                                                                                                                                                `;
 
             printWindow.document.write(html);
             printWindow.document.close();

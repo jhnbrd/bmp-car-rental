@@ -59,7 +59,7 @@ class EmployeeController extends Controller
     public function customer_records(): View
     {
         $customers = Customer::all();
-        return view('employee.customer_records', ['customers' => $customers]);
+        return view('employee.customer', ['customers' => $customers]);
     }
 
     public function employee_records(): View
@@ -79,6 +79,12 @@ class EmployeeController extends Controller
         $booking_history = Employee::all();
         $customers = Customer::all();
         return view('employee.booking_history', ['booking_history' =>  $booking_history ], ['customers' => $customers]);
+    }
+
+    public function booking_unsettled(): View
+    {
+        $bookings = Employee::all();
+        return view('employee.manage_bookings', ['bookings' => $bookings]);
     }
 
     public function car_modification(): View
