@@ -39,11 +39,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/customers', [EmployeeController::class, 'customer_records'])->name('customer-records');
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
         Route::get('/bookings/manage', [EmployeeController::class, 'booking_management'])->name('booking-management');
-        // Route::get('/bookings/manage', [EmployeeController::class, 'booking_management'])->name('booking-management');
-        // Route::get('/bookings/manage', [EmployeeController::class, 'booking_management'])->name('booking-management');
+        Route::get('/bookings/history', [EmployeeController::class, 'booking_history'])->name('booking-history');
+        Route::get('/cars/modify', [EmployeeController::class, 'car_modification'])->name('cars-modification');
         Route::post('/employees', [EmployeeController::class, 'store'])->name('add-employee');
     });
-
+    
 });
 
 require __DIR__.'/auth.php';

@@ -74,5 +74,18 @@ class EmployeeController extends Controller
         return view('employee.manage_bookings', ['bookings' => $bookings]);
     }
 
+    public function booking_history(): View
+    {
+        $booking_history = Employee::all();
+        $customers = Customer::all();
+        return view('employee.booking_history', ['booking_history' =>  $booking_history ], ['customers' => $customers]);
+    }
+
+    public function car_modification(): View
+    {
+        $car_modification = Employee::all();
+        return view('employee.car_modification', ['car_modification' => $car_modification]);
+    }
+
     
 }
