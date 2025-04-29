@@ -5,7 +5,7 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between my-6 space-y-4 md:space-y-0">
         <!-- Flex Container -->
         <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Customer
+            Customer Records
         </h2>
 
         <form class="w-full sm:w-[400px] md:w-[500px] lg:w-[600px] xl:w-[700px]"> <!-- Responsive Widths -->
@@ -27,6 +27,74 @@
                     class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
             </div>
         </form>
+    </div>
+
+    <div class="flex justify-between items-center mb-5">
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-blue-600 font-medium text-base">
+                        All Cars
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-gray-400 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L11.586 9 7.293 4.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1 text-gray-700 font-bold text-lg">
+                            Filtered Cars
+                        </span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Filter Button -->
+        <div class="relative inline-block text-left">
+            <button type="button"
+                class="inline-flex justify-between items-center px-4 py-2 bg-blue-600 dark:bg-blue-800 border border-blue-600 dark:border-blue-800 rounded-md shadow-sm text-sm font-medium text-white dark:text-gray-300 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition ease-in-out duration-200"
+                data-dropdown-toggle="dropdown-menu" aria-expanded="false">
+                Filter Status
+                <!-- Interactive SVG -->
+                <svg id="dropdown-arrow" class="h-5 w-5 ml-2 transform transition-transform duration-200 ease-in-out"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <ul id="dropdown-menu"
+                class="hidden absolute right-0 mt-2 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 shadow-lg rounded-md w-48 z-10">
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 rounded-t-md hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white">
+                        Active
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white">
+                        Inactive
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white">
+                        Disabled
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 rounded-b-md hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white">
+                        Blacklisted
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -70,7 +138,8 @@
                                 </div>
                             </td>
                             <td class="px-4 py-3 text-sm">
-                                {{ $customer->barangay }}, {{ $customer->city }}, {{ $customer->province }}, {{ $customer->address }}
+                                {{ $customer->barangay }}, {{ $customer->city }}, {{ $customer->province }},
+                                {{ $customer->address }}
                             </td>
                             <td class="px-4 py-3 text-sm">
                                 {{ $customer->driver_license_number }}
@@ -215,8 +284,7 @@
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Licence
                                         Expiration
                                         Date</label>
-                                    <input type="date" name="licenceexpirationdate"
-                                        id="licenceexpirationdate"
+                                    <input type="date" name="licenceexpirationdate" id="licenceexpirationdate"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         placeholder="March 28, 2028" disabled />
                                 </div>
@@ -254,4 +322,15 @@
             </div>
         </div>
     </div>
+
+    <script>
+        const button = document.querySelector('button[data-dropdown-toggle="dropdown-menu"]');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+
+        button.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+            dropdownArrow.classList.toggle('rotate-180');
+        });
+    </script>
 @endsection
