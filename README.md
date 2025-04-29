@@ -1,18 +1,18 @@
 <p align="center">
-  <a href="https://github.com/jhnbrd/bmp-car-rental" target="_blank">
-    <img src="public/assets/bmp_logo.png" alt="BMP Car Rental Logo" width="200">
-  </a>
+  <a href="https://github.com/jhnbrd/bmp-car-rental" target="_blank">
+    <img src="public/assets/bmp_logo.png" alt="BMP Car Rental Logo" width="200">
+  </a>
 </p>
 
 <h1 align="center">BMP Car Rental Web Application</h1>
 
 <p align="center">
-  A final project requirement for the IT9A Laravel course, built with Laravel 12, Breeze, Blade, and Tailwind CSS.
+  A final project submission for the IT9A Laravel course, built with Laravel 12, Breeze, Blade, and Tailwind CSS.
 </p>
 
 ## About BMP Car Rental
 
-BMP Car Rental is a web application designed to allow users to browse, book, and manage car rentals. This project was developed as the final requirement for the IT9A Laravel course, demonstrating the ability to build a functional web application using the Laravel framework and related technologies.
+BMP Car Rental is a web application developed as the final project requirement for the **IT9A Laravel course**. It demonstrates the skills and knowledge acquired throughout the course by building a functional platform for browsing, booking, and managing car rentals.
 
 Key features implemented in this application include:
 
@@ -20,7 +20,7 @@ Key features implemented in this application include:
 -   **Car Listings:** Display of available cars with relevant details (e.g., make, model, price, availability).
 -   **Booking System:** Functionality for users to select rental dates and book cars.
 -   **Contact Page:** A contact form or information for users to get in touch.
--   **Role-Based Access Control:** Implementation of different user roles (e.g., customer, employee) with specific access permissions.
+-   **Role-Based Access Control:** Implementation of distinct user roles (Customer and Employee) with tailored access permissions.
 -   **Modern User Interface:** A responsive and user-friendly design built with Tailwind CSS and Blade templates.
 
 ## Technologies Used
@@ -34,9 +34,9 @@ This project utilizes the following key technologies:
 
 ## Project Team
 
--   John Rex Partoza - Frontend Developer: Responsible for designing and implementing the user interface of the application.
--   Josh Andrei Magcalas - Frontend Developer:  Contributed to the user interface development, ensuring a smooth and responsive user experience.
--   Jhianne Jose Berida - Backend Developer:  Developed the server-side logic, database interactions, and API endpoints using Laravel.
+-   **partoza**: Frontend Developer (Employee Side) - Responsible for designing and implementing the employee-facing user interface.
+-   **jhnbrd**: Backend Developer - Developed the server-side logic, database interactions, and API endpoints using Laravel.
+-   **jam04241**: Frontend Developer (Guest & Customer Side) - Contributed to the user interface development for guest browsing and customer interactions.
 
 ## Learning Resources
 
@@ -48,7 +48,7 @@ During the development of this project, the following resources were invaluable:
 
 ## Contributing
 
-As this is a final project for a course, external contributions are not the primary focus at this time. However, feedback and suggestions are welcome. If you have any ideas or notice any issues, feel free to open an issue on this repository.
+As this is a final project submission for the IT9A Laravel course, external contributions are not the primary focus at this time. However, feedback and suggestions are welcome. If you have any ideas or notice any issues, feel free to open an issue on this repository.
 
 ## Code of Conduct
 
