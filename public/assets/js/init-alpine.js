@@ -16,6 +16,8 @@ function data() {
     window.localStorage.setItem('dark', value)
   }
 
+  console.log(this.isSideMenuOpen)
+
   return {
     dark: getThemeFromLocalStorage(),
     toggleTheme() {
