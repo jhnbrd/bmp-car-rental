@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('car_id')->constrained('cars')->onDelete('cascade');
+            $table->dateTime('pickup_date');
+            $table->dateTime('return_date');
+            $table->decimal('amount_due', 8, 2);
+            $table->foreignId('latest_status_id')->nullable();
             $table->timestamps();
         });
     }
