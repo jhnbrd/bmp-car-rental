@@ -23,8 +23,6 @@ Route::get('/cars', [CustomerController::class, 'cars'])->name('cars');
 Route::get('/booking', [CustomerController::class, 'booking'])->name('booking');
 Route::get('/contacts', [CustomerController::class, 'contacts'])->name('contacts');
 
-
-
 // Authenticated User Routes
 Route::middleware(['auth', 'verified'])->group(function () {
 

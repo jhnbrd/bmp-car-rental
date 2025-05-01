@@ -1,38 +1,37 @@
-
 @extends('layouts.administration')
 
 @section('content')
 
     <?php
     $clients = [
-        ["id" => "1", "name" => "Hans Burger", "amount" => "$863.45", "status" => "For Approval", "date" => "6/10/2020", "avatar" => "https://randomuser.me/api/portraits/men/1.jpg"],
+        ["id" => "1", "name" => "Hans Burger", "amount" => "$863.45", "status" => "Approved", "date" => "6/10/2020", "avatar" => "https://randomuser.me/api/portraits/men/1.jpg"],
         ["id" => "2", "name" => "Sarah Lee", "amount" => "$123.45", "status" => "Paid", "date" => "5/12/2020", "avatar" => "https://randomuser.me/api/portraits/women/2.jpg"],
         ["id" => "3", "name" => "John Doe", "amount" => "$245.67", "status" => "Ongoing", "date" => "7/15/2020", "avatar" => "https://randomuser.me/api/portraits/men/3.jpg"],
-        ["id" => "4", "name" => "Emily Clark", "amount" => "$543.21", "status" => "Cancel", "date" => "4/5/2020", "avatar" => "https://randomuser.me/api/portraits/women/4.jpg"],
+        ["id" => "4", "name" => "Emily Clark", "amount" => "$543.21", "status" => "Reported", "date" => "4/5/2020", "avatar" => "https://randomuser.me/api/portraits/women/4.jpg"],
         ["id" => "5", "name" => "Mark Thompson", "amount" => "$789.99", "status" => "Due", "date" => "6/25/2020", "avatar" => "https://randomuser.me/api/portraits/men/5.jpg"],
-        ["id" => "6", "name" => "Anna Swift", "amount" => "$903.12", "status" => "Damage", "date" => "3/18/2020", "avatar" => "https://randomuser.me/api/portraits/women/6.jpg"],
+        ["id" => "6", "name" => "Anna Swift", "amount" => "$903.12", "status" => "Unpaid", "date" => "3/18/2020", "avatar" => "https://randomuser.me/api/portraits/women/6.jpg"],
         ["id" => "7", "name" => "Jack Daniels", "amount" => "$450.67", "status" => "Paid", "date" => "2/11/2020", "avatar" => "https://randomuser.me/api/portraits/men/7.jpg"],
-        ["id" => "8", "name" => "Lily Adams", "amount" => "$654.88", "status" => "For Approval", "date" => "1/21/2020", "avatar" => "https://randomuser.me/api/portraits/women/8.jpg"],
-        ["id" => "9", "name" => "Carlos Reyes", "amount" => "$712.33", "status" => "Paid", "date" => "8/13/2021", "avatar" => "https://randomuser.me/api/portraits/men/9.jpg"],
+        ["id" => "8", "name" => "Lily Adams", "amount" => "$654.88", "status" => "Approved", "date" => "1/21/2020", "avatar" => "https://randomuser.me/api/portraits/women/8.jpg"],
+        ["id" => "9", "name" => "Carlos Reyes", "amount" => "$712.33", "status" => "Pick-Up", "date" => "8/13/2021", "avatar" => "https://randomuser.me/api/portraits/men/9.jpg"],
         ["id" => "10", "name" => "Mia Gonzalez", "amount" => "$320.20", "status" => "Due", "date" => "11/2/2021", "avatar" => "https://randomuser.me/api/portraits/women/10.jpg"],
         ["id" => "11", "name" => "Noah Smith", "amount" => "$615.49", "status" => "Ongoing", "date" => "10/8/2022", "avatar" => "https://randomuser.me/api/portraits/men/11.jpg"],
-        ["id" => "12", "name" => "Olivia Johnson", "amount" => "$982.00", "status" => "Damage", "date" => "6/30/2023", "avatar" => "https://randomuser.me/api/portraits/women/12.jpg"],
-        ["id" => "13", "name" => "William Brown", "amount" => "$134.80", "status" => "Cancel", "date" => "4/18/2021", "avatar" => "https://randomuser.me/api/portraits/men/13.jpg"],
+        ["id" => "12", "name" => "Olivia Johnson", "amount" => "$982.00", "status" => "Unpaid", "date" => "6/30/2023", "avatar" => "https://randomuser.me/api/portraits/women/12.jpg"],
+        ["id" => "13", "name" => "William Brown", "amount" => "$134.80", "status" => "Reported", "date" => "4/18/2021", "avatar" => "https://randomuser.me/api/portraits/men/13.jpg"],
         ["id" => "14", "name" => "Emma Davis", "amount" => "$768.90", "status" => "Paid", "date" => "9/5/2023", "avatar" => "https://randomuser.me/api/portraits/women/14.jpg"],
-        ["id" => "15", "name" => "James Wilson", "amount" => "$402.56", "status" => "For Approval", "date" => "7/19/2022", "avatar" => "https://randomuser.me/api/portraits/men/15.jpg"],
+        ["id" => "15", "name" => "James Wilson", "amount" => "$402.56", "status" => "Approved", "date" => "7/19/2022", "avatar" => "https://randomuser.me/api/portraits/men/15.jpg"],
         ["id" => "16", "name" => "Sophia Moore", "amount" => "$823.47", "status" => "Paid", "date" => "3/12/2023", "avatar" => "https://randomuser.me/api/portraits/women/16.jpg"],
         ["id" => "17", "name" => "Benjamin Taylor", "amount" => "$553.21", "status" => "Ongoing", "date" => "5/24/2023", "avatar" => "https://randomuser.me/api/portraits/men/17.jpg"],
         ["id" => "18", "name" => "Isabella Martinez", "amount" => "$731.95", "status" => "Due", "date" => "10/29/2023", "avatar" => "https://randomuser.me/api/portraits/women/18.jpg"],
-        ["id" => "19", "name" => "Logan Anderson", "amount" => "$888.65", "status" => "Cancel", "date" => "9/2/2023", "avatar" => "https://randomuser.me/api/portraits/men/19.jpg"],
-        ["id" => "20", "name" => "Ava Thomas", "amount" => "$610.77", "status" => "Damage", "date" => "1/11/2024", "avatar" => "https://randomuser.me/api/portraits/women/20.jpg"],
+        ["id" => "19", "name" => "Logan Anderson", "amount" => "$888.65", "status" => "Unsettle", "date" => "9/2/2023", "avatar" => "https://randomuser.me/api/portraits/men/19.jpg"],
+        ["id" => "20", "name" => "Ava Thomas", "amount" => "$610.77", "status" => "Unsettle", "date" => "1/11/2024", "avatar" => "https://randomuser.me/api/portraits/women/20.jpg"],
         ["id" => "21", "name" => "Elijah Jackson", "amount" => "$299.99", "status" => "Paid", "date" => "2/5/2024", "avatar" => "https://randomuser.me/api/portraits/men/21.jpg"],
-        ["id" => "22", "name" => "Charlotte White", "amount" => "$753.88", "status" => "For Approval", "date" => "1/28/2024", "avatar" => "https://randomuser.me/api/portraits/women/22.jpg"],
+        ["id" => "22", "name" => "Charlotte White", "amount" => "$753.88", "status" => "Approved", "date" => "1/28/2024", "avatar" => "https://randomuser.me/api/portraits/women/22.jpg"],
         ["id" => "23", "name" => "Lucas Harris", "amount" => "$480.34", "status" => "Ongoing", "date" => "3/15/2024", "avatar" => "https://randomuser.me/api/portraits/men/23.jpg"],
         ["id" => "24", "name" => "Amelia Martin", "amount" => "$199.99", "status" => "Due", "date" => "3/30/2024", "avatar" => "https://randomuser.me/api/portraits/women/24.jpg"],
-        ["id" => "25", "name" => "Henry Clark", "amount" => "$920.65", "status" => "Cancel", "date" => "4/1/2024", "avatar" => "https://randomuser.me/api/portraits/men/25.jpg"],
+        ["id" => "25", "name" => "Henry Clark", "amount" => "$920.65", "status" => "Unpaid", "date" => "4/1/2024", "avatar" => "https://randomuser.me/api/portraits/men/25.jpg"],
         ["id" => "26", "name" => "Grace Lewis", "amount" => "$330.20", "status" => "Paid", "date" => "4/10/2024", "avatar" => "https://randomuser.me/api/portraits/women/26.jpg"],
-        ["id" => "27", "name" => "Daniel Walker", "amount" => "$875.50", "status" => "Damage", "date" => "4/15/2024", "avatar" => "https://randomuser.me/api/portraits/men/27.jpg"],
-        ["id" => "28", "name" => "Chloe Hall", "amount" => "$702.45", "status" => "For Approval", "date" => "4/18/2024", "avatar" => "https://randomuser.me/api/portraits/women/28.jpg"],
+        ["id" => "27", "name" => "Daniel Walker", "amount" => "$875.50", "status" => "Pick-Up", "date" => "4/15/2024", "avatar" => "https://randomuser.me/api/portraits/men/27.jpg"],
+        ["id" => "28", "name" => "Chloe Hall", "amount" => "$702.45", "status" => "Approved", "date" => "4/18/2024", "avatar" => "https://randomuser.me/api/portraits/women/28.jpg"],
         ["id" => "29", "name" => "Matthew Allen", "amount" => "$515.99", "status" => "Paid", "date" => "4/19/2024", "avatar" => "https://randomuser.me/api/portraits/men/29.jpg"],
         ["id" => "30", "name" => "Harper Young", "amount" => "$682.30", "status" => "Due", "date" => "4/20/2024", "avatar" => "https://randomuser.me/api/portraits/women/30.jpg"]
     ];
@@ -40,23 +39,29 @@
     function getStatusBadge($status)
     {
         switch ($status) {
-            case 'For Approval':
-                return ['text' => 'For Approval', 'color' => 'bg-sky-100 text-sky-700'];
-            case 'Ongoing':
-                return ['text' => 'Ongoing', 'color' => 'bg-yellow-100 text-yellow-700'];
             case 'Paid':
                 return ['text' => 'Paid', 'color' => 'bg-green-100 text-green-700'];
-            case 'Cancel':
-                return ['text' => 'Cancel', 'color' => 'bg-red-100 text-red-700'];
+            case 'Ongoing':
+                return ['text' => 'Ongoing', 'color' => 'bg-yellow-100 text-yellow-700'];
+            case 'Cancelled':
+                return ['text' => 'Cancelled', 'color' => 'bg-red-100 text-red-700'];
             case 'Due':
                 return ['text' => 'Due for Returnment', 'color' => 'bg-orange-100 text-orange-700'];
-            case 'Damage':
-                return ['text' => 'Damage', 'color' => 'bg-purple-100 text-purple-700'];
+            case 'Unsettle':
+                return ['text' => 'Unsettle', 'color' => 'bg-purple-100 text-purple-700'];
+            case 'Reported':
+                return ['text' => 'Reported', 'color' => 'bg-purple-100 text-purple-700'];
+            case 'Unpaid':
+                return ['text' => 'Unpaid', 'color' => 'bg-rose-100 text-rose-700'];
+            case 'Pick-Up':
+                return ['text' => 'For Pick-Up', 'color' => 'bg-blue-100 text-blue-700'];
+            case 'Approved':
+                return ['text' => 'Approved', 'color' => 'bg-indigo-100 text-indigo-700'];
             default:
                 return ['text' => 'Unknown', 'color' => 'bg-gray-100 text-gray-700'];
         }
     }
-                                                                                                                                                                                                                                                                                                                    ?>
+                                        ?>
 
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Manage Bookings
@@ -67,8 +72,20 @@
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="bookings-tab"
             data-tabs-toggle="#bookings-tab-content" role="tablist">
             <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="payment-tab" data-tabs-target="#payment"
+                    type="button" role="tab" aria-controls="payment" aria-selected="false">For Payment</button>
+            </li>
+            <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="approval-tab" data-tabs-target="#approval"
                     type="button" role="tab" aria-controls="approval" aria-selected="false">For Approval</button>
+            </li>
+            <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="approved-tab" data-tabs-target="#approved"
+                    type="button" role="tab" aria-controls="approved" aria-selected="false">Approved</button>
+            </li>
+            <li class="me-2" role="presentation">
+                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="pickup-tab" data-tabs-target="#pickup"
+                    type="button" role="tab" aria-controls="pickup" aria-selected="false">For Pick-Up</button>
             </li>
             <li class="me-2" role="presentation">
                 <button
@@ -86,9 +103,149 @@
                 <button
                     class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                     id="cancel-tab" data-tabs-target="#cancel" type="button" role="tab" aria-controls="cancel"
-                    aria-selected="false">Reported</button>
+                    aria-selected="false">Reported/Unsettled</button>
             </li>
         </ul>
+    </div>
+
+    <!-- For Payment Bookings Sections -->
+    <div id="bookings-tab-content">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="payment" role="tabpanel"
+            aria-labelledby="payment-tab">
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                For Payment Bookings
+            </h4>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap text-center">
+                        <thead>
+                            <tr
+                                class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3">Client</th>
+                                <th class="px-4 py-3">Amount</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+
+                            <?php foreach ($clients as $index => $client): ?>
+                            <?php
+        if ($client['status'] !== "Unpaid")
+            continue;
+        $hasForUnpaid = true;
+        $statusBadge = getStatusBadge($client['status']);
+        $dropdownId = "unpaid-toggle-" . $index;?>
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <!-- For Approval - Client Name Data -->
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center justify-center text-sm">
+                                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                            <img class="object-cover w-full h-full rounded-full"
+                                                src="<?= $client['avatar'] ?>" alt="" loading="lazy" />
+                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold"><?= $client['name'] ?></p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!--  For Approval - Amount -->
+                                <td class="px-4 py-3 text-sm"><?= $client['amount'] ?></td>
+
+                                <!--  For Approval - Status -->
+                                <td class="px-4 py-3 text-xs">
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight <?= $statusBadge['color'] ?> rounded-full">
+                                        <?= $statusBadge['text'] ?>
+                                    </span>
+                                </td>
+
+                                <!-- For Approval - Date-->
+                                <td class="px-4 py-3 text-sm"><?= $client['date'] ?></td>
+
+                                <!--  For Approval - Actions -->
+                                <td class="px-4 py-3">
+
+                                    <!-- Wrapper (Position Relative) -->
+                                    <div class="relative inline-block text-left">
+                                        <!-- Toggle Button -->
+                                        <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
+                                        <label for="<?= $dropdownId ?>"
+                                            class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                            <!-- Three Dots Icon -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor"
+                                                class="w-5 h-5 pointer-events-none">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                            </svg>
+                                        </label>
+
+                                        <!-- Dropdown Menu -->
+                                        <div
+                                            class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
+                                            <!-- View Details -->
+                                            <label for="viewdetail-modal">
+                                                <div data-modal-target="viewdetail-modal"
+                                                    data-modal-toggle="viewdetail-modal"
+                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
+                                                    <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
+                                                    </svg>
+                                                    View Details
+                                                </div>
+                                            </label>
+
+                                            <!-- Approve -->
+                                            <label for="payment-toggle">
+                                                <div data-modal-target="payment-modal" data-modal-toggle="payment-modal"
+                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
+                                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M2 4a2 2 0 012-2h12a2 2 0 012 2v1H2V4zm16 3v7a2 2 0 01-2 2H4a2 2 0 01-2-2V7h16zm-3 4a1 1 0 100 2h2a1 1 0 100-2h-2z" />
+                                                    </svg>
+                                                    Payment
+                                                </div>
+                                            </label>
+
+                                            <!-- Cancel -->
+                                            </label for="approval-toggle">
+                                            <div data-modal-target="cancel-modal" data-modal-toggle="cancel-modal"
+                                                class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
+                                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                                                </svg>
+                                                Cancel
+                                            </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Loop Ending Point -->
+                            <?php endforeach;?>
+                            <!-- If No For Approval Data-->
+                            <?php if (!$hasForUnpaid): ?>
+                            <tr>
+                                <td colspan="5" class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    No For Approval bookings found.
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Approval Bookings Sections -->
@@ -115,11 +272,11 @@
 
                             <?php foreach ($clients as $index => $client): ?>
                             <?php
-        if ($client['status'] !== "For Approval")
+        if ($client['status'] !== "Paid")
             continue;
-        $hasForApproval = true;
+        $hasForPaid = true;
         $statusBadge = getStatusBadge($client['status']);
-        $dropdownId = "approval-toggle-" . $index;?>
+        $dropdownId = "paid-toggle-" . $index;?>
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <!-- For Approval - Client Name Data -->
                                 <td class="px-4 py-3">
@@ -217,7 +374,7 @@
                             <!-- Loop Ending Point -->
                             <?php endforeach;?>
                             <!-- If No For Approval Data-->
-                            <?php if (!$hasForApproval): ?>
+                            <?php if (!$hasForPaid): ?>
                             <tr>
                                 <td colspan="5" class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
                                     No For Approval bookings found.
@@ -301,7 +458,273 @@
         </div>
     </div>
 
+    <div id="bookings-tab-content">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="approved" role="tabpanel"
+            aria-labelledby="approved-tab">
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                All Approved Bookings
+            </h4>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap text-center">
+                        <thead>
+                            <tr
+                                class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3">Client</th>
+                                <th class="px-4 py-3">Amount</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
 
+                            <?php foreach ($clients as $index => $client): ?>
+                            <?php
+        if ($client['status'] !== "Approved")
+            continue;
+        $hasForApproved = true;
+        $statusBadge = getStatusBadge($client['status']);
+        $dropdownId = "approved-toggle-" . $index;?>
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <!-- For Approval - Client Name Data -->
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center justify-center text-sm">
+                                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                            <img class="object-cover w-full h-full rounded-full"
+                                                src="<?= $client['avatar'] ?>" alt="" loading="lazy" />
+                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold"><?= $client['name'] ?></p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!--  For Approval - Amount -->
+                                <td class="px-4 py-3 text-sm"><?= $client['amount'] ?></td>
+
+                                <!--  For Approval - Status -->
+                                <td class="px-4 py-3 text-xs">
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight <?= $statusBadge['color'] ?> rounded-full">
+                                        <?= $statusBadge['text'] ?>
+                                    </span>
+                                </td>
+
+                                <!-- For Approval - Date-->
+                                <td class="px-4 py-3 text-sm"><?= $client['date'] ?></td>
+
+                                <!--  For Approval - Actions -->
+                                <td class="px-4 py-3">
+
+                                    <!-- Wrapper (Position Relative) -->
+                                    <div class="relative inline-block text-left">
+                                        <!-- Toggle Button -->
+                                        <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
+                                        <label for="<?= $dropdownId ?>"
+                                            class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                            <!-- Three Dots Icon -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor"
+                                                class="w-5 h-5 pointer-events-none">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                            </svg>
+                                        </label>
+
+                                        <!-- Dropdown Menu -->
+                                        <div
+                                            class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
+                                            <!-- View Details -->
+                                            <label for="viewdetail-modal">
+                                                <div data-modal-target="viewdetail-modal"
+                                                    data-modal-toggle="viewdetail-modal"
+                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
+                                                    <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
+                                                    </svg>
+                                                    View Details
+                                                </div>
+                                            </label>
+
+                                            <!-- Approve -->
+                                            <label for="approvedtype-toggle">
+                                                <div data-modal-target="approvedtype-modal"
+                                                    data-modal-toggle="approvedtype-modal"
+                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
+                                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" />
+                                                    </svg>
+                                                    Approved Type
+                                                </div>
+                                            </label>
+
+                                            <!-- Cancel -->
+                                            </label for="approval-toggle">
+                                            <div data-modal-target="cancel-modal" data-modal-toggle="cancel-modal"
+                                                class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
+                                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                                                </svg>
+                                                Cancel
+                                            </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Loop Ending Point -->
+                            <?php endforeach;?>
+                            <!-- If No For Approval Data-->
+                            <?php if (!$hasForApproved): ?>
+                            <tr>
+                                <td colspan="5" class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    No For Approval bookings found.
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pick Up Bookings Sections -->
+    <div id="bookings-tab-content">
+        <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="pickup" role="tabpanel"
+            aria-labelledby="pickup-tab">
+            <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
+                For Pick Up Bookings
+            </h4>
+            <div class="w-full overflow-hidden rounded-lg shadow-xs">
+                <div class="w-full overflow-x-auto">
+                    <table class="w-full whitespace-no-wrap text-center">
+                        <thead>
+                            <tr
+                                class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <th class="px-4 py-3">Client</th>
+                                <th class="px-4 py-3">Amount</th>
+                                <th class="px-4 py-3">Status</th>
+                                <th class="px-4 py-3">Date</th>
+                                <th class="px-4 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+
+                            <?php foreach ($clients as $index => $client): ?>
+                            <?php
+        if ($client['status'] !== "Pick-Up")
+            continue;
+        $hasForPickup = true;
+        $statusBadge = getStatusBadge($client['status']);
+        $dropdownId = "pickup-toggle-" . $index;?>
+                            <tr class="text-gray-700 dark:text-gray-400">
+                                <!-- For Approval - Client Name Data -->
+                                <td class="px-4 py-3">
+                                    <div class="flex items-center justify-center text-sm">
+                                        <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                            <img class="object-cover w-full h-full rounded-full"
+                                                src="<?= $client['avatar'] ?>" alt="" loading="lazy" />
+                                            <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold"><?= $client['name'] ?></p>
+                                            <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer
+                                            </p>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!--  For Approval - Amount -->
+                                <td class="px-4 py-3 text-sm"><?= $client['amount'] ?></td>
+
+                                <!--  For Approval - Status -->
+                                <td class="px-4 py-3 text-xs">
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight <?= $statusBadge['color'] ?> rounded-full">
+                                        <?= $statusBadge['text'] ?>
+                                    </span>
+                                </td>
+
+                                <!-- For Approval - Date-->
+                                <td class="px-4 py-3 text-sm"><?= $client['date'] ?></td>
+
+                                <!--  For Approval - Actions -->
+                                <td class="px-4 py-3">
+
+                                    <!-- Wrapper (Position Relative) -->
+                                    <div class="relative inline-block text-left">
+                                        <!-- Toggle Button -->
+                                        <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
+                                        <label for="<?= $dropdownId ?>"
+                                            class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
+                                            <!-- Three Dots Icon -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor"
+                                                class="w-5 h-5 pointer-events-none">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
+                                            </svg>
+                                        </label>
+
+                                        <!-- Dropdown Menu -->
+                                        <div
+                                            class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
+                                            <!-- View Details -->
+                                            <label for="viewdetail-modal">
+                                                <div data-modal-target="viewdetail-modal"
+                                                    data-modal-toggle="viewdetail-modal"
+                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
+                                                    <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path
+                                                            d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
+                                                    </svg>
+                                                    View Details
+                                                </div>
+                                            </label>
+
+                                            <!-- Approve -->
+                                            <label for="pickup-toggle">
+                                                <div data-modal-target="pickup-modal" data-modal-toggle="pickup-modal"
+                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer transition mx-2 my-1">
+                                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M16.293 4.293a1 1 0 00-1.414 0L8 10.586 5.707 8.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" />
+                                                    </svg>
+                                                    Picked-up
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Loop Ending Point -->
+                            <?php endforeach;?>
+                            <!-- If No For Approval Data-->
+                            <?php if (!$hasForPickup): ?>
+                            <tr>
+                                <td colspan="5" class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+                                    No For Approval bookings found.
+                                </td>
+                            </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Ongoing Bookings Section -->
     <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="ongoing" role="tabpanel"
@@ -332,7 +755,7 @@
         $hasOngoing = true;
         $statusBadge = getStatusBadge($client['status']);
         $dropdownId = "approval-toggle-" . $index;
-                                                                                                                                                                                                                                                                                ?>
+                                                                                                                                                                                                                                                                                                                        ?>
 
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <!-- Ongoing - Client Name Data -->
@@ -471,7 +894,7 @@
         $hasDue = true;
         $statusBadge = getStatusBadge($client['status']);
         $dropdownId = "approval-toggle-" . $index;
-                                                                                                                                                                                                                                                                                ?>
+                                                                                                                                                                                                                                                                                                                        ?>
 
                             <tr class="text-gray-700 dark:text-gray-400">
                                 <!-- Due - Client Name -->
@@ -581,7 +1004,7 @@
         </div>
     </div>
 
-    <!-- Cancelled Bookings Section -->
+    <!-- Unsettled/Reported Bookings Section -->
     <div class="hidden p-4 rounded-lg bg-gray-50" id="cancel" role="tabpanel" aria-labelledby="cancel-tab">
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
             Reported Bookings
@@ -604,11 +1027,11 @@
                             <tbody class="bg-white divide-y">
                                 <?php foreach ($clients as $index => $client): ?>
                                 <?php
-        if ($client['status'] !== "Cancel")
+        if (!in_array($client['status'], ["Unsettle", "Reported"]))
             continue;
-        $hasCancelled = true;
+        $hasReportedUnsettle = true;
         $statusBadge = getStatusBadge($client['status']);
-        $dropdownId = "approval-toggle-" . $index;?>
+        $dropdownId = "reportedunsettle-toggle-" . $index;?>
                                 <tr class="text-gray-700">
                                     <!-- Cancelled - Client Info -->
                                     <td class="px-4 py-3">
@@ -634,8 +1057,8 @@
                                     <!-- Reported - Status -->
                                     <td class="px-4 py-3 text-xs">
                                         <span
-                                            class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full">
-                                            Cancelled
+                                            class="px-2 py-1 font-semibold leading-tight <?= $statusBadge['color'] ?> rounded-full">
+                                            <?= $statusBadge['text'] ?>
                                         </span>
                                     </td>
 
@@ -712,7 +1135,7 @@
                                 <?php endforeach; ?>
 
                                 <!-- If No Cancelled Bookings -->
-                                <?php if (!$hasCancelled): ?>
+                                <?php if (!$hasReportedUnsettle): ?>
                                 <tr>
                                     <td colspan="5" class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
                                         No Cancelled bookings found.
@@ -866,7 +1289,7 @@
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center pb-4 border-b dark:border-gray-700">
-                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white ms-3">Blacklist Booking</h2>
+                <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Blacklist Booking</h2>
                 <button data-modal-hide="blacklist-modal" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
 
@@ -897,7 +1320,7 @@
 
             <!-- Modal Content Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Left Side: Renter Info -->
+                <!-- Left Side: Renter Profile (Fixed height) -->
                 <div class="space-y-6">
                     <!-- Renter Info Card -->
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm space-y-4">
@@ -923,9 +1346,9 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Right Side: Issue Details -->
-                <div class="space-y-6">
+                <!-- Right Side: Issue Details (Fixed height, scrollable) -->
+                <div
+                    class="space-y-6 bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm flex flex-col max-h-[30vh] overflow-y-auto">
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Issue Details</h3>
                     <div class="space-y-3 text-sm text-gray-700 dark:text-gray-300">
                         <!-- Issue Type -->
@@ -947,8 +1370,7 @@
                         <!-- Issue Description in Separate Row -->
                         <div class="space-y-3">
                             <label class="block font-medium">Description</label>
-                            <p
-                                class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg text-gray-800 dark:text-gray-200 max-h-32 overflow-y-auto">
+                            <p class="bg-gray-100 dark:bg-gray-800 p-3 rounded-lg text-gray-800 dark:text-gray-200">
                                 The front bumper is cracked and has visible paint scratches. Damage likely caused by a minor
                                 collision. The issue is significant enough to affect the car's appearance, and we recommend
                                 a professional repair to restore it to its original condition.
@@ -971,7 +1393,6 @@
             </div>
         </div>
     </div>
-
 
 
     <!-- View Detail Modal   -->
@@ -1056,6 +1477,86 @@
         </div>
     </div>
 
+    <!-- Payment Modal -->
+    <div id="payment-modal" tabindex="-1" aria-hidden="true"
+        class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
+
+        <div
+            class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-lg mx-auto transform transition-all overflow-hidden">
+
+            <!-- Header -->
+            <div class="flex items-center justify-between px-6 py-4 border-b dark:border-gray-700">
+                <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    Payment Details
+                </h5>
+                <button data-modal-hide="payment-modal" type="button"
+                    class="text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Body -->
+            <div class="px-6 py-6 space-y-5 text-left">
+                <!-- Booking Summary -->
+                <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 space-y-2">
+                    <div class="flex justify-between">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Booking ID:</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-2104</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Renter Name:</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">John Rex Partoza</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Car Model Rented:</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">Toyota Vios 2023</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Start Date:</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">April 22, 2025</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Due Date:</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">April 25, 2025</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Total Payment:</span>
+                        <span class="text-sm font-semibold text-green-600" id="total-payment">₱3,600.00</span>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <div class="space-y-3">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                        Amount Paid
+                    </label>
+                    <input type="number" id="amount-paid" placeholder="Enter amount" min="0"
+                        class="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
+
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Change:</span>
+                        <span class="text-sm font-semibold text-green-600" id="change-label">₱0.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div
+                class="flex justify-end gap-3 px-6 py-4 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
+                <button type="button"
+                    class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition">
+                    Confirm Payment
+                </button>
+                <button data-modal-hide="payment-modal" type="button"
+                    class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Approval Modal -->
     <div id="approve-modal" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
@@ -1124,6 +1625,139 @@
         </div>
     </div>
 
+    <!-- Modal for Approval Type -->
+    <div id="approvedtype-modal" tabindex="-1" aria-hidden="true"
+        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
+        <div class="relative w-full h-full max-w-md md:h-auto">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                <!-- Modal header -->
+                <div class="flex items-start justify-between p-4 border-b dark:border-gray-600">
+                    <h3 class="text-xl font-medium text-gray-900 dark:text-white">
+                        Approval Type
+                    </h3>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="approvedtype-modal">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M6.293 4.293a1 1 0 011.414 0L10 6.586l2.293-2.293a1 1 0 111.414 1.414L11.414 8l2.293 2.293a1 1 0 01-1.414 1.414L10 9.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 8 6.293 5.707a1 1 0 010-1.414z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="p-6 space-y-6">
+                    <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
+                        Please select the approval type for the booking:
+                    </p>
+
+                    <!-- Dropdown for Approval Type -->
+                    <div class="relative">
+                        <select id="approval-type" name="approval-type"
+                            class="block w-full px-4 py-2 text-sm text-gray-700 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-blue-600">
+                            <option value="used-now">Used Now</option>
+                            <option value="for-pickup">For Pickup</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="flex items-center p-6 space-x-2 border-t border-gray-200 dark:border-gray-600">
+                    <!-- Cancel Button -->
+                    <button data-modal-hide="approvedtype-modal" type="button"
+                        class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 rounded-md py-2 text-sm">
+                        Close
+                    </button>
+                    <!-- Submit Button -->
+                    <button type="button"
+                        class="w-full text-white bg-green-600 border border-green-300 hover:bg-green-700 rounded-md py-2 text-sm">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pickup Confirmation Modal -->                        
+    <div id="pickup-modal" tabindex="-1" aria-hidden="true"
+        class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
+
+        <div class="relative w-full max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl">
+
+            <!-- Modal content -->
+            <div class="flex flex-col space-y-6 p-3">
+
+                <!-- Header -->
+                <div class="flex items-center justify-between border-b p-2">
+                    <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
+                        Car Pickup Confirmation
+                    </h5>
+                    <button data-modal-hide="pickup-modal" type="button"
+                        class="text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Body -->
+                <div class="text-center space-y-5">
+                    <div class="flex justify-center">
+                        <svg class="text-green-500 w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <p class="text-lg font-medium text-gray-700 dark:text-gray-200">
+                        Are you sure you want to confirm the car pickup for the <span
+                            class="font-semibold text-green-600">booking request</span>?
+                    </p>
+
+                    <!-- Booking Summary -->
+                    <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-left space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Booking ID:</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-2104</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Renter Name:</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">John Rex Partoza</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Pickup Time:</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">April 22, 2025 - 10:00 AM</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Status:</span>
+                            <span class="text-sm font-semibold text-green-600">Pickup Confirmed</span>
+                        </div>
+                    </div>
+
+                    <!-- Checkbox for confirmation -->
+                    <div class="flex items-center justify-center space-x-2">
+                        <input type="checkbox" id="confirmPickup"
+                            class="h-5 w-5 text-green-600 border-gray-300 dark:border-gray-600 rounded" />
+                        <label for="confirmPickup" class="text-sm text-gray-700 dark:text-gray-200">I confirm that the car
+                            has been picked up</label>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="flex justify-end gap-3">
+                    <button data-modal-hide="pickup-modal" type="button"
+                        class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
+                        Cancel
+                    </button>
+                    <button data-modal-hide="pickup-modal" type="button"
+                        class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition"
+                        id="confirmPickupBtn" disabled>
+                        Confirm Pickup
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Cancel Modal -->
     <div id="cancel-modal" tabindex="-1" aria-hidden="true"
@@ -1664,104 +2298,104 @@
 
             const printWindow = window.open('', '_blank');
             const html = `
-                                                                                                                                                            <html>
-                                                                                                                                                                <head>
-                                                                                                                                                                    <title>Rental Invoice</title>
-                                                                                                                                                                <style>
-                                                                                                                                                                    @page {
-                                                                                                                                                                        margin: 0;
-                                                                                                                                                                    }
-                                                                                                                                                                    body {
-                                                                                                                                                                        margin: 1cm;
-                                                                                                                                                                        font-family: sans-serif;
-                                                                                                                                                                        color: #000;
-                                                                                                                                                                        background-color: #ffffff !important;
-                                                                                                                                                                    }
+            <html>
+                <head>
+                    <title>Rental Invoice</title>
+                <style>
+                    @page {
+                        margin: 0;
+                    }
+                    body {
+                        margin: 1cm;
+                        font-family: sans-serif;
+                        color: #000;
+                        background-color: #ffffff !important;
+                    }
 
-                                                                                                                                                                    /* Print utility classes */
-                                                                                                                                                                    .hidden { display: block !important; }
-                                                                                                                                                                    .print\:block { display: block !important; }
-                                                                                                                                                                    .print\:hidden { display: none !important; }
+                    /* Print utility classes */
+                    .hidden { display: block !important; }
+                    .print\:block { display: block !important; }
+                    .print\:hidden { display: none !important; }
 
-                                                                                                                                                                    /* Utility classes */
-                                                                                                                                                                    .text-center { text-align: center; }
-                                                                                                                                                                    .text-right { text-align: right; }
+                    /* Utility classes */
+                    .text-center { text-align: center; }
+                    .text-right { text-align: right; }
 
-                                                                                                                                                                    .font-sans { font-family: sans-serif; }
-                                                                                                                                                                    .font-bold { font-weight: bold; }
-                                                                                                                                                                    .font-medium { font-weight: 500; }
-                                                                                                                                                                    .font-semibold { font-weight: 600; }
-                                                                                                                                                                    .italic { font-style: italic; }
+                    .font-sans { font-family: sans-serif; }
+                    .font-bold { font-weight: bold; }
+                    .font-medium { font-weight: 500; }
+                    .font-semibold { font-weight: 600; }
+                    .italic { font-style: italic; }
 
-                                                                                                                                                                    .text-sm { font-size: 0.875rem; }
-                                                                                                                                                                    .text-md { font-size: 1rem; }
-                                                                                                                                                                    .text-xl { font-size: 1.25rem; }
-                                                                                                                                                                    .text-2xl { font-size: 1.5rem; }
+                    .text-sm { font-size: 0.875rem; }
+                    .text-md { font-size: 1rem; }
+                    .text-xl { font-size: 1.25rem; }
+                    .text-2xl { font-size: 1.5rem; }
 
-                                                                                                                                                                    .text-gray-800 { color: #1F2937; }
-                                                                                                                                                                    .text-gray-500 { color: #6B7280; }
-                                                                                                                                                                    .text-gray-300 { color: #D1D5DB; }
+                    .text-gray-800 { color: #1F2937; }
+                    .text-gray-500 { color: #6B7280; }
+                    .text-gray-300 { color: #D1D5DB; }
 
-                                                                                                                                                                    .mb-2 { margin-bottom: 0.5rem; }
-                                                                                                                                                                    .mb-4 { margin-bottom: 1rem; }
-                                                                                                                                                                    .mb-6 { margin-bottom: 1.5rem; }
-                                                                                                                                                                    .mt-8 { margin-top: 2rem; }
+                    .mb-2 { margin-bottom: 0.5rem; }
+                    .mb-4 { margin-bottom: 1rem; }
+                    .mb-6 { margin-bottom: 1.5rem; }
+                    .mt-8 { margin-top: 2rem; }
 
-                                                                                                                                                                    .pb-4 { padding-bottom: 1rem; }
-                                                                                                                                                                    .pt-2 { padding-top: 0.5rem; }
-                                                                                                                                                                    .p-6 { padding: 1.5rem; }
-                                                                                                                                                                    .px-8 { padding-left: 2rem; padding-right: 2rem; }
-                                                                                                                                                                    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+                    .pb-4 { padding-bottom: 1rem; }
+                    .pt-2 { padding-top: 0.5rem; }
+                    .p-6 { padding: 1.5rem; }
+                    .px-8 { padding-left: 2rem; padding-right: 2rem; }
+                    .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 
-                                                                                                                                                                    .border { border: 1px solid #000; }
-                                                                                                                                                                    .border-b { border-bottom: 1px solid #000; }
-                                                                                                                                                                    .border-t { border-top: 1px solid #000; }
-                                                                                                                                                                    .border-dashed { border-style: dashed; }
+                    .border { border: 1px solid #000; }
+                    .border-b { border-bottom: 1px solid #000; }
+                    .border-t { border-top: 1px solid #000; }
+                    .border-dashed { border-style: dashed; }
 
-                                                                                                                                                                    .bg-white { background-color: #fff; }
+                    .bg-white { background-color: #fff; }
 
-                                                                                                                                                                    .grid { display: grid; }
-                                                                                                                                                                    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                    .grid { display: grid; }
+                    .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-                                                                                                                                                                    .flex { display: flex; }
-                                                                                                                                                                    .flex-col { flex-direction: column; }
-                                                                                                                                                                    .justify-between { justify-content: space-between; }
-                                                                                                                                                                    .items-center { align-items: center; }
+                    .flex { display: flex; }
+                    .flex-col { flex-direction: column; }
+                    .justify-between { justify-content: space-between; }
+                    .items-center { align-items: center; }
 
-                                                                                                                                                                    .gap-2 { gap: 0.5rem; }
+                    .gap-2 { gap: 0.5rem; }
 
-                                                                                                                                                                    .max-w-3xl { max-width: 768px; }
-                                                                                                                                                                    .mx-auto { margin-left: auto; margin-right: auto; }
+                    .max-w-3xl { max-width: 768px; }
+                    .mx-auto { margin-left: auto; margin-right: auto; }
 
-                                                                                                                                                                    .w-25 { width: 6.25rem; }
-                                                                                                                                                                    .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
-                                                                                                                                                                    .h-12 { height: 3rem; }
-                                                                                                                                                                    .w-14 { width: 3.5rem; } /* Adjusted to match agreement section */
+                    .w-25 { width: 6.25rem; }
+                    .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
+                    .h-12 { height: 3rem; }
+                    .w-14 { width: 3.5rem; } /* Adjusted to match agreement section */
 
-                                                                                                                                                                    .space-y-1 > :not([hidden]) ~ :not([hidden]) {
-                                                                                                                                                                        margin-top: 0.25rem;
-                                                                                                                                                                    }
+                    .space-y-1 > :not([hidden]) ~ :not([hidden]) {
+                        margin-top: 0.25rem;
+                    }
 
-                                                                                                                                                                    /* Add this rule to reduce spacing in the header and address sections */
-                                                                                                                                                                    .flex > div > p {
-                                                                                                                                                                        margin-top: 0.2rem;
-                                                                                                                                                                        margin-bottom: 0.2rem;
-                                                                                                                                                                    }
+                    /* Add this rule to reduce spacing in the header and address sections */
+                    .flex > div > p {
+                        margin-top: 0.2rem;
+                        margin-bottom: 0.2rem;
+                    }
 
-                                                                                                                                                                    /* Add this rule to reduce spacing in the rental information */
-                                                                                                                                                                    .mb-6 > p {
-                                                                                                                                                                        margin-top: 0.3rem;
-                                                                                                                                                                        margin-bottom: 0.3rem;
-                                                                                                                                                                    }
+                    /* Add this rule to reduce spacing in the rental information */
+                    .mb-6 > p {
+                        margin-top: 0.3rem;
+                        margin-bottom: 0.3rem;
+                    }
 
 
-                                                                                                                                                                </style>   
-                                                                                                                                                                </head>
-                                                                                                                                                                <body onload="window.print(); window.onafterprint = () => window.close();">
-                                                                                                                                                                    ${invoiceContent}
-                                                                                                                                                                </body>
-                                                                                                                                                            </html>
-                                                                                                                                                        `;
+                </style>   
+                </head>
+                <body onload="window.print(); window.onafterprint = () => window.close();">
+                    ${invoiceContent}
+                </body>
+            </html>
+        `;
 
             printWindow.document.write(html);
             printWindow.document.close();
@@ -1773,136 +2407,146 @@
 
             const printWindow = window.open('', '_blank');
             const html = `
-                                                                                                                                                    <html>
-                                                                                                                                                        <head>
-                                                                                                                                                            <title>Rental Agreement</title>
-                                                                                                                                                            <style>
-                                                                                                                                                                @page {
-                                                                                                                                                                    margin: 0;
-                                                                                                                                                                }
-                                                                                                                                                                body {
-                                                                                                                                                                    margin: 1cm;
-                                                                                                                                                                    font-family: sans-serif;
-                                                                                                                                                                    color: #000;
-                                                                                                                                                                    background-color: #ffffff !important;
-                                                                                                                                                                }
+            <html>
+                <head>
+                    <title>Rental Agreement</title>
+                    <style>
+                        @page {
+                            margin: 0;
+                        }
+                        body {
+                            margin: 1cm;
+                            font-family: sans-serif;
+                            color: #000;
+                            background-color: #ffffff !important;
+                        }
 
-                                                                                                                                                                /* Print utility classes */
-                                                                                                                                                                .hidden { display: block !important; }
-                                                                                                                                                                .print\\:block { display: block !important; }
-                                                                                                                                                                .print\\:hidden { display: none !important; }
+                        /* Print utility classes */
+                        .hidden { display: block !important; }
+                        .print\\:block { display: block !important; }
+                        .print\\:hidden { display: none !important; }
 
-                                                                                                                                                                /* Utility classes */
-                                                                                                                                                                .text-center { text-align: center; }
-                                                                                                                                                                .text-right { text-align: right; }
+                        /* Utility classes */
+                        .text-center { text-align: center; }
+                        .text-right { text-align: right; }
 
-                                                                                                                                                                .font-sans { font-family: sans-serif; }
-                                                                                                                                                                .font-bold { font-weight: bold; }
-                                                                                                                                                                .font-medium { font-weight: 500; }
-                                                                                                                                                                .font-semibold { font-weight: 600; }
-                                                                                                                                                                .italic { font-style: italic; }
+                        .font-sans { font-family: sans-serif; }
+                        .font-bold { font-weight: bold; }
+                        .font-medium { font-weight: 500; }
+                        .font-semibold { font-weight: 600; }
+                        .italic { font-style: italic; }
 
-                                                                                                                                                                .text-sm { font-size: 0.875rem; }
-                                                                                                                                                                .text-md { font-size: 1rem; }
-                                                                                                                                                                .text-xl { font-size: 1.25rem; }
-                                                                                                                                                                .text-2xl { font-size: 1.5rem; }
+                        .text-sm { font-size: 0.875rem; }
+                        .text-md { font-size: 1rem; }
+                        .text-xl { font-size: 1.25rem; }
+                        .text-2xl { font-size: 1.5rem; }
 
-                                                                                                                                                                .text-gray-800 { color: #1F2937; }
-                                                                                                                                                                .text-gray-500 { color: #6B7280; }
-                                                                                                                                                                .text-gray-300 { color: #D1D5DB; }
+                        .text-gray-800 { color: #1F2937; }
+                        .text-gray-500 { color: #6B7280; }
+                        .text-gray-300 { color: #D1D5DB; }
 
-                                                                                                                                                                .mb-2 { margin-bottom: 0.5rem; }
-                                                                                                                                                                .mb-4 { margin-bottom: 1rem; }
-                                                                                                                                                                .mb-6 { margin-bottom: 1.5rem; }
-                                                                                                                                                                .mt-8 { margin-top: 2rem; }
+                        .mb-2 { margin-bottom: 0.5rem; }
+                        .mb-4 { margin-bottom: 1rem; }
+                        .mb-6 { margin-bottom: 1.5rem; }
+                        .mt-8 { margin-top: 2rem; }
 
-                                                                                                                                                                .pb-4 { padding-bottom: 1rem; }
-                                                                                                                                                                .pt-2 { padding-top: 0.5rem; }
-                                                                                                                                                                .p-6 { padding: 1.5rem; }
-                                                                                                                                                                .px-8 { padding-left: 2rem; padding-right: 2rem; }
-                                                                                                                                                                .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+                        .pb-4 { padding-bottom: 1rem; }
+                        .pt-2 { padding-top: 0.5rem; }
+                        .p-6 { padding: 1.5rem; }
+                        .px-8 { padding-left: 2rem; padding-right: 2rem; }
+                        .py-10 { padding-top: 2.5rem; padding-bottom: 2.5rem; }
 
-                                                                                                                                                                .border { border: 1px solid #000; }
-                                                                                                                                                                .border-b { border-bottom: 1px solid #000; }
-                                                                                                                                                                .border-t { border-top: 1px solid #000; }
-                                                                                                                                                                .border-dashed { border-style: dashed; }
+                        .border { border: 1px solid #000; }
+                        .border-b { border-bottom: 1px solid #000; }
+                        .border-t { border-top: 1px solid #000; }
+                        .border-dashed { border-style: dashed; }
 
-                                                                                                                                                                .bg-white { background-color: #fff; }
+                        .bg-white { background-color: #fff; }
 
-                                                                                                                                                                .grid { display: grid; }
-                                                                                                                                                                .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+                        .grid { display: grid; }
+                        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
-                                                                                                                                                                .flex { display: flex; }
-                                                                                                                                                                .flex-col { flex-direction: column; }
-                                                                                                                                                                .justify-between { justify-content: space-between; }
-                                                                                                                                                                .items-center { align-items: center; }
+                        .flex { display: flex; }
+                        .flex-col { flex-direction: column; }
+                        .justify-between { justify-content: space-between; }
+                        .items-center { align-items: center; }
 
-                                                                                                                                                                .gap-2 { gap: 0.5rem; }
+                        .gap-2 { gap: 0.5rem; }
 
-                                                                                                                                                                .max-w-4xl { max-width: 896px; } /* Adjusted to match agreement section */
-                                                                                                                                                                .mx-auto { margin-left: auto; margin-right: auto; }
+                        .max-w-4xl { max-width: 896px; } /* Adjusted to match agreement section */
+                        .mx-auto { margin-left: auto; margin-right: auto; }
 
-                                                                                                                                                                .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
-                                                                                                                                                                .h-14 { height: 3.5rem; } /* Adjusted to match agreement section */
-                                                                                                                                                                .mb-2 { margin-bottom: 0.5rem; } /* Ensure some bottom margin for the logo */
+                        .w-50 { width: 12.5rem; } /* Adjusted to match agreement section */
+                        .h-14 { height: 3.5rem; } /* Adjusted to match agreement section */
+                        .mb-2 { margin-bottom: 0.5rem; } /* Ensure some bottom margin for the logo */
 
-                                                                                                                                                                .space-y-2 > :not([hidden]) ~ :not([hidden]) {
-                                                                                                                                                                    margin-top: 0.5rem; /* Adjusted to match agreement section */
-                                                                                                                                                                }
+                        .space-y-2 > :not([hidden]) ~ :not([hidden]) {
+                            margin-top: 0.5rem; /* Adjusted to match agreement section */
+                        }
 
-                                                                                                                                                                .leading-relaxed { line-height: 1.625; } /* Added to match agreement text */
-                                                                                                                                                                .underline { text-decoration: underline; }
-                                                                                                                                                                .underline-offset-2 { text-underline-offset: 2px; }
-                                                                                                                                                                .decoration-gray-400 { text-decoration-color: #9CA3AF; }
-                                                                                                                                                                .list-disc { list-style-type: disc; }
-                                                                                                                                                                .list-inside { list-style-position: inside; }
-                                                                                                                                                                .text-gray-700 { color: #374151; }
-                                                                                                                                                                .dark\:text-gray-300 { color: #D1D5DB; }
-                                                                                                                                                                .dark\:text-gray-200 { color: #E5E7EB; }
-                                                                                                                                                                .mt-10 { margin-top: 2.5rem; }
-                                                                                                                                                                .mt-12 { margin-top: 3rem; }
-                                                                                                                                                                .w-1\/2 { width: 50%; }
-                                                                                                                                                                .w-1\/3 { width: 33.333333%; }
-                                                                                                                                                                .items-end { align-items: flex-end; }
-                                                                                                                                                                .mb-1 { margin-bottom: 0.25rem; }
-                                                                                                                                                                .text-gray-600 { color: #4B5563; }
-                                                                                                                                                                .dark\:text-gray-400 { color: #9CA3AF; }
-                                                                                                                                                                .pb-3 { padding-bottom: 0.75rem; }
+                        .leading-relaxed { line-height: 1.625; } /* Added to match agreement text */
+                        .underline { text-decoration: underline; }
+                        .underline-offset-2 { text-underline-offset: 2px; }
+                        .decoration-gray-400 { text-decoration-color: #9CA3AF; }
+                        .list-disc { list-style-type: disc; }
+                        .list-inside { list-style-position: inside; }
+                        .text-gray-700 { color: #374151; }
+                        .dark\:text-gray-300 { color: #D1D5DB; }
+                        .dark\:text-gray-200 { color: #E5E7EB; }
+                        .mt-10 { margin-top: 2.5rem; }
+                        .mt-12 { margin-top: 3rem; }
+                        .w-1\/2 { width: 50%; }
+                        .w-1\/3 { width: 33.333333%; }
+                        .items-end { align-items: flex-end; }
+                        .mb-1 { margin-bottom: 0.25rem; }
+                        .text-gray-600 { color: #4B5563; }
+                        .dark\:text-gray-400 { color: #9CA3AF; }
+                        .pb-3 { padding-bottom: 0.75rem; }
 
-                                                                                                                                                                /* Target the <p> elements within the Rental Information grid */
-                                                                                                                                                                .mb-4 > .grid > p {
-                                                                                                                                                                    margin-top: 0.1rem; /* Reduce top margin */
-                                                                                                                                                                    margin-bottom: 0.1rem; /* Reduce bottom margin */
-                                                                                                                                                                    line-height: 1.2; /* Optionally reduce line height within the lines */
-                                                                                                                                                                }
+                        /* Target the <p> elements within the Rental Information grid */
+                        .mb-4 > .grid > p {
+                            margin-top: 0.1rem; /* Reduce top margin */
+                            margin-bottom: 0.1rem; /* Reduce bottom margin */
+                            line-height: 1.2; /* Optionally reduce line height within the lines */
+                        }
 
-                                                                                                                                                                /* Slightly reduce margin below the Rental Information heading */
-                                                                                                                                                                .mb-4 > .text-md {
-                                                                                                                                                                    margin-bottom: 0.1rem;
-                                                                                                                                                                }
+                        /* Slightly reduce margin below the Rental Information heading */
+                        .mb-4 > .text-md {
+                            margin-bottom: 0.1rem;
+                        }
 
-                                                                                                                                                                /* Center the logo image */
-                                                                                                                                                                .flex.justify-center > img {
-                                                                                                                                                                    display: block; /* Ensure it behaves as a block-level element */
-                                                                                                                                                                    margin-left: auto; /* Push it to the right */
-                                                                                                                                                                    margin-right: auto; /* Push it to the left */
-                                                                                                                                                                }
+                        /* Center the logo image */
+                        .flex.justify-center > img {
+                            display: block; /* Ensure it behaves as a block-level element */
+                            margin-left: auto; /* Push it to the right */
+                            margin-right: auto; /* Push it to the left */
+                        }
 
-                                                                                                                                                                /* Add spacing to the company information */
-                                                                                                                                                                .flex.justify-between > div > h2.text-sm,
-                                                                                                                                                                .flex.justify-between > div > p.text-sm {
-                                                                                                                                                                    margin-bottom: 0.2rem; /* Add a small bottom margin to each line */
-                                                                                                                                                                }
-                                                                                                                                                            </style>
-                                                                                                                                                        </head>
-                                                                                                                                                        <body onload="window.print(); window.onafterprint = () => window.close();">
-                                                                                                                                                            ${agreementContent}
-                                                                                                                                                        </body>
-                                                                                                                                                    </html>
-                                                                                                                                                `;
+                        /* Add spacing to the company information */
+                        .flex.justify-between > div > h2.text-sm,
+                        .flex.justify-between > div > p.text-sm {
+                            margin-bottom: 0.2rem; /* Add a small bottom margin to each line */
+                        }
+                    </style>
+                </head>
+                <body onload="window.print(); window.onafterprint = () => window.close();">
+                    ${agreementContent}
+                </body>
+            </html>
+        `;
 
             printWindow.document.write(html);
             printWindow.document.close();
         }
+
+        const amountInput = document.getElementById('amount-paid');
+        const changeLabel = document.getElementById('change-label');
+        const total = 3600.00; // Example: change as needed or pass from server
+
+        amountInput.addEventListener('input', () => {
+            const paid = parseFloat(amountInput.value);
+            const change = paid - total;
+            changeLabel.textContent = change >= 0 ? `₱${change.toFixed(2)}` : '₱0.00';
+        });
     </script>
 @endsection
