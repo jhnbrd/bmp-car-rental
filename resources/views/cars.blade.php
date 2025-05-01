@@ -93,42 +93,17 @@
                             <div class="flex justify-between items-center mt-3">
                                 <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
                                 <!-- Trigger Button -->
-                                <button id="openModal"
-                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                    RENT
-                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2"
-                                        viewBox="0 0 14 10">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                    </svg>
+                                <button data-modal-target="carModal" data-modal-toggle="carModal"
+                                class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                                RENT
+                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                </svg>
                                 </button>
                             </div>
                         </div>
                     </div>
                 @endforeach
-
-                    <!-- Modal Background (Hidden by default) -->
-                    <div id="modal"
-                        class="fixed text-black inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
-                        <div class="bg-white rounded-lg p-6 w-96">
-                            <div class="flex justify-between items-center mb-4">
-                                <h2 class="text-xl font-semibold">Confirm Rental</h2>
-                                <button id="closeModal" class="text-gray-500 hover:text-gray-700">
-                                    &times;
-                                </button>
-                            </div>
-
-                            <div>
-                                <p>Are you sure you want to rent the Toyota Vios for ₱500 / DAY?</p>
-                            </div>
-
-                            <div class="mt-4 flex justify-end">
-                                <button id="closeModalBtn"
-                                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Confirm</button>
-                            </div>
-                        </div>
-                    </div>
-
             </section>
             <div class="bg-[#0f1021] flex flex-row mx-auto">
                 <div class="py-8 mx-auto flex justify-end">
@@ -195,29 +170,81 @@
                 Choose from a Wide Range of Trusted and Automakers.</p>
         </main>
     </div>
+    <!-- Modal -->
+  <div id="carModal" tabindex="-1" aria-hidden="true"
+    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
+    <div class="relative w-full max-w-7xl max-h-full">
+      <!-- Modal content -->
+      <div class="relative bg-white rounded-lg shadow">
+        <div class="grid grid-cols-2">
+          <!-- Left Section with Image and Logo -->
+          <div class="bg-[#012E57] text-white p-6 flex flex-col items-center justify-center">
+            <img src="{{ asset('assets/body3/brands/logo_toyota.svg') }}" alt="BMP Footer Logo" class="mx-auto h-15">
+            <img src="{{ asset('assets/body3/car/vios.svg') }}" alt="BMP Footer Logo" class="mx-auto h-30">
+          </div>
+
+          <!-- Right Section with Details -->
+          <div class="p-8">
+            <h2 class="text-4xl font-bold text-blue-900">VIOS</h2>
+            <p class="text-xl text-blue-600 font-medium mb-6">1.3 XLE CVT (Silver Metallic 1)</p>
+
+            <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+              <div>
+                <p class="font-semibold">Engine Type</p>
+                <p>Dual VVT-i, 4-Cylinder In-Line DOHC 16V EFI</p>
+              </div>
+              <div>
+                <p class="font-semibold">Engine Displacement (cc)</p>
+                <p>1,329</p>
+              </div>
+              <div>
+                <p class="font-semibold">Tires</p>
+                <p>185/60 R15 Alloy</p>
+              </div>
+              <div>
+                <p class="font-semibold">Seating Capacity</p>
+                <p>5 Seaters</p>
+              </div>
+              <div>
+                <p class="font-semibold">Overall Dimensions (mm)</p>
+                <p>4,420 × 1,730 × 1,475</p>
+              </div>
+              <div>
+                <p class="font-semibold">Wheelbase (mm)</p>
+                <p>2,550</p>
+              </div>
+            </div>
+            <!-- Starting Date -->
+            <div class="grid grid-cols-2">
+              <div class="mt-6">
+                <label for="date" class="block text-sm font-semibold text-gray-700 mb-1">Select a date pick-up</label>
+                <input type="date" id="date" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" />
+              </div>
+              <div class="mt-6">
+                <label for="date" class="block text-sm font-semibold text-gray-700 mb-1">Select a date return</label>
+                <input type="date" id="date" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" />
+              </div>
+            </div>
+
+            <div class="mt-4 flex items-center space-x-4">
+              <span class="text-sm font-semibold">Status</span>
+              <span class="bg-green-600 text-white px-3 py-1 rounded text-xs">AVAILABLE</span>
+            </div>
+
+            <div class="mt-6 flex justify-end space-x-4">
+              <button data-modal-hide="carModal" class="px-5 py-2 bg-blue-900 text-white rounded hover:bg-blue-800">
+                ← Back
+              </button>
+              <a href={{route('terms_condition')}} class="px-5 py-2 bg-blue-900 text-white rounded hover:bg-blue-800">
+                Proceed →
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
-<script>
-    // Open modal
-    document.getElementById('openModal').addEventListener('click', function () {
-        document.getElementById('modal').classList.remove('hidden');
-    });
-
-    // Close modal when clicking the "X"
-    document.getElementById('closeModal').addEventListener('click', function () {
-        document.getElementById('modal').classList.add('hidden');
-    });
-
-    // Close modal when clicking the "Confirm" button
-    document.getElementById('closeModalBtn').addEventListener('click', function () {
-        document.getElementById('modal').classList.add('hidden');
-    });
-    
-    // Close modal when clicking outside the modal content (optional)
-    document.getElementById('modal').addEventListener('click', function (e) {
-        if (e.target === document.getElementById('modal')) {
-            document.getElementById('modal').classList.add('hidden');
-        }
-    });
-</script>
 
 </html>
