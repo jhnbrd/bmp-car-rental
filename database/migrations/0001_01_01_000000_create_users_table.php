@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('role', ['Customer', 'Employee'])->default('Customer');
+            $table->string('picture_path')->default('assets/user_profile_pictures/default.jpg');
             $table->rememberToken();
             $table->timestamps();
         });

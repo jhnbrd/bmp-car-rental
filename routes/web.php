@@ -22,6 +22,8 @@ Route::get('/', function () {
 Route::get('/cars', [CustomerController::class, 'cars'])->name('cars');
 Route::get('/booking', [CustomerController::class, 'booking'])->name('booking');
 Route::get('/contacts', [CustomerController::class, 'contacts'])->name('contacts');
+Route::get('/terms_condition', [GuestController::class, 'terms_condition'])->name('terms_condition');
+Route::get('/payment', [GuestController::class, 'payment'])->name('payment');
 
 // Authenticated User Routes
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -42,11 +44,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/bookings/unsettled', [EmployeeController::class, 'booking_unsettled'])->name('booking-unsettled');
 
         // Car Management Routes
-        Route::get('/cars/modify', [EmployeeController::class, 'car_modification'])->name('cars-modification');
+        Route::get('/cars/manage', [EmployeeController::class, 'car_modification'])->name('cars-modification');
 
         // Employee Management Routes
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
         Route::post('/employees', [EmployeeController::class, 'store'])->name('add-employee');
+        Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('update-employee');
     });
     
 });

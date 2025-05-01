@@ -144,7 +144,7 @@
                           class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                           aria-label="submenu">
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/cars/modify') }}">Car Management</a>
+                              <a class="w-full" href="{{ url('/cars/manage') }}">Car Management</a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                               <a class="w-full" href="{{ url('/admin-track_vehicle') }}">
@@ -491,7 +491,8 @@
                 </button>
               </li> 
               <!-- Profile menu -->
-              <li class="relative">
+              <li class="relative flex">
+                <p class="text-sm font-semibold text-gray-700 mx-3 self-center">Welcome, {{ Auth::user()->employee->first_name ?? '' }} {{ Auth::user()->employee->last_name ?? '' }}</p>
                 <button
                   class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                   @click="toggleProfileMenu"
@@ -501,8 +502,8 @@
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
-                    alt=""
+                    src="{{ asset(Auth::user()->picture_path) }}"
+                    alt="{{ $user->username ?? 'User Profile Picture' }}"
                     aria-hidden="true"
                   />
                 </button>
@@ -513,7 +514,7 @@
                     x-transition:leave-end="opacity-0"
                     @click.away="closeProfileMenu"
                     @keydown.escape="closeProfileMenu"
-                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700 top-[100%] mt-2"
                     aria-label="submenu"
                   >
                     <li class="flex">
