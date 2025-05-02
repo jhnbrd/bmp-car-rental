@@ -91,7 +91,18 @@
                                 </div>
                             </div>
                             <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
+                                <p class="text-gray-900 text-xl font-bold">
+                                    @if ($car->car_type === 'Sedan')
+                                        ₱ 500 / DAY
+                                    @elseif ($car->car_type === 'SUV')
+                                        ₱ 1,000 / DAY
+                                    @elseif ($car->car_type === 'Pick-up')
+                                        ₱ 1,500 / DAY
+                                    @else
+                                        {{-- Optional: Default price or handle unknown car types --}}
+                                        ₱ {{ $defaultPrice ?? 'N/A' }} / DAY
+                                    @endif
+                                </p>
                                 <!-- Trigger Button -->
                                 <button data-modal-target="carModal-{{ $car->id }}" data-modal-toggle="carModal-{{ $car->id }}"
                                 class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
@@ -182,30 +193,37 @@
                     </div>
 
                     <div class="p-8">
-                        <div class="flex flex-row flex-start
-                        .30">
+                        <div class="flex flex-row flex-start items-center mb-5">
                             @if ($car->brand === 'Toyota')
-                            <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" alt="Toyota Logo" class="mx-auto h-15">
+                            <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" alt="Toyota Logo" class="h-15">
                             @elseif ($car->brand === 'Nissan')
-                            <img src="{{ asset('assets/user_carpage/logo_nissan.svg') }}" alt="Nissan Logo" class="mx-auto h-15">
+                            <img src="{{ asset('assets/user_carpage/logo_nissan.svg') }}" alt="Nissan Logo" class="h-15">
                             @elseif ($car->brand === 'Mitsubishi')
-                            <img src="{{ asset('assets/user_carpage/logo_mitsubishi.svg') }}" alt="Mitsubishi Logo" class="mx-auto h-15">
+                            <img src="{{ asset('assets/user_carpage/logo_mitsubishi.svg') }}" alt="Mitsubishi Logo" class="h-15">
                             @elseif ($car->brand === 'Suzuki')
-                            <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" alt="Suzuki Logo" class="mx-auto h-15">
+                            <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" alt="Suzuki Logo" class="h-15">
                             @elseif ($car->brand === 'Honda')
-                            <img src="{{ asset('assets/user_carpage/logo_honda.svg') }}" alt="Honda Logo" class="mx-auto h-15">
+                            <img src="{{ asset('assets/user_carpage/logo_honda.svg') }}" alt="Honda Logo" class="h-15">
                             @elseif ($car->brand === 'Ford')
-                            <img src="{{ asset('assets/user_carpage/logo_ford.svg') }}" alt="Ford Logo" class="mx-auto h-15">
+                            <img src="{{ asset('assets/user_carpage/logo_ford.svg') }}" alt="Ford Logo" class="h-15">
                             @else
                             <span class="mx-auto h-15"></span>
                             @endif
-                            <div class="flex flex-column">
-                                <h2 class="text-4xl font-bold text-blue-900">{{ $car->model_name }}</h2>
-                                <p class="text-xl text-blue-600 font-medium mb-6">{{ $car->model_desc }}</p>
+                            <div class="flex flex-col mx-5">
+                                <h2 class="text-4xl font-bold text-blue-900">{{ $car->model_name }} {{$car->model_year}}</h2>
+                                <p class="text-xl text-blue-600 font-medium">{{ $car->model_desc }}</p>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                            <div>
+                                <p class="font-semibold">Engine Type</p>
+                                <p>{{ strtoupper($car->engine_type) }}</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Engine Displacement</p>
+                                <p>{{ strtoupper($car->engine_displacement) }} cc</p>
+                            </div>
                             <div>
                                 <p class="font-semibold">Car Type</p>
                                 <p>{{ strtoupper($car->car_type) }}</p>
@@ -223,20 +241,12 @@
                                 <p>{{ $car->fuel_type }}</p>
                             </div>
                             <div>
-                                <p class="font-semibold">Odometer</p>
-                                <p>{{ $car->odometer }} km</p>
+                                <p class="font-semibold">Color</p>
+                                <p>{{ $car->color }}</p>
                             </div>
-                            <div>
-                                <p class="font-semibold">Registration Number</p>
-                                <p>{{ $car->registration_number }}</p>
-                            </div>
-                            <div>
-                                <p class="font-semibold">Registration Date</p>
-                                <p>{{ $car->registration_date ? \Carbon\Carbon::parse($car->registration_date)->format('Y-m-d') : 'N/A' }}</p>
-                            </div>
-                            <div>
+                            <div class="items-center space-x-4">
                                 <p class="font-semibold">Status</p>
-                                <p class="{{ $car->status === 'Available' ? 'text-green-600' : 'text-red-600' }}">{{ strtoupper($car->status) }}</p>
+                                <p class="bg-green-600 text-white px-3 py-1 rounded text-xs w-[30%]">Available</p>
                             </div>
                         </div>
                         <div class="grid grid-cols-2 mt-6">

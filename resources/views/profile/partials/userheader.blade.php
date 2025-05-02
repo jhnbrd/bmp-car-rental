@@ -13,7 +13,7 @@
             <nav class="flex space-x-8 items-center uppercase font-semibold tracking-wide">
                 @auth
                     <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Home</a>
-                    <a href="{{ route('cars') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Cars</a>
+                    <a href="{{ route('cars') }}" class="hover:text-gray-700 dark:hover:text-gray-300" style="margin-left: 0 !important;">Cars</a>
                     <a href="{{ route('booking') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Booking</a>
                     <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Contacts</a>
 
