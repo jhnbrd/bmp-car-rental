@@ -104,13 +104,22 @@
                                     @endif
                                 </p>
                                 <!-- Trigger Button -->
-                                <button data-modal-target="carModal-{{ $car->id }}" data-modal-toggle="carModal-{{ $car->id }}"
-                                class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                RENT
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                                </button>
+                                @auth
+                                    <button data-modal-target="carModal-{{ $car->id }}" data-modal-toggle="carModal-{{ $car->id }}"
+                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                                    RENT
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                    </svg>
+                                    </button>
+                                @else
+                                    <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                                        RENT
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                    </a>
+                                @endauth
                             </div>
                         </div>
                     </div>
