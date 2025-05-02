@@ -261,11 +261,15 @@
                         <div class="grid grid-cols-2 mt-6">
                             <div>
                                 <label for="pickup_date-{{ $car->id }}" class="block text-sm font-semibold text-gray-700 mb-1">Select Pick-up Date</label>
-                                <input type="date" id="pickup_date-{{ $car->id }}" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" />
+                                <input type="date" id="pickup_date-{{ $car->id }}" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2"
+                                    min="{{ now()->toDateString() }}"
+                                    max="{{ now()->addDays(10)->toDateString() }}" />
                             </div>
                             <div>
                                 <label for="return_date-{{ $car->id }}" class="block text-sm font-semibold text-gray-700 mb-1">Select Return Date</label>
-                                <input type="date" id="return_date-{{ $car->id }}" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" />
+                                <input type="date" id="return_date-{{ $car->id }}" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2"
+                                    min="{{ now()->addDays(1)->toDateString() }}"
+                                    max="{{ now()->addDays(20)->toDateString() }}"/>
                             </div>
                         </div>
 

@@ -20,7 +20,7 @@
                     <!-- Profile Dropdown -->
                     <div class="relative" x-data="{ open: false }" style="margin-top: 2.6px;">
                         <button @click="open = !open" class="focus:outline-none">
-                            <img src="{{ asset('assets/shelby.jpg') }}" alt="Profile" class="h-10 w-10 rounded-full object-cover">
+                            <img src="{{ asset(Auth::user()->picture_path) }}" alt="Profile" class="h-10 w-10 rounded-full object-cover">
                         </button>
 
                         <div x-show="open" @click.away="open = false" x-transition
