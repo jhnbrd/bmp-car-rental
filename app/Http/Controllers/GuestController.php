@@ -15,14 +15,4 @@ class GuestController extends Controller
     {
         return view('booking');
     }
-
-    public function payment(): View
-    {
-        return view('payment');
-    }
-    public function terms_condition(): View
-    {
-        return view('terms_condition');
-    }
-
 }

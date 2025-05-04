@@ -45,61 +45,99 @@
                     </p>
                 </div>
 
+                @if (session('error'))
+                <div class="bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <title>Close</title>
+                            <path fill-rule="evenodd" d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.15 2.759 3.152a1.2 1.2 0 0 1 0 1.697z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                @endif
 
                 <div class="grid grid-cols-4 justify-center mx-[10%]">
-                @foreach ($carModels as $car)
+                @foreach ($carModels as $carModel)
+                @php
+                    $hasAvailableCar = $carModel->cars()->where('status', 'Available')->exists();
+                @endphp
                     <!-- CAR CARD -->
                     <div class="max-w-md mx-auto my-auto bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200" style="margin-block: 5%;">
                         <div class="bg-gray-100 p-4 flex justify-center h-[150px] w-[270px]">
-                            <img src="{{ asset($car->img_file_path) }}" class="w-3/4 object-contain h-full" alt="">
+                            <img src="{{ asset($carModel->img_file_path) }}" class="w-3/4 object-contain h-full" alt="">
                         </div>
-                        <div class="p-5 text-center w-[270px] h-[240px]">
+                        <div class="p-5 text-center w-[270px] h-[270px]">
                             <div class="flex items-center justify-center mb-2 h-[48px]">
-                                @if ($car->brand === 'Toyota')
+                                @if ($carModel->brand === 'Toyota')
                                     <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" class="w-12 mr-2" alt="Toyota Logo">
-                                @elseif ($car->brand === 'Nissan')
+                                @elseif ($carModel->brand === 'Nissan')
                                     <img src="{{ asset('assets/user_carpage/logo_nissan.svg') }}" class="w-12 mr-2" alt="Nissan Logo">
-                                @elseif ($car->brand === 'Mitsubishi')
+                                @elseif ($carModel->brand === 'Mitsubishi')
                                     <img src="{{ asset('assets/user_carpage/logo_mitsubishi.svg') }}" class="w-12 mr-2" alt="Mitsubishi Logo">
-                                @elseif ($car->brand === 'Suzuki')
+                                @elseif ($carModel->brand === 'Suzuki')
                                     <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" class="w-12 mr-2" alt="Suzuki Logo">
-                                @elseif ($car->brand === 'Honda')
+                                @elseif ($carModel->brand === 'Honda')
                                     <img src="{{ asset('assets/user_carpage/logo_honda.svg') }}" class="w-12 mr-2" alt="Honda Logo">
-                                @elseif ($car->brand === 'Ford')
+                                @elseif ($carModel->brand === 'Ford')
                                     <img src="{{ asset('assets/user_carpage/logo_ford.svg') }}" class="w-12 mr-2" alt="Ford Logo">
                                 @else
                                     <span class="w-12 mr-2"></span> {{-- Placeholder if no specific logo --}}
                                 @endif
-                                <h5 class="text-2xl font-bold text-gray-900">{{ $car->model_name }}</h5>
+                                <h5 class="text-2xl font-bold text-gray-900">{{ $carModel->model_name }}</h5>
                             </div>
                             <div class="bg-blue-900 text-white p-4 rounded-lg grid grid-cols-2 gap-4 text-sm">
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-car"></i>
-                                    <span>{{ strtoupper($car->car_type) }}</span>
+                                    <span>{{ strtoupper($carModel->car_type) }}</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-door-open"></i>
-                                    <span>{{ $car->transmission }}</span>
+                                    <span>{{ $carModel->transmission }}</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-user-group"></i>
-                                    <span>{{ $car->seat_capacity }} PEOPLE</span>
+                                    <span>{{ $carModel->seat_capacity }} PEOPLE</span>
                                 </div>
                                 <div class="flex items-center space-x-2">
                                     <i class="fa-solid fa-snowflake"></i>
-                                    <span>{{ $car->fuel_type }}</span>
+                                    <span>{{ $carModel->fuel_type }}</span>
                                 </div>
                             </div>
+                            <div class="flex font-bold text-gray-900 items-center mt-3 justify-center">
+                                <p>STATUS: <span class="{{ $hasAvailableCar ? 'text-green-600' : 'text-red-600' }}">{{ $hasAvailableCar ? 'AVAILABLE' : 'UNAVAILABLE' }}</span></p>
+                            </div>
                             <div class="flex justify-between items-center mt-3">
-                                <p class="text-gray-900 text-xl font-bold">₱ 500 / DAY</p>
+                                <p class="text-gray-900 text-xl font-bold">
+                                    @if ($carModel->car_type === 'Sedan')
+                                        ₱ 500 / DAY
+                                    @elseif ($carModel->car_type === 'SUV')
+                                        ₱ 1,000 / DAY
+                                    @elseif ($carModel->car_type === 'Pick-up')
+                                        ₱ 1,500 / DAY
+                                    @else
+                                        {{-- Optional: Default price or handle unknown car types --}}
+                                        ₱ {{ $defaultPrice ?? 'N/A' }} / DAY
+                                    @endif
+                                </p>
                                 <!-- Trigger Button -->
-                                <button data-modal-target="carModal" data-modal-toggle="carModal"
-                                class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
-                                RENT
-                                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
-                                </svg>
-                                </button>
+                                @auth
+                                    <button data-modal-target="carModal-{{ $carModel->id }}" data-modal-toggle="carModal-{{ $carModel->id }}"
+                                    class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                                    RENT
+                                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                    </svg>
+                                    </button>
+                                @else
+                                    <a href="{{ route('login') }}" class="inline-flex items-center px-4 py-2 text-white bg-blue-700 rounded-lg hover:bg-blue-800">
+                                        RENT
+                                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 14 10">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M1 5h12m0 0L9 1m4 4L9 9" />
+                                        </svg>
+                                    </a>
+                                @endauth
                             </div>
                         </div>
                     </div>
@@ -171,78 +209,131 @@
         </main>
     </div>
     <!-- Modal -->
-  <div id="carModal" tabindex="-1" aria-hidden="true"
-    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-7xl max-h-full">
-      <!-- Modal content -->
-      <div class="relative bg-white rounded-lg shadow">
-        <div class="grid grid-cols-2">
-          <!-- Left Section with Image and Logo -->
-          <div class="bg-[#012E57] text-white p-6 flex flex-col items-center justify-center">
-            <img src="{{ asset('assets/body3/brands/logo_toyota.svg') }}" alt="BMP Footer Logo" class="mx-auto h-15">
-            <img src="{{ asset('assets/body3/car/vios.svg') }}" alt="BMP Footer Logo" class="mx-auto h-30">
-          </div>
+    @foreach ($carModels as $carModel)
+    @php
+        $hasAvailableCar = $carModel->cars()->where('status', 'Available')->exists();
+    @endphp
+    <div id="carModal-{{ $carModel->id }}"
+        x-data="{
+            pickupDate: '',
+            returnDate: '',
+            proceedToTerms() {
+                if (!this.pickupDate) {
+                    alert('Please select a pick-up date.');
+                    return;
+                }
+                if (!this.returnDate) {
+                    alert('Please select a return date.');
+                    return;
+                }
+                window.location.href = `/terms-condition/{{ $carModel->id }}?pickup_date=${this.pickupDate}&return_date=${this.returnDate}`;
+            }
+        }"
+        tabindex="-1" aria-hidden="true"
+        class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto h-[calc(100%-1rem)] max-h-full">
+        <div class="relative w-full max-w-7xl max-h-full">
+            <div class="relative bg-white rounded-lg shadow">
+                <div class="grid grid-cols-2">
+                    <div class="bg-[#012E57] text-white p-6 flex flex-col items-center justify-center">
+                        <img src="{{ asset($carModel->img_file_path) }}" alt="{{ $carModel->model_name }}" class="mx-auto w-200 object-contain">
+                    </div>
 
-          <!-- Right Section with Details -->
-          <div class="p-8">
-            <h2 class="text-4xl font-bold text-blue-900">VIOS</h2>
-            <p class="text-xl text-blue-600 font-medium mb-6">1.3 XLE CVT (Silver Metallic 1)</p>
+                    <div class="p-8">
+                        <div class="flex flex-row flex-start items-center mb-5">
+                            @if ($carModel->brand === 'Toyota')
+                            <img src="{{ asset('assets/user_carpage/logo_toyota.svg') }}" alt="Toyota Logo" class="h-15">
+                            @elseif ($carModel->brand === 'Nissan')
+                            <img src="{{ asset('assets/user_carpage/logo_nissan.svg') }}" alt="Nissan Logo" class="h-15">
+                            @elseif ($carModel->brand === 'Mitsubishi')
+                            <img src="{{ asset('assets/user_carpage/logo_mitsubishi.svg') }}" alt="Mitsubishi Logo" class="h-15">
+                            @elseif ($carModel->brand === 'Suzuki')
+                            <img src="{{ asset('assets/user_carpage/logo_suzuki.svg') }}" alt="Suzuki Logo" class="h-15">
+                            @elseif ($carModel->brand === 'Honda')
+                            <img src="{{ asset('assets/user_carpage/logo_honda.svg') }}" alt="Honda Logo" class="h-15">
+                            @elseif ($carModel->brand === 'Ford')
+                            <img src="{{ asset('assets/user_carpage/logo_ford.svg') }}" alt="Ford Logo" class="h-15">
+                            @else
+                            <span class="mx-auto h-15"></span>
+                            @endif
+                            <div class="flex flex-col mx-5">
+                                <h2 class="text-4xl font-bold text-blue-900">{{ $carModel->model_name }} {{$carModel->model_year}}</h2>
+                                <p class="text-xl text-blue-600 font-medium">{{ $carModel->model_desc }}</p>
+                            </div>
+                        </div>
 
-            <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
-              <div>
-                <p class="font-semibold">Engine Type</p>
-                <p>Dual VVT-i, 4-Cylinder In-Line DOHC 16V EFI</p>
-              </div>
-              <div>
-                <p class="font-semibold">Engine Displacement (cc)</p>
-                <p>1,329</p>
-              </div>
-              <div>
-                <p class="font-semibold">Tires</p>
-                <p>185/60 R15 Alloy</p>
-              </div>
-              <div>
-                <p class="font-semibold">Seating Capacity</p>
-                <p>5 Seaters</p>
-              </div>
-              <div>
-                <p class="font-semibold">Overall Dimensions (mm)</p>
-                <p>4,420 × 1,730 × 1,475</p>
-              </div>
-              <div>
-                <p class="font-semibold">Wheelbase (mm)</p>
-                <p>2,550</p>
-              </div>
-            </div>
-            <!-- Starting Date -->
-            <div class="grid grid-cols-2">
-              <div class="mt-6">
-                <label for="date" class="block text-sm font-semibold text-gray-700 mb-1">Select a date pick-up</label>
-                <input type="date" id="date" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" />
-              </div>
-              <div class="mt-6">
-                <label for="date" class="block text-sm font-semibold text-gray-700 mb-1">Select a date return</label>
-                <input type="date" id="date" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" />
-              </div>
-            </div>
+                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700">
+                            <div>
+                                <p class="font-semibold">Engine Type</p>
+                                <p>{{ strtoupper($carModel->engine_type) }}</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Engine Displacement</p>
+                                <p>{{ strtoupper($carModel->engine_displacement) }} cc</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Car Type</p>
+                                <p>{{ strtoupper($carModel->car_type) }}</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Transmission</p>
+                                <p>{{ $carModel->transmission }}</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Seating Capacity</p>
+                                <p>{{ $carModel->seat_capacity }} People</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Fuel Type</p>
+                                <p>{{ $carModel->fuel_type }}</p>
+                            </div>
+                            <div>
+                                <p class="font-semibold">Color</p>
+                                <p>{{ $carModel->color }}</p>
+                            </div>
+                            <div class="items-center space-x-4">
+                                <p class="font-semibold">Status</p>
+                                <p class="{{ $hasAvailableCar ? 'bg-green-600' : 'bg-red-600' }} text-white px-3 py-1 rounded text-xs w-[{{ strlen($hasAvailableCar ? 'Available' : 'Unavailable') * 10 }}%">
+                                    {{ $hasAvailableCar ? 'Available' : 'Unavailable' }}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 mt-6" x-show="{{ $hasAvailableCar ? 'true' : 'false' }}">
+                            <div>
+                                <label for="pickup_date-{{ $carModel->id }}" class="block text-sm font-semibold text-gray-700 mb-1">Select Pick-up Date</label>
+                                <input type="date" id="pickup_date-{{ $carModel->id }}"
+                                    x-model="pickupDate"
+                                    class="border-gray-300 rounded px-3 py-2 text-sm w-1/2"
+                                    min="{{ now()->toDateString() }}"
+                                    max="{{ now()->addDays(10)->toDateString() }}" />
+                            </div>
+                            <div>
+                                <label for="return_date-{{ $carModel->id }}" class="block text-sm font-semibold text-gray-700 mb-1">Select Return Date</label>
+                                <input type="date" id="return_date-{{ $carModel->id }}" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" x-model="returnDate"
+                                    min="{{ now()->addDays(1)->toDateString() }}"
+                                    max="{{ now()->addDays(20)->toDateString() }}"/>
+                            </div>
+                        </div>
 
-            <div class="mt-4 flex items-center space-x-4">
-              <span class="text-sm font-semibold">Status</span>
-              <span class="bg-green-600 text-white px-3 py-1 rounded text-xs">AVAILABLE</span>
+                        <div class="mt-6 flex justify-end space-x-4" x-show="{{ $hasAvailableCar ? 'true' : 'false' }}">
+                            <button data-modal-hide="carModal-{{ $carModel->id }}" class="px-5 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">
+                                ← Back
+                            </button>
+                            <a href="#"
+                                x-on:click.prevent="proceedToTerms()"
+                                class="px-5 py-2 bg-blue-900 text-white rounded hover:bg-blue-800">
+                                Proceed →
+                            </a>
+                        </div>
+                        
+                        <div class="mt-6 flex justify-center" x-show="{{ $hasAvailableCar ? 'false' : 'true' }}">
+                            <p class="text-red-600 font-semibold">No units currently available for this model.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div class="mt-6 flex justify-end space-x-4">
-              <button data-modal-hide="carModal" class="px-5 py-2 bg-blue-900 text-white rounded hover:bg-blue-800">
-                ← Back
-              </button>
-              <a href={{route('terms_condition')}} class="px-5 py-2 bg-blue-900 text-white rounded hover:bg-blue-800">
-                Proceed →
-              </a>
-            </div>
-          </div>
         </div>
-      </div>
     </div>
+    @endforeach
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('odometer')->unsigned();
             $table->string('registration_number')->unique();
             $table->date('registration_date')->nullable();
-            $table->enum('status', ['Available', 'Under Maintenance', 'Booked', 'For Repair', 'Missing', 'Unavailable'])->default('Available');
+            $table->enum('status', ['Available', 'Expired', 'Under Maintenance', 'Booked', 'For Repair', 'Missing', 'Unavailable'])->default('Available');
             $table->timestamps();
         });
     }

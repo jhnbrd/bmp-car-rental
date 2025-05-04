@@ -100,14 +100,25 @@
 
                         <!-- Agreement Section -->
                         <div class="mt-8 flex flex-col items-start sm:items-center gap-4">
-                            <label class="flex items-start sm:items-center gap-2 text-sm sm:text-base">
-                                <input type="checkbox" id="agreeTerms" class="accent-blue-500 w-5 h-5 mt-1 sm:mt-0" />
-                                <span>I have read and agree to the Rental Agreement Policy.</span>
-                            </label>
-                            <a href="{{ route("payment") }}" id="acceptBtn"
-                                class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl disabled:opacity-50">
-                                I Accept
-                            </a>
+                            <p>Car Model ID: {{ $carModel->id ?? 'No Car Model ID' }}</p>
+                            <p>Form Action: {{ route('process_terms_condition', ['car_model' => $carModel->id ?? '']) }}</p>
+                            <form method="POST" action="{{ route('process_terms_condition', ['car_model' => $carModel->id]) }}">
+                                @csrf
+                                <label class="flex items-start sm:items-center gap-2 text-sm sm:text-base">
+                                    <input type="checkbox" id="agreeTerms" name="terms_accepted"
+                                        class="accent-blue-500 w-5 h-5 mt-1 sm:mt-0" />
+                                    <span>I have read and agree to the Rental Agreement Policy.</span>
+                                </label>
+                                <input type="hidden" name="pickup_date" value="{{ $pickupDate }}">
+                                <input type="hidden" name="return_date" value="{{ $returnDate }}">
+                                <input type="hidden" name="available_car_id" value="{{ $availableCar->id }}">
+                                <button type="submit" id="acceptBtn"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl disabled:opacity-50"
+                                    disabled
+                                    onclick="console.log('Button clicked inline!');">
+                                    I Accept
+                                </button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -171,6 +182,16 @@
             Choose from a Wide Range of Trusted and Automakers.
         </main>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const agreeTermsCheckbox = document.getElementById('agreeTerms');
+            const acceptButton = document.getElementById('acceptBtn');
+
+            agreeTermsCheckbox.addEventListener('change', function() {
+                acceptButton.disabled = !this.checked;
+            });
+        });
+    </script>
 </body>
 
 </html>

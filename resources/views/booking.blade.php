@@ -43,6 +43,32 @@
                     </p>
                 </div>
 
+                @if (session('error'))
+                <div class="bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <title>Close</title>
+                            <path fill-rule="evenodd" d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.15 2.759 3.152a1.2 1.2 0 0 1 0 1.697z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                @endif
+
+                @if (session('success'))
+                    <div class="bg-green-200 border border-green-400 text-green-700 px-4 py-3 mb-5 rounded relative" role="alert">
+                        <strong class="font-bold">Success!</strong>
+                        <span class="block sm:inline">{{ session('success') }}</span>
+                        <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                            <svg class="fill-current h-6 w-6 text-green-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                <title>Close</title>
+                                <path fill-rule="evenodd" d="M14.348 5.652a1.2 1.2 0 0 0-1.697 0L10 8.183l-2.651-2.531a1.2 1.2 0 1 0-1.697 1.697L8.303 10l-2.651 2.53a1.2 1.2 0 0 0 1.697 1.697L10 11.817l2.651 2.531a1.2 1.2 0 0 0 1.697-1.697L11.697 10l2.651-2.53a1.2 1.2 0 0 0 0-1.697z" clip-rule="evenodd" />
+                            </svg>
+                        </span>
+                    </div>
+                @endif
+
                 <!-- Search Bar and Filter Controls -->
                 <div class="flex flex-col gap-6 md:flex-row md:gap-40 justify-center items-center mb-8 px-4 text-white">
                     <form class="max-w-lg mx-auto" x-data="{ open: false, selected: 'All status' }">
@@ -69,24 +95,24 @@
 
 
                 <!-- Booking Status Card -->
+                @forelse ($bookings as $booking)
                 <div
-                    class="max-w-2xl mx-auto bg-[#f9f9f9] border border-gray-200 rounded-lg shadow flex flex-col md:flex-row overflow-hidden">
+                    class="max-w-2xl mb-5 mx-auto bg-[#f9f9f9] border border-gray-200 rounded-lg shadow flex flex-col md:flex-row overflow-hidden">
                     <img class="w-full h-48 object-contain md:w-1/3 md:h-auto rounded-lg"
-                        src="{{ asset('assets/sample_picture.png') }}" alt="Sample pic" />
+                        src="{{ asset($booking->car->carModel->img_file_path) }}" alt="Sample pic" />
 
                     <div class="flex flex-col justify-between p-6 md:w-2/3 text-left">
                         <div>
                             <h5 class="mb-4 text-2xl font-bold tracking-tight text-gray-900">
-                                Toyota - Vios 1.3 XLE CVT
+                                {{ $booking->car->carModel->brand }} - {{ $booking->car->carModel->model_name }} {{ $booking->car->carModel->model_desc }}
                             </h5>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700 text-sm">
-                                <p><span class="font-semibold">Car Type:</span> Sedan</p>
-                                <p><span class="font-semibold">Seat Capacity:</span> 5</p>
-                                <p><span class="font-semibold">Transmission:</span> CVT</p>
-                                <p><span class="font-semibold">Available:</span> Yes</p>
-                                <p><span class="font-semibold">Pickup Date:</span> 01/01/2025</p>
-                                <p><span class="font-semibold">Return Date:</span> 01/02/2025</p>
-                                <p><span class="font-semibold">Price:</span> ₱1,999.00</p>
+                                <p><span class="font-semibold">Car Type:</span> {{ $booking->car->carModel->car_type }}</p>
+                                <p><span class="font-semibold">Transmission:</span> {{ $booking->car->carModel->transmission }}</p>
+                                <p><span class="font-semibold">Created Date:</span> {{ $booking->created_at }}</p>
+                                <p><span class="font-semibold">Price:</span> ₱{{ $booking->amount_due }}</p>
+                                <p><span class="font-semibold">Pickup Date:</span> {{ $booking->pickup_date }}</p>
+                                <p><span class="font-semibold">Return Date:</span> {{ $booking->return_date }}</p>
                             </div>
                         </div>
 
@@ -107,6 +133,11 @@
                         </div>
                     </div>
                 </div>
+                @empty
+                <div class="max-w-2xl mx-auto bg-white border border-gray-200 rounded-lg shadow p-6 text-center">
+                    <p class="text-gray-500 dark:text-gray-400">You have no current bookings.</p>
+                </div>
+                @endforelse
 
             </section>
 

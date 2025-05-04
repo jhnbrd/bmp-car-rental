@@ -17,4 +17,12 @@ class Car extends Model
         'registration_date',
         'status'
     ];
+
+    /**
+     * Get the carModel that owns the Car.
+     */
+    public function carModel(): BelongsTo
+    {
+        return $this->belongsTo(CarModel::class);
+    }
 }

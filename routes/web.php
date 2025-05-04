@@ -22,15 +22,15 @@ Route::get('/', function () {
 Route::get('/cars', [CustomerController::class, 'cars'])->name('cars');
 Route::get('/booking', [CustomerController::class, 'booking'])->name('booking');
 Route::get('/contacts', [CustomerController::class, 'contacts'])->name('contacts');
-Route::get('/terms_condition', [GuestController::class, 'terms_condition'])->name('terms_condition');
-Route::get('/payment', [GuestController::class, 'payment'])->name('payment');
 
 // Authenticated User Routes
 Route::middleware(['auth', 'verified'])->group(function () {
 
     // Customer Specific Routes
     Route::middleware('checkRole:Customer')->group(function () {
-        
+        Route::get('/terms-condition/{car_model}', [CustomerController::class, 'termsCondition'])->name('terms_condition');
+        Route::post('/terms-condition/process/{car_model}', [CustomerController::class, 'processTermsConditions'])->name('process_terms_condition');
+        Route::get('/payment/{booking}', [CustomerController::class, 'payment'])->name('payment');
     });
 
     // Employee Specific Routes
