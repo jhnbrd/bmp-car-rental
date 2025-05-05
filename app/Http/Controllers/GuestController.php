@@ -15,10 +15,4 @@ class GuestController extends Controller
     {
         return view('booking');
     }
-
-    public function contacts(): View
-    {
-        return view('guest.contacts');
-    }
-
 }

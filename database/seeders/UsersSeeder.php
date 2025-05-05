@@ -28,6 +28,7 @@ class UsersSeeder extends Seeder
             'email' => 'admin@test.com',
             'password' => Hash::make('bmpcars2025'),
             'role' => 'Employee',
+            'picture_path' => 'assets/user_profile_pictures/admin.jpg',
         ]);
 
         Employee::create([
@@ -45,6 +46,7 @@ class UsersSeeder extends Seeder
             'email' => 'mechanic@test.com',
             'password' => Hash::make('bmpcars2025'),
             'role' => 'Employee',
+            'picture_path' => 'assets/user_profile_pictures/mechanictest.png',
         ]);
 
         Employee::create([
@@ -62,6 +64,7 @@ class UsersSeeder extends Seeder
             'email' => 'cashier@test.com',
             'password' => Hash::make('bmpcars2025'),
             'role' => 'Employee',
+            'picture_path' => 'assets/user_profile_pictures/cashiertest.png',
         ]);
 
         Employee::create([
@@ -79,6 +82,7 @@ class UsersSeeder extends Seeder
             'email' => 'jhiannejoseberida@gmail.com',
             'password' => Hash::make('yanjisamatest'),
             'role' => 'Customer',
+            'picture_path' => 'assets/user_profile_pictures/jhiannejoseberida.jpg',
         ]);
 
         Customer::create([

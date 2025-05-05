@@ -24,14 +24,15 @@
       rel="stylesheet"
     />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link href="https://cdn.jsdelivr.net/npm/flowbite@1.4.4/dist/flowbite.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="./assets/css/tailwind.output.css" />
+    <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"
       defer
     ></script>
-    <script src="./assets/js/init-alpine.js"></script>
+    <script src="{{ asset('assets/js/init-alpine.js') }}"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css"
@@ -41,8 +42,8 @@
       src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"
       defer
     ></script>
-    <script src="./assets/js/charts-lines.js" defer></script>
-    <script src="./assets/js/charts-pie.js" defer></script>
+    <script src="{{ asset('assets/js/charts-lines.js') }}" defer></script>
+    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>
   </head>
   <body>
     <div
@@ -103,12 +104,12 @@
                               <a class="w-full" href="{{ url('/bookings/manage') }}">Manage Booking</a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-track_vehicle') }}">
+                              <a class="w-full" href="{{ url('/bookings/history') }}">
                                   Booking History
                               </a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-maintenance_schedule') }}">
+                              <a class="w-full" href="{{ url('/bookings/unsettled') }}">
                                 Unsettled Bookings 
                               </a>
                           </li>
@@ -143,11 +144,11 @@
                           class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                           aria-label="submenu">
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/car-modification') }}">Car Modification</a>
+                              <a class="w-full" href="{{ url('/cars/manage') }}">Car Management</a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                               <a class="w-full" href="{{ url('/admin-track_vehicle') }}">
-                                  Track Vehicle Status
+                                  Damaged Cars
                               </a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
@@ -249,13 +250,11 @@
         @click.away="closeSideMenu"
         @keydown.escape="closeSideMenu"
       >
-        <div class="py-4 text-gray-500 dark:text-gray-400">
-          <a
-            class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200"
-            href="#"
-          >
-            BMP Car Rental Admin
-          </a>
+      <div class="py-4 text-gray-500 dark:text-gray-400">
+        <a class="flex flex-col items-center text-lg font-bold text-gray-800 dark:text-gray-200" href="#">
+            <img src="{{ asset('assets/bmp_logo.png') }}" alt="BMP Logo" class="w-50 h-12 mb-2">
+          BMP Car Rental Admin
+        </a>
           <ul class="mt-6">
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -276,13 +275,13 @@
                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                       @click="togglePagesMenuBookings" aria-haspopup="true">
                       <span class="inline-flex items-center">
-                          <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                              stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                              <path
-                                  d="M8 2v2M16 2v2M3 8h18M4 6h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2zM8 12h4M8 16h8">
-                              </path>
-                          </svg>
-                          <span class="ml-4">Bookings</span>
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+
+                          <span class="ml-4">Booking</span>
                       </span>
                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -298,11 +297,16 @@
                           class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                           aria-label="submenu">
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-upcoming_bookings') }}">Upcoming Bookings</a>
+                              <a class="w-full" href="{{ url('/manage-bookings') }}">Manage Booking</a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-active_bookings') }}">
-                                  Active Bookings
+                              <a class="w-full" href="{{ url('/booking_history') }}">
+                                  Booking History
+                              </a>
+                          </li>
+                          <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
+                              <a class="w-full" href="{{ url('/admin-maintenance_schedule') }}">
+                                Unsettled Bookings 
                               </a>
                           </li>
                       </ul>
@@ -336,11 +340,11 @@
                           class="p-2 mt-2 space-y-2 overflow-hidden text-sm font-medium text-gray-500 rounded-md shadow-inner bg-gray-50 dark:text-gray-400 dark:bg-gray-900"
                           aria-label="submenu">
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-car_modification') }}">Car Modification</a>
+                              <a class="w-full" href="{{ url('/car-modification') }}">Car Management</a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
                               <a class="w-full" href="{{ url('/admin-track_vehicle') }}">
-                                  Track Vehicle Status
+                                  Damaged Cars
                               </a>
                           </li>
                           <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
@@ -487,7 +491,8 @@
                 </button>
               </li> 
               <!-- Profile menu -->
-              <li class="relative">
+              <li class="relative flex">
+                <p class="text-sm font-semibold text-gray-700 mx-3 self-center">Welcome, {{ Auth::user()->employee->first_name ?? '' }} {{ Auth::user()->employee->last_name ?? '' }}</p>
                 <button
                   class="align-middle rounded-full focus:shadow-outline-purple focus:outline-none"
                   @click="toggleProfileMenu"
@@ -497,8 +502,8 @@
                 >
                   <img
                     class="object-cover w-8 h-8 rounded-full"
-                    src="https://images.unsplash.com/photo-1502378735452-bc7d86632805?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&s=aa3a807e1bbdfd4364d1f449eaa96d82"
-                    alt=""
+                    src="{{ asset(Auth::user()->picture_path) }}"
+                    alt="{{ $user->username ?? 'User Profile Picture' }}"
                     aria-hidden="true"
                   />
                 </button>
@@ -509,7 +514,7 @@
                     x-transition:leave-end="opacity-0"
                     @click.away="closeProfileMenu"
                     @keydown.escape="closeProfileMenu"
-                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700"
+                    class="absolute right-0 w-56 p-2 mt-2 space-y-2 text-gray-600 bg-white border border-gray-100 rounded-md shadow-md dark:border-gray-700 dark:text-gray-300 dark:bg-gray-700 top-[100%] mt-2"
                     aria-label="submenu"
                   >
                     <li class="flex">

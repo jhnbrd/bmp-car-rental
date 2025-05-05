@@ -4,8 +4,8 @@
 
     <div class="flex flex-col md:flex-row md:items-center md:justify-between my-6 space-y-4 md:space-y-0">
         <!-- Flex Container -->
-        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
-            Employee
+        <h2 class="text-2xl font-semibold text-gray-700 dark:text-gray-200 mb-5">
+            Employee Records
         </h2>
 
         <form class="w-full sm:w-[400px] md:w-[500px] lg:w-[600px] xl:w-[600px]">
@@ -44,7 +44,62 @@
                 </div>
             </div>
         </form>
+    </div>
 
+    <div class="flex justify-between items-center mb-5">
+        <!-- Breadcrumb -->
+        <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
+            <ol class="inline-flex items-center space-x-1">
+                <li class="inline-flex items-center">
+                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-blue-600 font-medium text-base">
+                        All Cars
+                    </a>
+                </li>
+                <li>
+                    <div class="flex items-center">
+                        <svg class="w-4 h-4 text-gray-400 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M7.293 14.707a1 1 0 010-1.414L11.586 9 7.293 4.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        <span class="ml-1 text-gray-700 font-bold text-lg">
+                            Filtered Active
+                        </span>
+                    </div>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Filter Button -->
+        <div class="relative inline-block text-left">
+            <button type="button"
+                class="inline-flex justify-between items-center px-4 py-2 bg-blue-600 dark:bg-blue-800 border border-blue-600 dark:border-blue-800 rounded-md shadow-sm text-sm font-medium text-white dark:text-gray-300 hover:bg-blue-700 dark:hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition ease-in-out duration-200"
+                data-dropdown-toggle="dropdown-menu" aria-expanded="false">
+                Filter Status
+                <!-- Interactive SVG -->
+                <svg id="dropdown-arrow" class="h-5 w-5 ml-2 transform transition-transform duration-200 ease-in-out"
+                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <!-- Dropdown Menu -->
+            <ul id="dropdown-menu"
+                class="hidden absolute right-0 mt-2 bg-white dark:bg-gray-800 text-sm text-gray-700 dark:text-gray-200 shadow-lg rounded-md w-48 z-10">
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 rounded-t-md hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white">
+                        Active
+                    </a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white">
+                        Inactive
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <div class="w-full overflow-hidden rounded-lg shadow-xs">
@@ -69,7 +124,7 @@
                                 <!-- Avatar with inset shadow -->
                                 <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                     <img class="object-cover w-full h-full rounded-full"
-                                        src="https://images.unsplash.com/flagged/photo-1570612861542-284f4c12e75f?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=200&fit=max&ixid=eyJhcHBfaWQiOjE3Nzg0fQ"
+                                        src="{{ asset($employee->user->picture_path) }}"
                                         alt="" loading="lazy" />
                                     <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                                 </div>
@@ -94,10 +149,15 @@
                             {{ $employee->role }}
                         </td>
                         <td class="px-4 py-3 text-xs">
-                            <span
-                                class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                Active
-                            </span>
+                            @if ($employee->is_active)
+                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                    Active
+                                </span>
+                            @else
+                                <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                                    Inactive
+                                </span>
+                            @endif
                         </td>
                         <td class="px-4 py-3 text-sm">
                             {{ $employee->created_at }}
@@ -107,7 +167,7 @@
                                 <button data-modal-target="editcustomer-modal" data-modal-toggle="editcustomer-modal"
                                     class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                     aria-label="Edit"
-                                    onclick="openModal('{{ $employee->first_name }} {{ $employee->middle_name ? $employee->middle_name . ' ' : '' }}{{ $employee->last_name }}', '{{ $employee->user->email ?? '' }}', '{{ $employee->role }}', '{{ $employee->status }}', '{{ $employee->created_at->format('m/d/Y') }}', '{{ $employee->id }}')">
+                                    onclick="openModal('{{ $employee->first_name }}', '{{ $employee->middle_name ? $employee->middle_name : '' }}', '{{ $employee->last_name }}', '{{ $employee->user->email ?? '' }}', '{{ $employee->role }}', '{{ $employee->is_active }}', '{{ $employee->created_at->format('Y-m-d H:i:s') }}', {{ $employee->id }})">
                                     <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                                         <path
                                             d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
@@ -226,11 +286,9 @@
 
     <!-- Edit Employee modal -->
     <div id="editcustomer-modal" tabindex="-1" aria-hidden="true"
-        class="hidden  fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
+    class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
         <div class="relative w-full max-w-2xl">
-            <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
-                <!-- Modal header -->
                 <div
                     class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600 border-gray-200">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
@@ -247,125 +305,87 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
                 <div class="p-4 md:p-5">
-                    <form class="space-y-4" action="#">
+                    <form class="space-y-4" action="{{ route('update-employee', 1) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" id="edit_employee_id" name="employee_id">
                         <div class="overflow-y-auto max-h-[500px] border border-gray-300 rounded-lg p-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                                 <div>
-                                    <label for="email"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="email" name="email" id="email"
+                                    <label for="edit_first_name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                                    <input type="text" name="first_name" id="edit_first_name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="johnrexpartoza21@gmail.com" disabled />
+                                        placeholder="Enter first name">
                                 </div>
                                 <div>
-                                    <label for="name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="name" name="name" id="name"
+                                    <label for="edit_last_name"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                                    <input type="text" name="last_name" id="edit_last_name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="John Rex Partoza" disabled />
+                                        placeholder="Enter last name">
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
+                            <div>
+                                <label for="edit_middle_name"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Middle Name
+                                    (Optional)</label>
+                                <input type="text" name="middle_name" id="edit_middle_name"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    placeholder="Enter middle name">
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                                 <div>
-                                    <label for="province"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
-                                    <input type="province" name="province" id="province"
+                                    <label for="edit_email"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                                    <input type="email" name="email" id="edit_email"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Davao Del Sur" disabled />
+                                        placeholder="Enter email">
                                 </div>
                                 <div>
-                                    <label for="city"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                                    <input type="city" name="city" id="city"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Davao City" disabled />
-                                </div>
-                                <div>
-                                    <label for="barangay"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barangay</label>
-                                    <input type="barangay" name="barangay" id="barangay"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Mudiang    " disabled />
+                                    <label for="edit_role"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Role</label>
+                                    <select id="edit_role" name="role"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
+                                        <option value="Admin">Admin</option>
+                                        <option value="Mechanic">Mechanic</option>
+                                        <option value="Cashier">Cashier</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="grid grid-cols-1 gap-3 mb-2">
                                 <div>
-                                    <label for="address"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                                    <input type="address" name="address" id="address"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Purok 1, Near Basketball Covered Court" disabled />
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
-                                <div>
-                                    <label for="phonenumber"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
-                                        Number</label>
-                                    <input type="phonenumber" name="phonenumber" id="phonenumber"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="09123456789" disabled />
-                                </div>
-                                <div>
-                                    <label for="accountcreated"
+                                    <label for="edit_accountcreated"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account
                                         Created</label>
-                                    <input type="accountcreated" name="accountcreated" id="accountcreated"
+                                    <input type="text" name="accountcreated" id="edit_accountcreated"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="March 28, 2025" disabled />
+                                        placeholder="Invalid Date" disabled>
                                 </div>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
-                                <div>
-                                    <label for="profileImage"
-                                        class="block text-sm font-medium text-gray-900 dark:text-gray-200 mb-2">
-                                        Profile Photo
-                                    </label>
+                            <div class="rounded-sm gap-2 mb-2">
+                                <label class="text-sm font-medium text-gray-900 dark:text-white">
+                                    Account Status
 
-                                    <div class="flex items-center gap-4">
-                                        <!-- Profile Image Preview -->
-                                        <img class="h-24 w-24 rounded-full object-cover border-2 border-gray-300 dark:border-gray-600"
-                                            src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-                                            alt="Profile Photo">
+                                    <div
+                                        class="flex mt-2 items-center gap-4 border border-gray-300 dark:border-gray-600 p-2 rounded-md w-fit">
+                                        <span id="edit-toggle-label"
+                                            class="text-sm font-medium text-gray-700 dark:text-gray-200">Active</span>
 
-                                        <!-- Upload Button -->
-                                        <div>
-                                            <label for="profileImageUpload"
-                                                class="cursor-pointer inline-flex items-center px-4 py-2 bg-blue-700 text-white text-sm font-medium rounded-md hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                Change Profile
-                                            </label>
-                                            <input type="file" id="profileImageUpload" name="profileImageUpload"
-                                                accept="image/*" class="hidden" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="rounded-sm gap-2 mb-2">
-                                    <label class="text-sm font-medium text-gray-900 dark:text-white">
-                                        Disable Account
-
-                                        <div
-                                            class="flex mt-2 items-center gap-4 border border-gray-300 dark:border-gray-600 p-2 rounded-md w-fit">
-                                            <!-- Dynamic Label -->
-                                            <span id="toggle-label"
-                                                class="text-sm font-medium text-gray-700 dark:text-gray-200">Active</span>
-
-                                            <!-- Toggle Switch -->
-                                            <div class="flex items-center gap-2">
-                                                <input type="checkbox" id="toggle-switch" class="sr-only peer"
-                                                    onchange="toggleLabel()">
-                                                <div
-                                                    class="relative w-12 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-7 rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
-                                                </div>
+                                        <div class="flex items-center gap-2">
+                                            <input type="checkbox" id="edit-toggle-switch" name="is_active" class="sr-only peer" value="1">
+                                            <div
+                                                class="relative w-12 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-7 rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
                                             </div>
                                         </div>
-                                    </label>
-                                </div>
+                                    </div>
+                                </label>
                             </div>
-                            <button type="submit"
-                                class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
-                                Employee</button>
+                        </div>
+                        <button type="submit"
+                            class="w-full mt-2 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update
+                            Employee</button>
                     </form>
                 </div>
             </div>
@@ -373,21 +393,86 @@
     </div>
 
     <script>
-    // JavaScript to toggle the password visibility
-    const eyeIcon = document.getElementById('eye-icon');
-    const passwordField = document.getElementById('password');
-    const eyeSpan = document.querySelector('[toggle="#password"]');
+        const button = document.querySelector('button[data-dropdown-toggle="dropdown-menu"]');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
 
-    eyeSpan.addEventListener('click', function () {
-        if (passwordField.type === "password") {
-            passwordField.type = "text";
-            eyeIcon.classList.remove('fa-eye');
-            eyeIcon.classList.add('fa-eye-slash');
-        } else {
-            passwordField.type = "password";
-            eyeIcon.classList.remove('fa-eye-slash');
-            eyeIcon.classList.add('fa-eye');
+        if (button) {
+            button.addEventListener('click', () => {
+                if (dropdownMenu) {
+                    dropdownMenu.classList.toggle('hidden');
+                }
+                if (dropdownArrow) {
+                    dropdownArrow.classList.toggle('rotate-180');
+                }
+            });
         }
-    });
-</script>
+
+        function openModal(firstName, middleName, lastName, email, role, isActive, createdAt, employeeId) {
+            document.getElementById('edit_employee_id').value = employeeId;
+            document.getElementById('edit_first_name').value = firstName;
+            document.getElementById('edit_middle_name').value = middleName || '';
+            document.getElementById('edit_last_name').value = lastName;
+            document.getElementById('edit_email').value = email;
+
+            const roleSelect = document.getElementById('edit_role');
+            if (roleSelect) {
+                roleSelect.value = role;
+            }
+
+            const toggleSwitch = document.getElementById('edit-toggle-switch');
+            const toggleLabelElement = document.getElementById('edit-toggle-label');
+            if (toggleSwitch && toggleLabelElement) {
+                toggleSwitch.checked = (isActive == 1);
+                toggleLabelElement.textContent = (isActive == 1) ? 'Active' : 'Inactive';
+            }
+
+            const accountCreatedInput = document.getElementById('edit_accountcreated');
+            if (accountCreatedInput) {
+                const date = new Date(createdAt);
+                const formattedDate = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                accountCreatedInput.value = formattedDate;
+            }
+
+            const modal = document.getElementById('editcustomer-modal');
+            if (modal && !modal.classList.contains('show')) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+
+            // Dynamically set the form action with the employee ID
+            const editForm = modal.querySelector('form');
+            if (editForm) {
+                editForm.action = `/employees/${employeeId}`;
+
+                // Add an event listener to the form's submit event
+                editForm.addEventListener('submit', function(event) {
+                    const isChecked = document.getElementById('edit-toggle-switch').checked;
+
+                    // Check if the original is_active input exists and remove it
+                    const originalIsActive = editForm.querySelector('input[name="is_active"]');
+                    if (originalIsActive) {
+                        originalIsActive.remove();
+                    }
+
+                    // Create a new hidden input with the desired 'is_active' name
+                    const newIsActive = document.createElement('input');
+                    newIsActive.type = 'hidden';
+                    newIsActive.name = 'is_active';
+                    newIsActive.value = isChecked ? 1 : 0;
+                    editForm.appendChild(newIsActive);
+
+                    // The form will now submit with the 'is_active' hidden input
+                });
+            }
+        }
+
+        function toggleLabel() {
+            const toggleSwitch = document.getElementById('toggle-switch');
+            const toggleLabel = document.getElementById('toggle-label');
+            if (toggleSwitch && toggleLabel) {
+                toggleLabel.textContent = toggleSwitch.checked ? 'Active' : 'Inactive';
+            }
+        }
+    </script>
 @endsection

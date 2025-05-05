@@ -7,6 +7,21 @@
 
     <title>Laravel</title>
 
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+        darkMode: 'class', // or 'media'
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1D4ED8',
+            },
+          },
+        },
+      }
+    </script>
+    <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -122,7 +137,7 @@
 
                 <div class="flex flex-row gap-4 py-12 bg-white text-black max-w-6xl mx-auto">
                     <div class="flex flex-row">
-                        <img src="{{ asset('assets/body2/car/mercedes.png') }}" alt="Mercedes" class="h-auto">
+                        <img src="{{ asset('assets/body2/car/mercedes.png') }}" alt="Mercedes" class="h-auto object-contain">
 
                     </div>
 
