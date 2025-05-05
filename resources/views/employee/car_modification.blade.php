@@ -4,18 +4,18 @@
     <?php
     $cars = [
         `   ['model' => 'Car Model A', 'type' => 'Sedan', 'brand' => 'Brand X'],
-                                    ['model' => 'Car Model B', 'type' => 'SUV', 'brand' => 'Brand Y'],
-                                    ['model' => 'Car Model C', 'type' => 'Truck', 'brand' => 'Brand Z'],
-                                    ['model' => 'Car Model D', 'type' => 'Coupe', 'brand' => 'Brand A'],
-                                    ['model' => 'Car Model E', 'type' => 'Convertible', 'brand' => 'Brand B'],
-                                    ['model' => 'Car Model F', 'type' => 'Sedan', 'brand' => 'Brand X'],
-                                    ['model' => 'Car Model G', 'type' => 'SUV', 'brand' => 'Brand Y'],
-                                    ['model' => 'Car Model H', 'type' => 'Truck', 'brand' => 'Brand Z'],
-                                    ['model' => 'Car Model I', 'type' => 'Coupe', 'brand' => 'Brand A'],
-                                    ['model' => 'Car Model J', 'type' => 'Convertible', 'brand' => 'Brand B']`
+                                                        ['model' => 'Car Model B', 'type' => 'SUV', 'brand' => 'Brand Y'],
+                                                        ['model' => 'Car Model C', 'type' => 'Truck', 'brand' => 'Brand Z'],
+                                                        ['model' => 'Car Model D', 'type' => 'Coupe', 'brand' => 'Brand A'],
+                                                        ['model' => 'Car Model E', 'type' => 'Convertible', 'brand' => 'Brand B'],
+                                                        ['model' => 'Car Model F', 'type' => 'Sedan', 'brand' => 'Brand X'],
+                                                        ['model' => 'Car Model G', 'type' => 'SUV', 'brand' => 'Brand Y'],
+                                                        ['model' => 'Car Model H', 'type' => 'Truck', 'brand' => 'Brand Z'],
+                                                        ['model' => 'Car Model I', 'type' => 'Coupe', 'brand' => 'Brand A'],
+                                                        ['model' => 'Car Model J', 'type' => 'Convertible', 'brand' => 'Brand B']`,
     ];
-
-                                ?>
+    
+    ?>
     <h2 class="mt-4 text-2xl font-semibold text-gray-700">
         Car Management
     </h2>
@@ -188,8 +188,9 @@
                             <button id="toggle-add"
                                 class="w-full flex justify-between items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 Add Categories
-                                <svg id="toggle-add-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                    stroke="currentColor" class="w-5 h-5 transition-transform duration-300">
+                                <svg id="toggle-add-icon" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor"
+                                    class="w-5 h-5 transition-transform duration-300">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -207,6 +208,22 @@
                                         <button type="submit"
                                             class="w-full bg-blue-600 text-sm font-medium text-white py-2 rounded-xl font-small hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
                                             <i class="bi bi-plus-circle"></i>&nbsp;Add Car Type
+                                        </button>
+                                    </form>
+                                </div>
+
+                                <!-- Divider -->
+                                <div class="border-t border-dashed border-gray-300"></div>
+
+                                <!-- Add Car Type Section -->
+                                <div class="mb-2">
+                                    <h2 class="text-sm font-medium text-gray-800 mb-2">Add Car Model</h2>
+                                    <form class="space-y-4">
+                                        <input type="text" placeholder="e.g. Toyota Corolla 2022"
+                                            class="w-full px-4 py-2 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200">
+                                        <button type="submit"
+                                            class="w-full bg-blue-600 text-sm font-medium text-white py-2 rounded-xl font-small hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-200">
+                                            <i class="bi bi-plus-circle"></i>&nbsp;Add Car Model
                                         </button>
                                     </form>
                                 </div>
@@ -265,13 +282,18 @@
                                         </select>
                                     </div>
 
-                                    <!-- Car Model Name -->
                                     <div>
                                         <label for="car-model" class="block text-sm font-medium text-gray-700 mb-2">Car
-                                            Model
-                                            Name</label>
-                                        <input type="text" id="car-model" name="car-model" placeholder="Enter Model Name"
+                                            Model</label>
+                                        <select id="car-model" name="car-model"
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
+                                            <option value="" disabled selected>Select Car Model</option>
+                                            <option value="Toyota Corolla">Toyota Corolla</option>
+                                            <option value="Honda Civic">Honda Civic</option>
+                                            <option value="Ford Mustang">Ford Mustang</option>
+                                            <option value="Tesla Model 3">Tesla Model 3</option>
+                                            <option value="Hyundai Accent">Hyundai Accent</option>
+                                        </select>
                                     </div>
 
                                     <!-- Car Brand Dropdown -->
@@ -291,7 +313,8 @@
 
                                     <!-- Car Seat Capacity -->
                                     <div>
-                                        <label for="seat-capacity" class="block text-sm font-medium text-gray-700 mb-2">Seat
+                                        <label for="seat-capacity"
+                                            class="block text-sm font-medium text-gray-700 mb-2">Seat
                                             Capacity</label>
                                         <input type="number" id="seat-capacity" name="seat-capacity"
                                             placeholder="Enter Seat Capacity"
@@ -326,10 +349,20 @@
                                     </div>
 
                                     <div>
+                                        <label for="odometer" class="block text-sm font-medium text-gray-700 mb-2">
+                                            Odometer (ODDO) Reading
+                                        </label>
+                                        <input type="number" id="odometer" name="odometer" placeholder="e.g. 25,000"
+                                            class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                                            step="1" min="0">
+                                    </div>
+
+                                    <div>
                                         <label for="cost-per-hour" class="block text-sm font-medium text-gray-700 mb-2">
                                             Rental Rate per Day
                                         </label>
-                                        <input type="number" id="cost-per-hour" name="cost-per-hour" placeholder="₱0.00"
+                                        <input type="number" id="cost-per-hour" name="cost-per-hour"
+                                            placeholder="₱0.00"
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
                                             step="0.01" min="0">
                                     </div>
@@ -367,19 +400,18 @@
                 </div>
             </div>
             <script>
-                document.getElementById("toggle-filter").addEventListener("click", function () {
+                document.getElementById("toggle-filter").addEventListener("click", function() {
                     const dropdown = document.getElementById("filter-dropdown");
                     const icon = document.getElementById("toggle-icon");
                     dropdown.classList.toggle("hidden");
                     icon.classList.toggle("rotate-180");
                 });
 
-                document.getElementById("toggle-add").addEventListener("click", function () {
+                document.getElementById("toggle-add").addEventListener("click", function() {
                     const dropdown = document.getElementById("add-dropdown");
                     const icon = document.getElementById("toggle-add-icon");
                     dropdown.classList.toggle("hidden");
                     icon.classList.toggle("rotate-180");
                 });
             </script>
-
-@endsection
+        @endsection

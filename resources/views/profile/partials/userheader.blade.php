@@ -13,14 +13,14 @@
             <nav class="flex space-x-8 items-center uppercase font-semibold tracking-wide">
                 @auth
                     <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Home</a>
-                    <a href="{{ route('cars') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Cars</a>
+                    <a href="{{ route('cars') }}" class="hover:text-gray-700 dark:hover:text-gray-300" style="margin-left: 0 !important;">Cars</a>
                     <a href="{{ route('booking') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Booking</a>
                     <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Contacts</a>
 
                     <!-- Profile Dropdown -->
                     <div class="relative" x-data="{ open: false }" style="margin-top: 2.6px;">
                         <button @click="open = !open" class="focus:outline-none">
-                            <img src="{{ asset('assets/shelby.jpg') }}" alt="Profile" class="h-10 w-10 rounded-full object-cover">
+                            <img src="{{ asset(Auth::user()->picture_path) }}" alt="Profile" class="h-10 w-10 rounded-full object-cover">
                         </button>
 
                         <div x-show="open" @click.away="open = false" x-transition
@@ -54,7 +54,7 @@
                 @else
                 <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Home</a>
                 <a href="{{ route('cars') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Cars</a>
-                <a href="{{ route('booking') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Booking</a>
+                <a href="{{ route('login') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Booking</a>
                 <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Contacts</a>
                 <a href="{{ route('login') }}" class="hover:text-gray-700 dark:hover:text-gray-300">
                     <i class="fa-solid fa-user text-lg"></i>
