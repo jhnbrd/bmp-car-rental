@@ -100,9 +100,7 @@
 
                         <!-- Agreement Section -->
                         <div class="mt-8 flex flex-col items-start sm:items-center gap-4">
-                            <p>Car Model ID: {{ $carModel->id ?? 'No Car Model ID' }}</p>
-                            <p>Form Action: {{ route('process_terms_condition', ['car_model' => $carModel->id ?? '']) }}</p>
-                            <form method="POST" action="{{ route('process_terms_condition', ['car_model' => $carModel->id]) }}">
+                            <form class="justify-items-center" method="POST" action="{{ route('process_terms_condition', ['car_model' => $carModel->id]) }}">
                                 @csrf
                                 <label class="flex items-start sm:items-center gap-2 text-sm sm:text-base">
                                     <input type="checkbox" id="agreeTerms" name="terms_accepted"
@@ -113,7 +111,7 @@
                                 <input type="hidden" name="return_date" value="{{ $returnDate }}">
                                 <input type="hidden" name="available_car_id" value="{{ $availableCar->id }}">
                                 <button type="submit" id="acceptBtn"
-                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl disabled:opacity-50"
+                                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 mt-5 rounded-xl disabled:opacity-50"
                                     disabled
                                     onclick="console.log('Button clicked inline!');">
                                     I Accept
