@@ -200,12 +200,13 @@
                             <a href="#" class="text-[#0f294c]"><i class="fab fa-github text-2xl"></i></a>
                         </div>
                         <p class="mt-5 text-sm">© 2025, BMP Car Rental. All Rights Reserved</p>
+                        <p>Explore Our Premium Car Brands for Rent
+                            Choose from a Wide Range of Trusted and Automakers.</p>
                     </div>
                 </footer>
 
             </div>
-            <p>Explore Our Premium Car Brands for Rent
-                Choose from a Wide Range of Trusted and Automakers.</p>
+
         </main>
     </div>
     <!-- Modal -->
