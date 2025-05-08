@@ -108,11 +108,6 @@
                                   Booking History
                               </a>
                           </li>
-                          <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/bookings/unsettled') }}">
-                                Unsettled Bookings 
-                              </a>
-                          </li>
                       </ul>
                   </template>
               </li>
@@ -304,11 +299,6 @@
                                   Booking History
                               </a>
                           </li>
-                          <li class="px-2 py-1 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200">
-                              <a class="w-full" href="{{ url('/admin-maintenance_schedule') }}">
-                                Unsettled Bookings 
-                              </a>
-                          </li>
                       </ul>
                   </template>
               </li>
@@ -425,11 +415,11 @@
       <div class="flex flex-col flex-1 w-full">
         <header class="z-10 py-4 bg-white h-30 shadow-md dark:bg-gray-800">
           <div
-            class="container flex items-center justify-between h-full px-6 mx-auto text-purple-600 dark:text-purple-300"
+            class="container flex items-center justify-between h-full px-6 mx-auto text-blue-600 dark:text-blue-300"
           >
             <!-- Mobile hamburger -->
             <button
-              class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-purple"
+              class="p-1 mr-5 -ml-1 rounded-md md:hidden focus:outline-none focus:shadow-outline-blue"
               @click="toggleSideMenu"
               aria-label="Menu"
             >
@@ -520,7 +510,7 @@
                     <li class="flex">
                       <a
                         class="inline-flex items-center w-full px-2 py-1 text-sm font-semibold transition-colors duration-150 rounded-md hover:bg-gray-100 hover:text-gray-800 dark:hover:bg-gray-800 dark:hover:text-gray-200"
-                        href="#"
+                        href="{{ route('profile') }}"
                       >
                         <svg
                           class="w-4 h-4 mr-3"

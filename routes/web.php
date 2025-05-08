@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GuestController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
 
 // Landing Routes (Handles redirection based on login role)
 Route::get('/', function () {
@@ -52,6 +53,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('update-employee');
     });
     
+});
+
+// Profile Routes
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
+    Route::put('/profile/picture', [ProfileController::class, 'updatePicture'])->name('update-profile-picture');
 });
 
 require __DIR__.'/auth.php';
