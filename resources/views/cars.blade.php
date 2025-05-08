@@ -227,7 +227,7 @@
                     alert('Please select a return date.');
                     return;
                 }
-                window.location.href = `/terms-condition/{{ $carModel->id }}?pickup_date=${this.pickupDate}&return_date=${this.returnDate}`;
+                window.location.href = `/booking/{{ $carModel->id }}?pickup_date=${this.pickupDate}&return_date=${this.returnDate}`;
             }
         }"
         tabindex="-1" aria-hidden="true"

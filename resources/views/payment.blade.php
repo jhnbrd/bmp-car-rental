@@ -119,7 +119,7 @@
                                 <input type="checkbox" id="agreeTerms" class="accent-blue-500 w-5 h-5 mt-1 sm:mt-0" />
                                 <span>I have read and agree to the Rental Agreement Policy.</span>
                             </label>
-                            <a href="{{ route("payment") }}" id="acceptBtn"
+                            <a href="{{ route("process_add_booking", 1) }}" id="acceptBtn"
                                 class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-xl disabled:opacity-50">
                                 I Accept
                             </a>
@@ -333,7 +333,7 @@
                                         <div class="mt-4 flex items-center">
                                             <input type="checkbox" id="agreement" class="mr-2">
                                             <label for="agreement" class="text-sm text-gray-600">
-                                                I agree to the <a href="{{route('terms_condition')}}"
+                                                I agree to the <a 
                                                     class="text-[#0f294c] font-semibold">Terms and Conditions</a> of the
                                                 Bmp
                                                 Car Rental.
