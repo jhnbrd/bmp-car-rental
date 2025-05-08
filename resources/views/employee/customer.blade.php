@@ -29,29 +29,7 @@
         </form>
     </div>
 
-    <div class="flex justify-between items-center mb-5">
-        <!-- Breadcrumb -->
-        <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1">
-                <li class="inline-flex items-center">
-                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-blue-600 font-medium text-base">
-                        All Cars
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 text-gray-400 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L11.586 9 7.293 4.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="ml-1 text-gray-700 font-bold text-lg">
-                            Filtered Cars
-                        </span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
+    <div class="flex justify-end items-center mb-5">
 
         <!-- Filter Button -->
         <div class="relative inline-block text-left">
@@ -156,7 +134,7 @@
                             <td class="px-4 py-3">
                                 <div class="flex items-center space-x-4 text-sm">
                                     <button data-modal-target="editcustomer-modal" data-modal-toggle="editcustomer-modal"
-                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
                                         aria-label="Edit"
                                         onclick="openModal('{{ $customer->first_name }}', '{{ $customer->middle_name }}', '{{ $customer->last_name }}', '{{ $customer->barangay }}', '{{ $customer->city }}', '{{ $customer->province }}', '{{ $customer->address }}', '{{ $customer->phone_number }}', '{{ $customer->driver_license_number }}', '{{ $customer->license_expiration_date }}', '{{ $customer->is_banned }}', '{{ $customer->created_at }}')">
                                         <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">

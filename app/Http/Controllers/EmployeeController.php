@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Employee;
 use Illuminate\Support\Facades\Hash;
@@ -81,7 +82,18 @@ class EmployeeController extends Controller
     public function dashboard(): View
     {
         $totalCustomers = User::where('role', 'Customer')->count();
-        return view('employee.dashboard', ['totalCustomers' => $totalCustomers]);
+        $availableCarsCount = Car::where('status', 'Available')->count();
+        $carsCurrentlyRented = Car::where('status', 'Booked')->count();
+        $carsUnderMaintenance = Car::where('status', 'Under Maintenance')->count();
+        $carsDamaged = Car::where('status', 'Damaged')->count();
+
+        return view('employee.dashboard', [
+            'totalCustomers' => $totalCustomers,
+            'availableCarsCount' => $availableCarsCount,
+            'carsCurrentlyRented' => $carsCurrentlyRented,
+            'carsUnderMaintenance' => $carsUnderMaintenance,
+            'carsDamaged' => $carsDamaged,
+        ]);
     }
 
     public function rental_agreement(): View

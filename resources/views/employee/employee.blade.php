@@ -46,29 +46,7 @@
         </form>
     </div>
 
-    <div class="flex justify-between items-center mb-5">
-        <!-- Breadcrumb -->
-        <nav class="text-sm text-gray-500" aria-label="Breadcrumb">
-            <ol class="inline-flex items-center space-x-1">
-                <li class="inline-flex items-center">
-                    <a href="#" class="inline-flex items-center text-gray-700 hover:text-blue-600 font-medium text-base">
-                        All Cars
-                    </a>
-                </li>
-                <li>
-                    <div class="flex items-center">
-                        <svg class="w-4 h-4 text-gray-400 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M7.293 14.707a1 1 0 010-1.414L11.586 9 7.293 4.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <span class="ml-1 text-gray-700 font-bold text-lg">
-                            Filtered Active
-                        </span>
-                    </div>
-                </li>
-            </ol>
-        </nav>
+    <div class="flex justify-end items-center mb-5">
 
         <!-- Filter Button -->
         <div class="relative inline-block text-left">
@@ -118,71 +96,72 @@
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
                     @forelse ($employees as $employee)
-                    <tr class="text-gray-700 dark:text-gray-400">
-                        <td class="px-4 py-3">
-                            <div class="flex items-center text-sm">
-                                <!-- Avatar with inset shadow -->
-                                <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                    <img class="object-cover w-full h-full rounded-full"
-                                        src="{{ asset($employee->user->picture_path) }}"
-                                        alt="" loading="lazy" />
-                                    <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                        <tr class="text-gray-700 dark:text-gray-400">
+                            <td class="px-4 py-3">
+                                <div class="flex items-center text-sm">
+                                    <!-- Avatar with inset shadow -->
+                                    <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
+                                        <img class="object-cover w-full h-full rounded-full"
+                                            src="{{ asset($employee->user->picture_path) }}" alt="" loading="lazy" />
+                                        <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold">
+                                            {{ $employee->first_name }}
+                                            @if ($employee->middle_name)
+                                                {{ $employee->middle_name }}
+                                            @endif
+                                            {{ $employee->last_name }}
+                                        </p>
+                                        <p class="text-xs text-gray-600 dark:text-gray-400">
+                                            {{ $employee->employee_id }}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p class="font-semibold">
-                                        {{ $employee->first_name }}
-                                        @if ($employee->middle_name)
-                                            {{ $employee->middle_name }}
-                                        @endif
-                                        {{ $employee->last_name }}
-                                    </p>
-                                    <p class="text-xs text-gray-600 dark:text-gray-400">
-                                        {{ $employee->employee_id }}
-                                    </p>
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{ $employee->user->email ?? 'N/A' }}
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{ $employee->role }}
+                            </td>
+                            <td class="px-4 py-3 text-xs">
+                                @if ($employee->is_active)
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
+                                        Active
+                                    </span>
+                                @else
+                                    <span
+                                        class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
+                                        Inactive
+                                    </span>
+                                @endif
+                            </td>
+                            <td class="px-4 py-3 text-sm">
+                                {{ $employee->created_at }}
+                            </td>
+                            <td class="px-4 py-3">
+                                <div class="flex items-center space-x-4 text-sm">
+                                    <button data-modal-target="editcustomer-modal" data-modal-toggle="editcustomer-modal"
+                                        class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-blue-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
+                                        aria-label="Edit"
+                                        onclick="openModal('{{ $employee->first_name }}', '{{ $employee->middle_name ? $employee->middle_name : '' }}', '{{ $employee->last_name }}', '{{ $employee->user->email ?? '' }}', '{{ $employee->role }}', '{{ $employee->is_active }}', '{{ $employee->created_at->format('Y-m-d H:i:s') }}', {{ $employee->id }})">
+                                        <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
+                                            <path
+                                                d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
+                                            </path>
+                                        </svg>
+                                    </button>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{ $employee->user->email ?? 'N/A' }}
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{ $employee->role }}
-                        </td>
-                        <td class="px-4 py-3 text-xs">
-                            @if ($employee->is_active)
-                                <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full dark:bg-green-700 dark:text-green-100">
-                                    Active
-                                </span>
-                            @else
-                                <span class="px-2 py-1 font-semibold leading-tight text-red-700 bg-red-100 rounded-full dark:bg-red-700 dark:text-red-100">
-                                    Inactive
-                                </span>
-                            @endif
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            {{ $employee->created_at }}
-                        </td>
-                        <td class="px-4 py-3">
-                            <div class="flex items-center space-x-4 text-sm">
-                                <button data-modal-target="editcustomer-modal" data-modal-toggle="editcustomer-modal"
-                                    class="flex items-center justify-between px-2 py-2 text-sm font-medium leading-5 text-purple-600 rounded-lg dark:text-gray-400 focus:outline-none focus:shadow-outline-gray"
-                                    aria-label="Edit"
-                                    onclick="openModal('{{ $employee->first_name }}', '{{ $employee->middle_name ? $employee->middle_name : '' }}', '{{ $employee->last_name }}', '{{ $employee->user->email ?? '' }}', '{{ $employee->role }}', '{{ $employee->is_active }}', '{{ $employee->created_at->format('Y-m-d H:i:s') }}', {{ $employee->id }})">
-                                    <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
-                                        <path
-                                            d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z">
-                                        </path>
-                                    </svg>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
                     @empty
-                    <tr>
-                        <td class="px-4 py-3 text-center" colspan="6">
-                            No employees found.
-                        </td>
-                    </tr>
+                        <tr>
+                            <td class="px-4 py-3 text-center" colspan="6">
+                                No employees found.
+                            </td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
@@ -275,7 +254,8 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        <button type="submit"
+                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             Add Employee
                         </button>
                     </form>
@@ -286,7 +266,7 @@
 
     <!-- Edit Employee modal -->
     <div id="editcustomer-modal" tabindex="-1" aria-hidden="true"
-    class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
+        class="hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 max-h-full">
         <div class="relative w-full max-w-2xl">
             <div class="relative bg-white rounded-lg shadow-sm dark:bg-gray-700">
                 <div
@@ -305,7 +285,7 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <div class="p-4 md:p-5">
+                <div class="px-4 pb-2">
                     <form class="space-y-4" action="{{ route('update-employee', 1) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -314,14 +294,16 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
                                 <div>
                                     <label for="edit_first_name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First
+                                        Name</label>
                                     <input type="text" name="first_name" id="edit_first_name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         placeholder="Enter first name">
                                 </div>
                                 <div>
                                     <label for="edit_last_name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last
+                                        Name</label>
                                     <input type="text" name="last_name" id="edit_last_name"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         placeholder="Enter last name">
@@ -374,9 +356,10 @@
                                             class="text-sm font-medium text-gray-700 dark:text-gray-200">Active</span>
 
                                         <div class="flex items-center gap-2">
-                                            <input type="checkbox" id="edit-toggle-switch" name="is_active" class="sr-only peer" value="1">
+                                            <input type="checkbox" id="edit-toggle-switch" name="is_active"
+                                                class="sr-only peer" value="1">
                                             <div
-                                                class="relative w-12 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-7 rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
+                                                class="relative w-12 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 dark:peer-focus:ring-green-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-7 rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-green-600 dark:peer-checked:bg-green-600">
                                             </div>
                                         </div>
                                     </div>
@@ -446,7 +429,7 @@
                 editForm.action = `/employees/${employeeId}`;
 
                 // Add an event listener to the form's submit event
-                editForm.addEventListener('submit', function(event) {
+                editForm.addEventListener('submit', function (event) {
                     const isChecked = document.getElementById('edit-toggle-switch').checked;
 
                     // Check if the original is_active input exists and remove it

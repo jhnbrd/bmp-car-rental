@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules\Password;
 
 class ProfileController extends Controller
 {
@@ -56,5 +59,45 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function show()
+    {
+        return view('employee.profile');
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => ['required', 'current_password'],
+            'new_password' => ['required', 'confirmed', Password::defaults()],
+        ]);
+
+        $user = auth()->user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('success', 'Password updated successfully.');
+    }
+
+    public function updatePicture(Request $request)
+    {
+        $request->validate([
+            'profile_picture' => ['required', 'image', 'max:2048'], // Max 2MB
+        ]);
+
+        $user = auth()->user();
+        
+        // Delete old picture if exists
+        if ($user->picture_path && Storage::exists($user->picture_path)) {
+            Storage::delete($user->picture_path);
+        }
+
+        // Store new picture
+        $path = $request->file('profile_picture')->store('profile-pictures', 'public');
+        $user->picture_path = $path;
+        $user->save();
+
+        return back()->with('success', 'Profile picture updated successfully.');
     }
 }
