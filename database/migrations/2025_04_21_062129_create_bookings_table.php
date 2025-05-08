@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\QueryException;
 
 return new class extends Migration
 {
@@ -12,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('booking_statuses', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('booking_id')->constrained('bookings')->onDelete('cascade');
-            $table->enum('status', ['Unpaid', 'Paid', 'Cancelled', 'Approved', 'For Pick-Up', 'Ongoing', 'Due for Return', 'Successful', 'Reported', 'Unsettled', 'Blacklisted'])->default('Customer');
-            $table->dateTime('status_date')->useCurrent();
-            $table->text('additional_notes')->nullable();
-            $table->foreignId('updated_by_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
+            $table->foreignId('car_id')->constrained('cars')->onDelete('cascade');
+            $table->dateTime('pickup_date');
+            $table->dateTime('return_date');
+            $table->decimal('amount_due', 8, 2);
+            $table->foreignId('latest_status_id')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('booking_statuses');
+        Schema::dropIfExists('bookings');
     }
 };
