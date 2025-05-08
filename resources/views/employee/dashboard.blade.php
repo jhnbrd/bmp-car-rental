@@ -47,7 +47,7 @@
                 </div>
                 <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Available</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">105</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $availableCarsCount }}</p>
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
                 </div>
                 <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Currently Rented</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">30</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $carsCurrentlyRented }}</p>
                 </div>
             </div>
 
@@ -76,7 +76,7 @@
                 </div>
                 <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Under Maintenance</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">5</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $carsUnderMaintenance }}</p>
                 </div>
             </div>
 
@@ -91,7 +91,7 @@
                 </div>
                 <div>
                     <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Car Damage</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">1</p>
+                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $carsDamaged }}</p>
                 </div>
             </div>
 

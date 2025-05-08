@@ -69,36 +69,11 @@
                     </div>
                 @endif
 
-                <!-- Search Bar and Filter Controls -->
-                <div class="flex flex-col gap-6 md:flex-row md:gap-40 justify-center items-center mb-8 px-4 text-white">
-                    <form class="max-w-lg mx-auto" x-data="{ open: false, selected: 'All status' }">
-                        <div class="flex">
-
-                            <!-- Search Input -->
-                            <div class="relative w-400">
-                                <input type="search" id="search-dropdown"
-                                    class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-e-lg border-s-gray-50 border-s-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-s-gray-700  dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:border-blue-500"
-                                    placeholder="Search Car Model, Type, Available..." required />
-                                <button type="submit"
-                                    class="absolute top-0 end-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-e-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 20 20">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                                    </svg>
-                                    <span class="sr-only">Search</span>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-
                 <!-- Booking Status Card -->
                 @forelse ($bookings as $booking)
                 <div
                     class="max-w-2xl mb-5 mx-auto bg-[#f9f9f9] border border-gray-200 rounded-lg shadow flex flex-col md:flex-row overflow-hidden">
-                    <img class="w-full h-48 object-contain md:w-1/3 md:h-auto rounded-lg"
+                    <img class="w-full h-48 object-contain md:w-1/3 md:h-auto rounded-lg mx-5"
                         src="{{ asset($booking->car->carModel->img_file_path) }}" alt="Sample pic" />
 
                     <div class="flex flex-col justify-between p-6 md:w-2/3 text-left">
@@ -109,17 +84,17 @@
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-700 text-sm">
                                 <p><span class="font-semibold">Car Type:</span> {{ $booking->car->carModel->car_type }}</p>
                                 <p><span class="font-semibold">Transmission:</span> {{ $booking->car->carModel->transmission }}</p>
-                                <p><span class="font-semibold">Created Date:</span> {{ $booking->created_at }}</p>
-                                <p><span class="font-semibold">Price:</span> ₱{{ $booking->amount_due }}</p>
-                                <p><span class="font-semibold">Pickup Date:</span> {{ $booking->pickup_date }}</p>
-                                <p><span class="font-semibold">Return Date:</span> {{ $booking->return_date }}</p>
+                                <p><span class="font-semibold">Created Date:</span><br> {{ \Carbon\Carbon::parse($booking->created_at)->format('Y-m-d') }}</p>
+                                <p><span class="font-semibold">Amount Due:</span><br> ₱{{ $booking->amount_due }}</p>
+                                <p><span class="font-semibold">Pickup Date:</span><br> {{ \Carbon\Carbon::parse($booking->pickup_date)->format('Y-m-d') }}</p>
+                                <p><span class="font-semibold">Return Date:</span><br> {{ \Carbon\Carbon::parse($booking->return_date)->format('Y-m-d') }}</p>
                             </div>
                         </div>
 
                         <div class="mt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                             <span
                                 class="inline-block px-4 py-2 text-sm font-semibold text-white bg-yellow-500 rounded-full w-fit">
-                                Pending
+                                {{ $booking->latestStatus->status }}
                             </span>
 
                             <div data-modal-target="cancel-modal" data-modal-toggle="cancel-modal"
