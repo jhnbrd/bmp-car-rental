@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
-use App\Http\Controllers\GuestController;
+use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
@@ -29,9 +29,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Customer Specific Routes
     Route::middleware('checkRole:Customer')->group(function () {
-        Route::get('/terms-condition/{car_model}', [CustomerController::class, 'termsCondition'])->name('terms_condition');
-        Route::post('/terms-condition/process/{car_model}', [CustomerController::class, 'processTermsConditions'])->name('process_terms_condition');
-        Route::get('/payment/{booking}', [CustomerController::class, 'payment'])->name('payment');
+        Route::get('/booking/{car_model}', [BookingController::class, 'addBookingDetails'])->name('add_booking_details');
+        Route::post('/booking/process/{booking}', [BookingController::class, 'processAddBooking'])->name('process_add_booking');
     });
 
     // Employee Specific Routes
