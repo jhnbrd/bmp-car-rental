@@ -11,8 +11,4 @@ class GuestController extends Controller
         return view('cars');
     }
 
-    public function booking(): View
-    {
-        return view('booking');
-    }
 }

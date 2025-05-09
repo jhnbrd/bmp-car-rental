@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\BookingController;
@@ -21,8 +22,11 @@ Route::get('/', function () {
 })->name('home');
 
 // Guest Routes (Handles redirection based on login role)
-Route::get('/cars', [CustomerController::class, 'cars'])->name('cars');
+Route::get('/cars', [CarController::class, 'showCars'])->name('cars');
 Route::get('/contacts', [CustomerController::class, 'contacts'])->name('contacts');
+Route::get('/payment', function() {
+    return view('payment');
+})->name('contacts');
 
 // Authenticated User Routes
 Route::middleware(['auth', 'verified'])->group(function () {

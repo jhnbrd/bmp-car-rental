@@ -20,6 +20,7 @@ class BookingController extends Controller
     public function showUserBookings(): RedirectResponse|View
     {
         $user = Auth::user();
+
         $bookings = Booking::where('customer_id', $user->customer->id)
                                 ->with('car.carModel')
                                 ->orderBy('created_at', 'desc')
@@ -27,6 +28,13 @@ class BookingController extends Controller
         return view('booking', compact('bookings'));
     }
 
+    /**
+     * Retrieve car details for booking and display rental agreement policy
+     * and payment processing view
+     * @param int $car_model
+     * @param \Illuminate\Http\Request $request
+     * @return mixed|RedirectResponse
+     */
     public function addBookingDetails(int $car_model, Request $request): RedirectResponse|View
     {
         dd($request->all());
@@ -48,7 +56,7 @@ class BookingController extends Controller
 
         $carModel = CarModel::findOrFail($car_model);
 
-        return redirect()->route('process_add_booking', compact($carModel,$availableCar, $pickupDate, $returnDate));
+        return view('payment');
     }
 
     public function processAddBooking(Request $request): RedirectResponse

@@ -19,12 +19,6 @@ class CustomerController extends Controller
         return view('customer.home');
     }
 
-    public function cars(): View
-    {
-        $cars = CarModel::paginate(8);
-        return view('cars', ['carModels' => $cars]);
-    }
-
     public function contacts(): View
     {
         return view('guest.contacts');
