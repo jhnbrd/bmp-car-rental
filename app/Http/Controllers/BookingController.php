@@ -37,8 +37,6 @@ class BookingController extends Controller
      */
     public function addBookingDetails(int $car_model, Request $request): RedirectResponse|View
     {
-        dd($request->all());
-
         $pickupDate = $request->query('pickup_date');
         $returnDate = $request->query('return_date');
 
@@ -54,9 +52,32 @@ class BookingController extends Controller
             return redirect()->route('cars')->with('error', 'No available units for the selected car model.');
         }
 
+        $plateNumber = $availableCar->license_plate;
+
         $carModel = CarModel::findOrFail($car_model);
 
-        return view('payment');
+        $pickup = new \DateTime($pickupDate);
+        $return = new \DateTime($returnDate);
+        $numberOfDays = $pickup->diff($return)->days;
+
+        $baseRate = 0;
+        switch ($carModel->car_type) {
+            case 'Sedan':
+                $baseRate = 500;
+                break;
+            case 'SUV':
+                $baseRate = 1000;
+                break;
+            case 'Pick-up':
+                $baseRate = 1500;
+                break;
+        }
+
+        $totalAmount = $baseRate * $numberOfDays;
+        $vat = $totalAmount * 0.12;
+        $rentalFee = $totalAmount - $vat;
+
+        return view('payment', compact('pickupDate', 'returnDate', 'carModel', 'totalAmount', 'vat', 'rentalFee', 'plateNumber'));
     }
 
     public function processAddBooking(Request $request): RedirectResponse

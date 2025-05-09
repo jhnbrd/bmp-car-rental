@@ -13,6 +13,7 @@ class Car extends Model
     protected $fillable = [
         'car_model_id',
         'odometer',
+        'license_plate',
         'registration_number',
         'registration_date',
         'status'

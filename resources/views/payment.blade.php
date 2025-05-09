@@ -126,16 +126,20 @@
                                         <img src="{{ asset('assets/car_details.svg') }}" alt="Car Details"
                                             class="w-11 h-11 object-contain mx-auto mb-4">
                                         <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Car Details</h2>
-                                        <img src="{{ asset('assets/car_model_images/suzuki_jimny_rhino_2023.png') }}" alt="Car Image"
+                                        <img src="{{ asset($carModel->img_file_path) }}" alt="Car Image"
                                             class="w-60 h-30 object-contain rounded-md mx-auto justify-center">
-                                        <p class="text-black"><span class="font-medium">Brand: </span> Toyota
+                                        <p class="text-black"><span class="font-medium">Brand: </span> 
+                                            {{ $carModel->brand }}
                                         </p>
-                                        <p class="text-black"><span class="font-medium">Model: </span> Vios 1.3 XLE
+                                        <p class="text-black"><span class="font-medium">Model: </span> 
+                                            {{ $carModel->model_name }} {{ $carModel->model_desc }}
                                         </p>
-                                        <p class="text-black"><span class="font-medium">Transmission: </span> CVT
+                                        <p class="text-black"><span class="font-medium">License Plate: </span> 
+                                            {{ $plateNumber }}
                                         </p>
-                                        <p class="text-black"><span class="font-medium">Rental Period: </span> 01/01/2025 -
-                                                01/02/2025
+                                        <p class="text-black"><span class="font-medium">Rental Period: </span>
+                                            {{ $pickupDate }} to
+                                            {{ $returnDate }}
                                         </p>
                                     </div>
                                 </div>
@@ -147,13 +151,13 @@
                                         <div class="mt-4 space-y-3">
                                             <div>
                                                 <label class="text-gray-600 block">Name:</label>
-                                                <input type="text" value="Michael Shelby"
+                                                <input type="text" value="{{ auth()->user()->customer->first_name }} {{ auth()->user()->customer->last_name }}"
                                                     class="w-full md:w-80 bg-gray-100 border border-gray-300 rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0f294c]"
                                                     readonly>
                                             </div>
                                             <div>
                                                 <label class="text-gray-600 block">License No.:</label>
-                                                <input type="text" value="L0 23 325421"
+                                                <input type="text" value="{{ auth()->user()->customer->driver_license_number }}"
                                                     class="w-full md:w-80 bg-gray-100 border border-gray-300 rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0f294c]"
                                                     readonly>
                                             </div>
@@ -161,7 +165,7 @@
                                     </div>
                                 </div>
                                 <!-- Centered Payment Banner -->
-                                <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 mb-6 max-h-[398px] overflow-y-auto">
+                                <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 max-h-[465px] overflow-y-auto">
                                     <img src="{{ asset('assets/payment_method.png') }}" alt="Payment Logo"
                                         class="w-15 h-15 object-contain mx-auto mb-4">
 
@@ -213,14 +217,6 @@
                                                         class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
                                                         placeholder="Enter Account Name">
                                                 </div>
-
-                                                {{-- AMOUNT --}}
-                                                <div>
-                                                    <label class="block text-sm text-gray-600">Amount:</label>
-                                                    <input type="number"
-                                                        class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
-                                                        placeholder="Enter Amount">
-                                                </div>
                                             </div>
                                         </div>
 
@@ -265,14 +261,6 @@
                                                         class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
                                                         placeholder="Enter Account Name">
                                                 </div>
-
-                                                {{-- AMOUNT --}}
-                                                <div>
-                                                    <label class="block text-sm text-gray-600">Amount:</label>
-                                                    <input type="number"
-                                                        class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
-                                                        placeholder="Enter Amount">
-                                                </div>
                                             </div>
                                         </div>
 
@@ -305,22 +293,22 @@
                             <h3 class="text-xl font-semibold text-gray-800 mb-4">Payment Summary</h3>
                             <div class="flex justify-between items-center">
                                 <p class="text-gray-700 font-medium text-lg">Rental Fee:</p>
-                                <p class="text-xl font-bold text-[#0f294c]">Php 2000.00</p>
+                                <p class="text-xl font-bold text-[#0f294c]">Php {{ $rentalFee }}.00</p>
                             </div>
                             <div class="flex justify-between items-center">
-                                <p class="text-gray-700 font-medium text-lg">Booking Fee:</p>
-                                <p class="text-xl font-bold text-[#0f294c]">Php 500.00</p>
+                                <p class="text-gray-700 font-medium text-lg">VAT Inclusive (12%):</p>
+                                <p class="text-xl font-bold text-[#0f294c]">Php {{ $vat }}.00</p>
                             </div>
                             <div class="flex justify-between items-center">
                                 <p class="text-gray-700 font-medium text-lg">Total Amount:</p>
-                                <p class="text-xl font-bold text-[#0f294c]">Php 2500.00</p>
+                                <p class="text-xl font-bold text-[#0f294c]">Php {{ $totalAmount }}.00</p>
                             </div>
                             <div class="mt-4 flex items-center">
                                 <input type="checkbox" id="agreement" class="mr-2">
                                 <label for="agreement" class="text-sm text-gray-600">
-                                    I agree to the <a class="text-[#0f294c] font-semibold">Terms and Conditions</a> of the
-                                    Bmp
-                                    Car Rental.
+                                    I agree to the <a class="text-[#0f294c] font-semibold">Terms and Conditions</a> of 
+                                    BMP
+                                    Car Rental services.
                                 </label>
                             </div>
                         </div>

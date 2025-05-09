@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('car_model_id')->constrained('car_models')->onDelete('cascade');
             $table->integer('odometer')->unsigned();
+            $table->string('license_plate')->unique();
             $table->string('registration_number')->unique();
             $table->date('registration_date')->nullable();
             $table->enum('status', ['Available', 'Expired', 'Under Maintenance', 'Booked', 'Damaged', 'Missing', 'Unavailable'])->default('Available');
