@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 
-// Landing Routes (Handles redirection based on login role)
+// Landing Routes
 Route::get('/', function () {
     if (Auth::check()) {
         $user = Auth::user();
@@ -20,8 +20,8 @@ Route::get('/', function () {
     return view('guest.home');
 })->name('home');
 
+// Guest Routes (Handles redirection based on login role)
 Route::get('/cars', [CustomerController::class, 'cars'])->name('cars');
-Route::get('/booking', [CustomerController::class, 'booking'])->name('booking');
 Route::get('/contacts', [CustomerController::class, 'contacts'])->name('contacts');
 
 // Authenticated User Routes
@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Customer Specific Routes
     Route::middleware('checkRole:Customer')->group(function () {
+        Route::get('/booking', [BookingController::class, 'showUserBookings'])->name('booking');
         Route::get('/booking/{car_model}', [BookingController::class, 'addBookingDetails'])->name('add_booking_details');
         Route::post('/booking/process/{booking}', [BookingController::class, 'processAddBooking'])->name('process_add_booking');
     });
@@ -36,6 +37,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Employee Specific Routes
     Route::middleware('checkRole:Employee')->group(function () {
         Route::get('/dashboard', [EmployeeController::class, 'dashboard'])->name('employee.dashboard');
+
+        // Customer Management Routes
         Route::get('/customers', [EmployeeController::class, 'customer_records'])->name('customer-records');
         
         // Booking Management Routes

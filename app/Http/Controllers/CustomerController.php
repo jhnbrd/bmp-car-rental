@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\CarModel;
 use App\Models\Car;
-use App\Models\Customer;
 use App\Models\Booking;
 use App\Models\BookingStatus;
 use Carbon\Carbon;
@@ -24,21 +23,6 @@ class CustomerController extends Controller
     {
         $cars = CarModel::paginate(8);
         return view('cars', ['carModels' => $cars]);
-    }
-
-    public function booking(): View
-    {
-        $user = Auth::user();
-
-        if ($user) {
-            $bookings = Booking::where('customer_id', $user->customer->id)
-                                ->with('car.carModel')
-                                ->orderBy('created_at', 'desc')
-                                ->get();
-            return view('booking', compact('bookings'));
-        } else {
-            return view('auth.login'); 
-        }
     }
 
     public function contacts(): View
