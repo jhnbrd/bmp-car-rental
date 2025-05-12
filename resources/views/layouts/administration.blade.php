@@ -74,6 +74,7 @@
               </li>
           </ul>
           <ul>
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
               <li class="relative px-6 py-3">
                   <button
                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -111,6 +112,8 @@
                       </ul>
                   </template>
               </li>
+              @endif
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Mechanic')
               <li class="relative px-6 py-3">
                   <button
                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -154,6 +157,8 @@
                       </ul>
                   </template>
               </li>
+              @endif
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ url('/admin-payment_history') }}">
@@ -164,6 +169,7 @@
                       <span class="ml-4">Payment History</span>
                   </a>
               </li>
+              @endif
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ url('/admin-rental_agreement') }}">
@@ -179,6 +185,7 @@
                       <span class="ml-4">Rental Agreement Policy</span>
                   </a>
               </li>
+              @if(Auth::user()->employee->role == 'Admin')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                       href="{{ url('/customers') }}">
@@ -191,6 +198,8 @@
                       <span class="ml-4">Customer Records</span>
                   </a>
               </li>
+              @endif
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ url('/admin-report_analytics') }}">
@@ -203,6 +212,8 @@
                       <span class="ml-4">Report Analytics</span>
                   </a>
               </li>
+              @endif
+              @if(Auth::user()->employee->role == 'Admin')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ url('/employees') }}">
@@ -218,6 +229,7 @@
                       <span class="ml-4">Employee</span>
                   </a>
               </li>
+              @endif
           </ul>
         </div>
       </aside>
