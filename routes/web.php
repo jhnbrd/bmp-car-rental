@@ -35,7 +35,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::middleware('checkRole:Customer')->group(function () {
         Route::get('/booking', [BookingController::class, 'showUserBookings'])->name('booking');
         Route::get('/booking/{car_model}', [BookingController::class, 'addBookingDetails'])->name('add_booking_details');
-        Route::post('/booking/process/{booking}', [BookingController::class, 'processAddBooking'])->name('process_add_booking');
+        Route::post('/booking/process/', [BookingController::class, 'processAddBooking'])->name('process_add_booking');
+        Route::post('/booking/cancel/{booking}', [BookingController::class, 'cancelBookingUser'])->name('cancel_booking');
     });
 
     // Employee Specific Routes
@@ -63,7 +64,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Profile Routes
 Route::middleware(['auth'])->group(function () {
-    Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
     Route::put('/profile/picture', [ProfileController::class, 'updatePicture'])->name('update-profile-picture');
 });

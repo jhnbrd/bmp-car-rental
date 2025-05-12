@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
-use App\Models\User;
+use App\Models\Booking;
+use App\Models\BookingStatus;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -115,8 +117,35 @@ class EmployeeController extends Controller
 
     public function booking_management(): View
     {
-        $bookings = Employee::all();
-        return view('employee.manage_bookings', ['bookings' => $bookings]);
+        $allBookings = Booking::all();
+
+        $bookings = [
+            'allBookings' => $allBookings,
+            'unpaidBookings' => $this->getBookingsByStatus('Unpaid'),
+            'paidBookings' => $this->getBookingsByStatus('Paid'),
+            'approvedBookings' => $this->getBookingsByStatus('Approved'),
+            'forPickUpBookings' => $this->getBookingsByStatus('For Pick-up'),
+            'ongoingBookings' => $this->getBookingsByStatus('Ongoing'),
+            'dueForReturnBookings' => $this->getBookingsByStatus('Due for Return'),
+            'reportedBookings' => $this->getBookingsByStatus('Reported'),
+        ];
+
+        return view('employee.manage_bookings', $bookings);
+    }
+
+    private function getBookingsByStatus(string $status)
+    {
+        return Booking::whereHas('latestStatus', function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->with(['customer', 'car', 'latestStatus'])
+            ->orderBy(
+                BookingStatus::select('status_date')
+                    ->whereColumn('booking_id', 'bookings.id')
+                    ->latest(),
+                'desc'
+            )
+            ->paginate(6, ['*'], $status);
     }
 
     public function booking_history(): View

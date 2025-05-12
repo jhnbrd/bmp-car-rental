@@ -40,26 +40,25 @@
                         Track the current state of your car rental, from pending confirmation to completion.
                     </p> --}}
                     </div>
-                    <div
-                        class="flex flex-col mx-70 md:mx-40 flex-row items-start gap-5 min-h-screen rounded-lg shadow-lg">
+                    <div class="flex flex-col mx-70 md:mx-40 flex-row items-start gap-5 min-h-screen rounded-lg shadow-lg">
                         <!-- Right Side: RENTAL AGREEMENT POLICY -->
                         <!-- Payment Method Section -->
-                        <div class="w-full md:w-1/2 bg-white shadow-md rounded-lg p-8 max-h-[1340px]">
+                        <div class="w-full md:w-1/2 bg-white shadow-md rounded-lg p-8 max-h-[1340px] h-[1340px]">
                             <h1 class="text-2xl font-bold text-[#0f294c] mb-4 text-center">RENTAL AGREEMENT POLICY</h1>
-                            <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 mb-2">
+                            <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 mb-2 md:max-h-[1180px] md:overflow-y-auto">
                                 <div class="flex flex-col gap-6 sm:gap-8 lg:gap-10 text-base text-left text-black">
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">I. Authorized Drivers Only</h3>
+                                        <h3 class="text-lg font-semibold">I. Authorized Drivers Only</h3>
                                         <p>Only the renter and authorized drivers are permitted to operate the vehicle.</p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">II. Valid License Requirement</h3>
+                                        <h3 class="text-lg font-semibold">II. Valid License Requirement</h3>
                                         <p>The renter or any driver must possess a valid driver’s license.</p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">III. No Unauthorized Use</h3>
+                                        <h3 class="text-lg font-semibold">III. No Unauthorized Use</h3>
                                         <p>The vehicle may not be used for racing, towing or pushing other vehicles,
                                             transporting
                                             illegal goods or passengers for hire, off-road driving, or in hazardous
@@ -67,42 +66,42 @@
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">IV. Care of Vehicle</h3>
+                                        <h3 class="text-lg font-semibold">IV. Care of Vehicle</h3>
                                         <p>The renter must take care of the vehicle responsibly: keep it clean, park
                                             securely, avoid
                                             smoking, and use the correct fuel.</p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">V. Accidents and Damage</h3>
+                                        <h3 class="text-lg font-semibold">V. Accidents and Damage</h3>
                                         <p>Any accidents, theft, or damage must be reported to the owner and local
                                             authorities
                                             immediately. The renter is liable for all damage.</p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">VI. Traffic Violations</h3>
+                                        <h3 class="text-lg font-semibold">VI. Traffic Violations</h3>
                                         <p>The renter is responsible for all parking tickets, traffic violations, tolls, and
                                             fines
                                             during the rental period.</p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">VII. No Smoking Policy</h3>
+                                        <h3 class="text-lg font-semibold">VII. No Smoking Policy</h3>
                                         <p>Smoking inside the vehicle is strictly prohibited. Cleaning fees may apply if
                                             violated.
                                         </p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold"> VIII. Return Time</h3>
+                                        <h3 class="text-lg font-semibold"> VIII. Return Time</h3>
                                         <p>The vehicle must be returned on or before the agreed-upon date and time. Late
                                             returns may
                                             incur extra charges.</p>
                                     </div>
 
                                     <div>
-                                        <h3 class="text-lg sm:text-xl font-semibold">IX. Non-Return and Non-Compliance
+                                        <h3 class="text-lg font-semibold">IX. Non-Return and Non-Compliance
                                             Policy
                                         </h3>
                                         <p>If the renter fails to return the vehicle within ten (10) days of the due date
@@ -128,13 +127,13 @@
                                         <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Car Details</h2>
                                         <img src="{{ asset($carModel->img_file_path) }}" alt="Car Image"
                                             class="w-60 h-30 object-contain rounded-md mx-auto justify-center">
-                                        <p class="text-black"><span class="font-medium">Brand: </span> 
+                                        <p class="text-black"><span class="font-medium">Brand: </span>
                                             {{ $carModel->brand }}
                                         </p>
-                                        <p class="text-black"><span class="font-medium">Model: </span> 
+                                        <p class="text-black"><span class="font-medium">Model: </span>
                                             {{ $carModel->model_name }} {{ $carModel->model_desc }}
                                         </p>
-                                        <p class="text-black"><span class="font-medium">License Plate: </span> 
+                                        <p class="text-black"><span class="font-medium">License Plate: </span>
                                             {{ $plateNumber }}
                                         </p>
                                         <p class="text-black"><span class="font-medium">Rental Period: </span>
@@ -150,38 +149,42 @@
                                         <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Customer Details</h2>
                                         <div class="mt-4 space-y-3">
                                             <div>
-                                                <label class="text-gray-600 block">Name:</label>
-                                                <input type="text" value="{{ auth()->user()->customer->first_name }} {{ auth()->user()->customer->last_name }}"
-                                                    class="w-full md:w-80 bg-gray-100 border border-gray-300 rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0f294c]"
-                                                    readonly>
-                                            </div>
-                                            <div>
-                                                <label class="text-gray-600 block">License No.:</label>
-                                                <input type="text" value="{{ auth()->user()->customer->driver_license_number }}"
-                                                    class="w-full md:w-80 bg-gray-100 border border-gray-300 rounded-md px-4 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0f294c]"
-                                                    readonly>
+                                                <p class="text-black"><span class="font-medium">Name: </span>
+                                                    {{ auth()->user()->customer->first_name }}
+                                                    {{ auth()->user()->customer->last_name }}
+                                                </p>
+                                                <p class="text-black"><span class="font-medium">License No.: </span>
+                                                    {{ auth()->user()->customer->driver_license_number }}
+                                                </p>
+                                                <p class="text-black"><span class="font-medium">Email: </span>
+                                                    {{ auth()->user()->email }}
+                                                </p>
+                                                <p class="text-black"><span class="font-medium">Contact Number: </span>
+                                                    {{ auth()->user()->customer->phone_number }}
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Centered Payment Banner -->
-                                <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 max-h-[465px] overflow-y-auto">
-                                    <img src="{{ asset('assets/payment_method.png') }}" alt="Payment Logo"
-                                        class="w-15 h-15 object-contain mx-auto mb-4">
+                                <form id="bookingForm" class="space-y-4 text-black" x-data="{ paymentMethod: '', agreed: false }"
+                                    action="{{ route('process_add_booking') }}" method="POST">
+                                    @csrf
+                                    <input type="hidden" name="pickup_date" value="{{ $pickupDate }}">
+                                    <input type="hidden" name="return_date" value="{{ $returnDate }}">
+                                    <input type="hidden" name="car_model_id" value="{{ $carModel->id }}">
+                                    <input type="hidden" name="total_amount" value="{{ $totalAmount }}">
+                                    <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 max-h-[465px] overflow-y-auto">
+                                        <img src="{{ asset('assets/payment_method.png') }}" alt="Payment Logo"
+                                            class="w-15 h-15 object-contain mx-auto mb-4">
 
-                                    <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Payment Method</h2>
-
-                                    <!-- Include Alpine.js (place this in your <head> if not already included) -->
-                                    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-
-                                    <form class="space-y-4 text-black" x-data="{ paymentMethod: '' }">
-
+                                        <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Payment Method</h2>
                                         <!-- Option 1: PayMaya -->
                                         <label
                                             class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
                                             <div class="flex items-center gap-3 flex-1">
-                                                <input type="radio" name="payment" value="paymaya" x-model="paymentMethod"
-                                                    class="accent-[#0f294c]">
+                                                <input type="radio" name="payment_method" value="paymaya" x-model="paymentMethod"
+                                                    class="accent-[#0f294c]" required>
                                                 <p class="font-medium text-gray-800">PayMaya</p>
                                             </div>
                                             <div class="flex gap-2 items-center">
@@ -197,25 +200,18 @@
                                                 {{-- NAG SCRIPT RKO DRI NA PART PRE --}}
                                                 <div>
                                                     <label class="block text-sm text-gray-600">Ref No.</label>
-                                                    <input id="paymaya-ref"
-                                                        class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]" />
-                                                    <!-- hidden input to store the reference number -->
-                                                    <script>
-                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                            const ref = '5642' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                                                            document.getElementById('paymaya-ref').value = ref;
-                                                        });
-                                                    </script>
+                                                    <input id="paymaya-ref name" name="paymaya_ref"
+                                                        class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]" :required="paymentMethod === 'paymaya'"/>
                                                     <p class="text-sm text-gray-600 mt-2 text-center mb-3">Note: Found at
                                                         the header of e-receipt, input your Paymaya ref no.</p>
                                                 </div>
 
-                                                {{-- ACCOUNT NUMBER --}}
+                                                {{-- ACCOUNT NAME --}}
                                                 <div>
                                                     <label class="block text-sm text-gray-600">Account Name:</label>
-                                                    <input type="name"
+                                                    <input type="name" name="paymaya_account_name"
                                                         class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
-                                                        placeholder="Enter Account Name">
+                                                        placeholder="Enter Account Name" :required="paymentMethod === 'paymaya'" />
                                                 </div>
                                             </div>
                                         </div>
@@ -224,8 +220,8 @@
                                         <label
                                             class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
                                             <div class="flex items-center gap-3 flex-1">
-                                                <input type="radio" name="payment" value="gcash" x-model="paymentMethod"
-                                                    class="accent-[#0f294c]">
+                                                <input type="radio" name="payment_method" value="gcash"
+                                                    x-model="paymentMethod" class="accent-[#0f294c]" required>
                                                 <p class="font-medium text-gray-800">Gcash</p>
                                             </div>
                                             <div class="flex gap-2 items-center">
@@ -237,19 +233,10 @@
                                         <!-- Gcash Extra Fields -->
                                         <div class="space-y-3" x-show="paymentMethod === 'gcash'" x-transition>
                                             <div class="text-left">
-                                                {{-- REFERENCE NUMBER --}}
-                                                {{-- NAG SCRIPT RKO DRI NA PART PRE --}}
                                                 <div>
                                                     <label class="block text-sm text-gray-600">Ref No.</label>
-                                                    <input id="gcash-ref"
-                                                        class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]" />
-                                                    <!-- hidden input to store the reference number -->
-                                                    <script>
-                                                        document.addEventListener('DOMContentLoaded', function() {
-                                                            const ref = '5642' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                                                            document.getElementById('gcash-ref').value = ref;
-                                                        });
-                                                    </script>
+                                                    <input id="gcash-ref" name="gcash_ref"
+                                                        class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]" :required="paymentMethod === 'gcash'"/>
                                                     <p class="text-sm text-gray-600 mt-2 text-center mb-3">Note: Found at
                                                         the header of e-receipt, input your Gcash ref no.</p>
                                                 </div>
@@ -257,19 +244,19 @@
                                                 {{-- ACCOUNT NUMBER --}}
                                                 <div>
                                                     <label class="block text-sm text-gray-600">Account Name:</label>
-                                                    <input type="name"
+                                                    <input type="name" name="gcash_account_name"
                                                         class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
-                                                        placeholder="Enter Account Name">
+                                                        placeholder="Enter Account Name" :required="paymentMethod === 'paymaya'"/>
                                                 </div>
                                             </div>
                                         </div>
 
                                         <!-- Option 3: Cash -->
                                         <label
-                                            class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
+                                            class="flex items-center p-4 mb-3 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
                                             <div class="flex items-center gap-3 flex-1">
-                                                <input type="radio" name="payment" value="cash"
-                                                    x-model="paymentMethod" class="accent-[#0f294c]">
+                                                <input type="radio" name="payment_method" value="cash"
+                                                    x-model="paymentMethod" class="accent-[#0f294c]" required>
                                                 <p class="font-medium text-gray-800">Pay at the counter</p>
                                             </div>
                                             <img src="{{ asset('assets/payment_methods/money.png') }}"
@@ -281,9 +268,9 @@
                                             <p class="text-sm text-gray-600 mt-2">Note: Pay the full amount at the counter.
                                             </p>
                                         </div>
-                                    </form>
 
-                                </div>
+
+                                    </div>
                             </div>
                         </div>
                     </div>
@@ -304,23 +291,25 @@
                                 <p class="text-xl font-bold text-[#0f294c]">Php {{ $totalAmount }}.00</p>
                             </div>
                             <div class="mt-4 flex items-center">
-                                <input type="checkbox" id="agreement" class="mr-2">
+                                <input type="checkbox" id="agreement" name="agreement" x-model="agreed" class="mr-2" required>
                                 <label for="agreement" class="text-sm text-gray-600">
-                                    I agree to the <a class="text-[#0f294c] font-semibold">Terms and Conditions</a> of 
+                                    I agree to the <a class="text-[#0f294c] font-semibold">Terms and Conditions</a> of
                                     BMP
                                     Car Rental services.
                                 </label>
                             </div>
                         </div>
 
+
                         <!-- Submit -->
                         <button type="submit"
+                            @click.prevent="if (!agreed) { alert('Please agree to the Terms and Conditions.'); }"
                             class="w-full mt-6 bg-[#0f294c] text-white px-6 py-3 rounded-md text-lg font-semibold hover:bg-[#092136] transition">
                             Book Now
                         </button>
                     </div>
+                    </form>
 
-                    
                 </section>
 
 
@@ -384,13 +373,8 @@
 
             </main>
         </div>
-        <!-- GENERATE REF NO,-->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const ref = 'REF-' + Math.random().toString(36).substring(2, 10).toUpperCase();
-                document.getElementById('referenceNumber').value = ref;
-            });
-        </script>
+        <!-- Include Alpine.js (place this in your <head> if not already included) -->
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     </body>
 
     </html>

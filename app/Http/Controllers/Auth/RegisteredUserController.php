@@ -78,8 +78,8 @@ class RegisteredUserController extends Controller
             $uploadedImage = $request->file('upload_img');
 
             $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
-            $uploadedImage->move(public_path('license_images'), $imageName);
-            $licenseImgPath = 'license_images/' . $imageName;
+            $uploadedImage->move(public_path(path: 'license_images'), $imageName);
+            $licenseImgPath = 'license_images/' . $imageName;                                      
 
             // Create User
             $user = User::create([
