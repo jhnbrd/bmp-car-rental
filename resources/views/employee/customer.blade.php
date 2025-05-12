@@ -178,105 +178,6 @@
                 <div class="p-4 md:p-5">
                     <form class="space-y-4" action="#">
                         <div class="overflow-y-auto max-h-[500px] border border-gray-300 rounded-lg p-4">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-2">
-                                <div>
-                                    <label for="email"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
-                                    <input type="email" name="email" id="email"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="johnrexpartoza21@gmail.com" disabled />
-                                </div>
-                                <div>
-                                    <label for="name"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-                                    <input type="text" name="name" id="name"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="John Rex Partoza" disabled />
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mb-2">
-                                <div>
-                                    <label for="province"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Province</label>
-                                    <input type="text" name="province" id="province"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Davao Del Sur" disabled />
-                                </div>
-                                <div>
-                                    <label for="city"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-                                    <input type="text" name="city" id="city"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Davao City" disabled />
-                                </div>
-                                <div>
-                                    <label for="barangay"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Barangay</label>
-                                    <input type="text" name="barangay" id="barangay"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Mudiang    " disabled />
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 gap-3 mb-2">
-                                <div>
-                                    <label for="address"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-                                    <input type="text" name="address" id="address"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="Purok 1, Near Basketball Covered Court" disabled />
-                                </div>
-                            </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
-                                <div>
-                                    <label for="phonenumber"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Phone
-                                        Number</label>
-                                    <input type="text" name="phonenumber" id="phonenumber"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="09123456789" disabled />
-                                </div>
-                                <div>
-                                    <label for="licencenumber"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Licence
-                                        Number</label>
-                                    <input type="text" name="licencenumber" id="licencenumber"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="L37-86753" disabled />
-                                </div>
-                            </div>
-                            <div class="col-span-full mb-2">
-                                <label for="licenceimage"
-                                    class="block text-sm/6 font-medium text-gray-900 dark:text-gray-200">License
-                                    Image</label>
-                                <div
-                                    class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 dark:border-gray-600 mx-5">
-                                    <!-- Displayed Image -->
-                                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-                                        alt="Uploaded Image" class="mx-auto w-full object-cover rounded-lg">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mb-2">
-                                <div>
-                                    <label for="licenceexpirationdate"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Licence
-                                        Expiration
-                                        Date</label>
-                                    <input type="date" name="licenceexpirationdate" id="licenceexpirationdate"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="March 28, 2028" disabled />
-                                </div>
-                                <div>
-                                    <label for="accountcreated"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Account
-                                        Created</label>
-                                    <input type="date" name="licenceexpirationdate"
-                                        id="licenceexpirationdate"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        placeholder="March 28, 2025" disabled />
-                                </div>
-
-                            </div>
                             <div class="rounded-sm gap-2 mb-2">
                                 <!-- Added flex-col for vertical alignment -->
                                 <label class="text-sm font-medium text-gray-900 dark:text-white">
@@ -285,7 +186,7 @@
                                     <div class="flex items-center gap-2"> <!-- Toggle switch placed neatly beside label -->
                                         <input type="checkbox" value="" class="sr-only peer">
                                         <div
-                                            class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
+                                            class="relative w-[52px] h-5 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:translate-x-[-100%] peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-500 peer-checked:bg-red-600 dark:peer-checked:bg-red-600">
                                         </div>
                                     </div>
                                 </label>

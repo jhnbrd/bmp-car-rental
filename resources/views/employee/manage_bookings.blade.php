@@ -850,7 +850,7 @@
                                 </td>
 
                                 <!-- Due - Amount -->
-                                <td class="px-4 py-3 text-sm">{{ $dueForReturnBooking->amount_due }}</td>
+                                <td class="px-4 py-3 text-sm">Php {{ $dueForReturnBooking->amount_due }}</td>
 
                                 <!-- Due - Status -->
                                 <td class="px-4 py-3 text-xs">
@@ -946,10 +946,10 @@
         <h4 class="mb-4 text-lg font-semibold text-gray-600 dark:text-gray-300">
             Reported Bookings
         </h4>
-        <div class="w-full overflow-hidden rounded-lg shadow-xs">
+        <div class="w-full overflow-visible rounded-lg shadow-xs">
             <div class="w-full">
                 <div>
-                    <div class="w-full overflow-x-auto">
+                    <div class="w-full">
                         <table class="w-full whitespace-no-wrap text-center">
                             <thead>
                                 <tr
@@ -962,47 +962,44 @@
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y">
-                                <?php foreach ($clients as $index => $client): ?>
+                            @if ($reportedBookings->isNotEmpty())
+                                @foreach ($reportedBookings as $reportedBooking)
                                 <?php
-                                if (!in_array($client['status'], ['Unsettle', 'Reported'])) {
-                                    continue;
-                                }
-                                $hasReportedUnsettle = true;
-                                $statusBadge = getStatusBadge($client['status']);
-                                $dropdownId = 'reportedunsettle-toggle-' . $index; ?>
+                                $statusBadge = getStatusBadge($reportedBooking->latestStatus->status);
+                                $dropdownId = 'reportedunsettle-toggle-' . $reportedBooking->id; ?>
                                 <tr class="text-gray-700">
                                     <!-- Cancelled - Client Info -->
                                     <td class="px-4 py-3">
-                                        <div class="flex items-center justify-center text-sm">
+                                        <div class="flex items-center mx-10 text-sm">
                                             <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
                                                 <img class="object-cover w-full h-full rounded-full"
-                                                    src="<?= $client['avatar'] ?>" alt="" loading="lazy" />
+                                                    src={{ asset($reportedBooking->customer->user->picture_path) }} alt="" loading="lazy" />
                                                 <div class="absolute inset-0 rounded-full shadow-inner"
                                                     aria-hidden="true">
                                                 </div>
                                             </div>
                                             <div class="text-left">
-                                                <p class="font-semibold"><?= $client['name'] ?></p>
-                                                <p class="text-xs text-gray-600 dark:text-gray-400">
-                                                    <?= $client['role'] ?? 'Client' ?>
+                                                <p class="font-semibold">{{ $reportedBooking->customer->first_name }} {{ $reportedBooking->customer->middle_name ? $reportedBooking->customer->middle_name . ' ' : '' }} {{ $reportedBooking->customer->last_name }}</p>
+                                                <p class="text-xs text-gray-600 dark:text-gray-400 text-left">
+                                                    Client
                                                 </p>
                                             </div>
                                         </div>
                                     </td>
 
                                     <!-- Reported - Amount -->
-                                    <td class="px-4 py-3 text-sm">$ <?= $client['amount'] ?></td>
+                                    <td class="px-4 py-3 text-sm">Php {{ $reportedBooking->amount_due }}</td>
 
                                     <!-- Reported - Status -->
                                     <td class="px-4 py-3 text-xs">
                                         <span
                                             class="px-2 py-1 font-semibold leading-tight <?= $statusBadge['color'] ?> rounded-full">
-                                            <?= $statusBadge['text'] ?>
+                                            {{ $reportedBooking->latestStatus->status }}
                                         </span>
                                     </td>
 
                                     <!-- Reported - Date -->
-                                    <td class="px-4 py-3 text-sm"><?= $client['date'] ?></td>
+                                    <td class="px-4 py-3 text-sm">{{ $reportedBooking->latestStatus->status_date }}</td>
 
                                     <!-- Reported - Actions -->
                                     <td class="px-4 py-3">
@@ -1072,21 +1069,22 @@
                                         </div>
                                     </td>
                                 </tr>
-                                <?php endforeach; ?>
+                                @endforeach
 
                                 <!-- If No Cancelled Bookings -->
-                                <?php if (!$hasReportedUnsettle): ?>
+                                @else
                                 <tr>
                                     <td colspan="5"
                                         class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
-                                        No Cancelled bookings found.
+                                        No Reported/Unsettled bookings found.
                                     </td>
                                 </tr>
-                                <?php endif; ?>
+                                @endif
                             </tbody>
                         </table>
                     </div>
                 </div>
+                {{ $reportedBookings->links() }}
             </div>
         </div>
     </div>
