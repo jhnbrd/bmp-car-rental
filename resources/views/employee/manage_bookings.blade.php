@@ -193,8 +193,8 @@
                                                     class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                                     <!-- View Details -->
                                                     <label for="viewdetail-modal">
-                                                        <div data-modal-target="viewdetail-modal"
-                                                            data-modal-toggle="viewdetail-modal"
+                                                        <div data-modal-target="viewdetail-modal-{{ $unpaidBooking->id }}"
+                                                            data-modal-toggle="viewdetail-modal-{{ $unpaidBooking->id }}"
                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                             <svg class="w-5 h-5 text-white dark:text-gray-300"
                                                                 fill="currentColor" viewBox="0 0 24 24">
@@ -1334,9 +1334,9 @@
         </div>
     </div>
 
-
+@foreach ($allBookings as $booking)
     <!-- View Detail Modal   -->
-    <div id="viewdetail-modal" tabindex="-1" aria-hidden="true"
+    <div id="viewdetail-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-start pt-10 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 overflow-y-auto">
         <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-5xl p-3 space-y-6">
 
@@ -1345,7 +1345,7 @@
                 <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
                     Booking Overview
                 </h5>
-                <button data-modal-toggle="viewdetail-modal"
+                <button data-modal-toggle="viewdetail-modal-{{ $booking->id }}"
                     class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
 
@@ -1354,17 +1354,17 @@
                 <!-- Renter Info Card -->
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm space-y-4">
                     <div class="flex items-center space-x-4">
-                        <img src="renter-profile.jpg" alt="Renter"
+                        <img src={{ asset($booking->customer->user->picture_path) }} alt="Renter"
                             class="w-16 h-16 rounded-full border-2 border-gray-400 shadow-md">
                         <div>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-white">John Doe</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">johndoe@example.com</p>
+                            <p class="text-lg font-semibold text-gray-800 dark:text-white">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">{{ $booking->customer->user->email }}</p>
                         </div>
                     </div>
                     <div class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                        <p><strong>Contact:</strong> +123 456 7890</p>
-                        <p><strong>License #:</strong> D12345678</p>
-                        <p><strong>Expiry:</strong> 2027-05-15</p>
+                        <p><strong>Contact:</strong> {{ $booking->customer->phone_number }}</p>
+                        <p><strong>License #:</strong> {{ $booking->customer->driver_license_number }}</p>
+                        <p><strong>Expiry:</strong> {{ $booking->customer->license_expiration_date }}</p>
                     </div>
                     <!-- Check Profile Button -->
                     <div class="pt-4">
@@ -1377,12 +1377,12 @@
 
                 <!-- Vehicle Info Card -->
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 shadow-sm space-y-4">
-                    <img src="vehicle-image.jpg" alt="Vehicle" class="w-full h-40 object-cover rounded-xl shadow-sm">
+                    <img src={{ asset($booking->car->carModel->img_file_path) }} alt="Vehicle" class="mx-auto w-auto h-40 object-cover rounded-xl shadow-sm">
                     <div class="grid grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
-                        <p><strong>Type:</strong> SUV</p>
-                        <p><strong>Plate:</strong> ABC-1234</p>
-                        <p><strong>Fuel:</strong> Petrol</p>
-                        <p><strong>Transmission:</strong> Automatic</p>
+                        <p><strong>Type:</strong> {{ $booking->car->carModel->car_type }}</p>
+                        <p><strong>Plate:</strong> {{ $booking->car->license_plate }} </p>
+                        <p><strong>Fuel:</strong> {{ $booking->car->carModel->fuel_type }} </p>
+                        <p><strong>Transmission:</strong> {{ $booking->car->carModel->transmission }} </p>
                     </div>
                 </div>
             </div>
@@ -1409,7 +1409,7 @@
             <!-- Modal Footer -->
             <div
                 class="flex justify-end gap-3 px-6 py-4 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
-                <button data-modal-hide="viewdetail-modal" type="button"
+                <button data-modal-hide="viewdetail-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Close
                 </button>
@@ -1443,11 +1443,11 @@
                 <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 space-y-2">
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Booking ID:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-2104</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-{{ $booking->id }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Renter Name:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">John Rex Partoza</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Car Model Rented:</span>
@@ -2216,6 +2216,8 @@
             </div>
         </div>
     </div>
+@endforeach
+
     <script>
         document.querySelectorAll('.suggest-btn').forEach(button => {
             button.addEventListener('click', () => {
