@@ -1337,7 +1337,7 @@
 @foreach ($allBookings as $booking)
     <!-- View Detail Modal   -->
     <div id="viewdetail-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
-        class="hidden fixed inset-0 z-50 flex justify-center items-start pt-10 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 overflow-y-auto">
+        class="hidden fixed inset-0 z-50 flex justify-center items-start px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 overflow-y-auto">
         <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-5xl p-3 space-y-6">
 
             <!-- Modal Header -->
@@ -1379,9 +1379,11 @@
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-3 shadow-sm space-y-4">
                     <img src={{ asset($booking->car->carModel->img_file_path) }} alt="Vehicle" class="mx-auto w-auto h-40 object-cover rounded-xl shadow-sm">
                     <div class="grid grid-cols-2 gap-2 text-sm text-gray-700 dark:text-gray-300">
-                        <p><strong>Type:</strong> {{ $booking->car->carModel->car_type }}</p>
-                        <p><strong>Plate:</strong> {{ $booking->car->license_plate }} </p>
-                        <p><strong>Fuel:</strong> {{ $booking->car->carModel->fuel_type }} </p>
+                        <p><strong>Brand:</strong> {{ $booking->car->carModel->brand }}</p>
+                        <p><strong>Model:</strong> {{ $booking->car->carModel->model_name }} {{ $booking->car->carModel->model_year }} </p>
+                        <p><strong>Car Type:</strong> {{ $booking->car->carModel->car_type }}</p>
+                        <p><strong>Plate Number:</strong> {{ $booking->car->license_plate }} </p>
+                        <p><strong>Fuel Type:</strong> {{ $booking->car->carModel->fuel_type }} </p>
                         <p><strong>Transmission:</strong> {{ $booking->car->carModel->transmission }} </p>
                     </div>
                 </div>
@@ -1443,52 +1445,56 @@
                 <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 space-y-2">
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Booking ID:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-{{ $booking->id }}</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-{{ sprintf('%04d', $booking->id) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Renter Name:</span>
                         <span class="text-sm text-gray-800 dark:text-gray-100">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Car Model Rented:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">Toyota Vios 2023</span>
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Car Rented:</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">{{ $booking->car->carModel->brand }} {{ $booking->car->carModel->model_name }} {{ $booking->car->carModel->model_year }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Start Date:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">April 22, 2025</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">{{ \Carbon\Carbon::parse($booking->pickup_date)->format('Y-m-d') }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Due Date:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">April 25, 2025</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">{{ \Carbon\Carbon::parse($booking->return_date)->format('Y-m-d') }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Total Payment:</span>
-                        <span class="text-sm font-semibold text-green-600" id="total-payment">₱3,600.00</span>
+                        <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Amount Due:</span>
+                        <span class="text-sm font-semibold text-green-600" id="total-payment-outer">Php <span id="total-payment">{{ $booking->amount_due }}</span></span>
                     </div>
                 </div>
 
                 <!-- Payment Form -->
-                <div class="space-y-3">
-                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        Amount Paid
-                    </label>
-                    <input type="number" id="amount-paid" placeholder="Enter amount" min="0"
-                        class="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
+                <form action="{{ route('process-offline-payment', $booking->id ) }}" method="POST">
+                    @csrf
+                    <div class="space-y-3">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                            Amount Paid
+                        </label>
+                        <input type="number" id="amount-paid" placeholder="Enter amount" min="0" required
+                            class="w-full px-4 py-2 border rounded-lg bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-green-500" />
 
-                    <div class="flex justify-between items-center mt-2">
-                        <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Change:</span>
-                        <span class="text-sm font-semibold text-green-600" id="change-label">₱0.00</span>
+                        <div class="flex justify-between items-center mt-2">
+                            <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Change:</span>
+                            <span class="text-sm font-semibold text-green-600" id="change-label">Php 0.00</span>
+                        </div>
                     </div>
-                </div>
+                
             </div>
 
             <!-- Footer -->
             <div
                 class="flex justify-end gap-3 px-6 py-4 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
-                <button type="button"
+                <button type="submit"
                     class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition">
                     Confirm Payment
                 </button>
+                </form>
                 <button data-modal-hide="payment-modal" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Cancel
@@ -2485,12 +2491,13 @@
 
         const amountInput = document.getElementById('amount-paid');
         const changeLabel = document.getElementById('change-label');
-        const total = 3600.00; // Example: change as needed or pass from server
+        const total = document.getElementById('total-payment'); // Example: change as needed or pass from server
 
         amountInput.addEventListener('input', () => {
             const paid = parseFloat(amountInput.value);
-            const change = paid - total;
-            changeLabel.textContent = change >= 0 ? `₱${change.toFixed(2)}` : '₱0.00';
+            const amount = parseFloat(total.textContent);
+            const change = paid - amount;
+            changeLabel.textContent = change >= 0 ? `Php ${change.toFixed(2)}` : 'Php 0.00';
         });
     </script>
 @endsection
