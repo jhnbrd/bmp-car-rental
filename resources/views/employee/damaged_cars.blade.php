@@ -1,0 +1,296 @@
+@extends('layouts.administration')
+
+@section('content')
+<div class="container flex flex-col items-center mx-auto">
+    <h2 class="w-full text-2xl font-semibold text-gray-700 my-4">
+        Damaged Car Management
+    </h2>
+
+    <div class="container mx-auto p-2">
+        <!-- Header Section with Breadcrumbs -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-4">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0">
+                <!-- Left Section: Breadcrumbs -->
+                <nav class="flex items-center text-sm text-gray-500" aria-label="Breadcrumb">
+                    <ol class="inline-flex items-center space-x-1 md:space-x-3">
+                        <li class="inline-flex items-center">
+                            <a href="{{ route('employee.dashboard') }}" class="inline-flex items-center text-gray-700 hover:text-blue-600">
+                                <i class="bi bi-house-door mr-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <i class="bi bi-chevron-right text-gray-400"></i>
+                                <a href="{{ route('cars-modification') }}" class="ml-1 text-gray-700 hover:text-blue-600 md:ml-2">Cars</a>
+                            </div>
+                        </li>
+                        <li aria-current="page">
+                            <div class="flex items-center">
+                                <i class="bi bi-chevron-right text-gray-400"></i>
+                                <span class="ml-1 text-gray-500 md:ml-2 font-medium">Damaged Cars</span>
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+
+                <!-- Right Section: Title -->
+                <div class="flex items-center">
+                                    <!-- Right Section: Title and Stats -->
+                <div class="flex items-center space-x-4">
+                    <div class="hidden md:flex items-center space-x-4">
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
+                            <span class="ml-2 text-sm text-gray-600">Under Repair: 1</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                            <span class="ml-2 text-sm text-gray-600">Completed: 1</span>
+                        </div>
+                        <div class="flex items-center">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            <span class="ml-2 text-sm text-gray-600">Total Cost: ₱40,000</span>
+                        </div>
+                    </div>
+                </div>
+-
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Container -->
+        <div class="bg-white rounded-lg shadow-lg p-4 border">
+            <!-- Search and Filter Section -->
+            <div class="flex flex-col md:flex-row items-center justify-between space-y-2 md:space-y-0 mb-4">
+                <!-- Search Input -->
+                <div class="relative w-full md:w-64">
+                    <input type="text" placeholder="Search damaged cars..." 
+                        class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                    <i class="bi bi-search absolute left-3 top-2.5 text-gray-400"></i>
+                </div>
+                <!-- Right Section: Status and Search Button -->
+                <div class="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                    <!-- Status Dropdown -->
+                    <div class="relative">
+                        <button id="toggle-status" class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none flex justify-between items-center">
+                            <span>All Status</span>
+                            <svg id="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 transition-transform duration-300">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                        <div id="status-dropdown" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
+                            <ul class="py-1">
+                                <li>
+                                    <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Under Repair</button>
+                                </li>
+                                <li>
+                                    <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Repair Completed</button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Search Button -->
+                    <button class="w-full md:w-auto px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="bi bi-search mr-2"></i>Search
+                    </button>
+                </div>
+            </div>
+
+            <!-- Damaged Cars Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <!-- Single Car Card -->
+                <div class="bg-white p-3 rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200">
+                    <!-- Car Image -->
+                    <img src="{{ asset('assets/images/car-placeholder.jpg') }}" alt="Car Image"
+                        class="w-full h-24 object-cover rounded-md mb-3">
+
+                    <!-- Car Model and Dropdown -->
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="font-semibold text-base">Toyota Camry</h3>
+                        <!-- Three Dots Dropdown -->
+                        <div class="relative">
+                            <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu"
+                                class="text-dark font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center"
+                                type="button"><i class="bi bi-three-dots-vertical"></i></button>
+                            <!-- Dropdown Menu -->
+                            <div id="dropdownMenu"
+                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32">
+                                <ul class="py-2 text-sm text-gray-700">
+                                    <li>
+                                        <button onclick="openRepairModal(1)" class="w-full text-left px-4 py-2 hover:bg-gray-100">Update Status</button>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Car Details -->
+                    <div class="space-y-1.5 mb-3">
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">License Plate:</span>
+                            <span class="font-medium">ABC-123</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">Customer:</span>
+                            <span class="font-medium">John Doe</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">Damage Cost:</span>
+                            <span class="font-medium">₱15,000.00</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">Last Updated:</span>
+                            <span>Mar 15, 2024</span>
+                        </div>
+                        <div class="flex justify-between text-xs">
+                            <span class="text-gray-600">Parts to Repair:</span>
+                            <span class="text-xs text-gray-500 truncate max-w-[150px]">Front bumper, Headlight, Fender</span>
+                        </div>
+                    </div>
+
+                    <!-- Status Badges -->
+                    <div class="flex space-x-2 mb-3">
+                        <span class="px-2 py-0.5 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
+                            Under Repair
+                        </span>
+                        <span class="px-2 py-0.5 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
+                            Unpaid
+                        </span>
+                    </div>
+
+                    <button onclick="openRepairModal(1)" 
+                        class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2 focus:outline-none">
+                        Update Repair Status
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Repair Status Modal -->
+<div id="repairModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
+    <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+    <div class="relative w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t">
+                <h3 class="text-lg font-semibold text-gray-900">
+                    Update Repair Status
+                </h3>
+                <button type="button" onclick="closeRepairModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <form id="repairForm" class="p-4 md:p-5 space-y-4">
+                <input type="hidden" id="carId" name="carId">
+                
+                <div>
+                    <label for="repairStatus" class="block mb-2 text-sm font-medium text-gray-900">Repair Status</label>
+                    <select id="repairStatus" name="repairStatus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                        <option value="Under Repair">Under Repair</option>
+                        <option value="Repair Completed">Repair Completed</option>
+                        <option value="Pending Assessment">Pending Assessment</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="repairCost" class="block mb-2 text-sm font-medium text-gray-900">Total Repair Cost</label>
+                    <input type="number" id="repairCost" name="repairCost" step="0.01" min="0"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                </div>
+
+                <div>
+                    <label for="repairParts" class="block mb-2 text-sm font-medium text-gray-900">Parts to be Repaired</label>
+                    <textarea id="repairParts" name="repairParts" rows="4"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                        placeholder="List the parts that need repair..."></textarea>
+                </div>
+
+                <!-- Modal footer -->
+                <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-200">
+                    <button type="button" onclick="closeRepairModal()"
+                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                        Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+function openRepairModal(carId) {
+    document.getElementById('carId').value = carId;
+    document.getElementById('repairModal').classList.remove('hidden');
+}
+
+function closeRepairModal() {
+    document.getElementById('repairModal').classList.add('hidden');
+    document.getElementById('repairForm').reset();
+}
+
+document.getElementById('repairForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('{{ route("update.repair.status") }}', {
+        method: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            carId: formData.get('carId'),
+            repairStatus: formData.get('repairStatus'),
+            repairCost: formData.get('repairCost'),
+            repairParts: formData.get('repairParts')
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert(data.message);
+            window.location.reload();
+        } else {
+            alert('Error updating repair status');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error updating repair status');
+    });
+});
+
+// Status Dropdown Functions
+document.getElementById("toggle-status").addEventListener("click", function() {
+    const dropdown = document.getElementById("status-dropdown");
+    const icon = document.getElementById("status-icon");
+    dropdown.classList.toggle("hidden");
+    icon.classList.toggle("rotate-180");
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function(event) {
+    const dropdown = document.getElementById("status-dropdown");
+    const toggleButton = document.getElementById("toggle-status");
+    const icon = document.getElementById("status-icon");
+    
+    if (!toggleButton.contains(event.target) && !dropdown.contains(event.target)) {
+        dropdown.classList.add("hidden");
+        icon.classList.remove("rotate-180");
+    }
+});
+</script>
+@endsection 

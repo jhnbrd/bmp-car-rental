@@ -7,6 +7,8 @@ use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DamageRecordController;
+use App\Http\Controllers\AuditLogController;
 
 // Landing Routes
 Route::get('/', function () {
@@ -59,6 +61,21 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
         Route::post('/employees', [EmployeeController::class, 'store'])->name('add-employee');
         Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('update-employee');
+
+        // Damaged Cars Routes
+        Route::get('/damaged-cars', [EmployeeController::class, 'damagedCars'])->name('damaged.cars');
+        Route::post('/update-repair-status', [EmployeeController::class, 'updateRepairStatus'])->name('update.repair.status');
+
+        // Payment History Routes
+        Route::get('/payment_history', [EmployeeController::class, 'payment_history'])->name('payment.history');
+
+        // Audit Logs Route (Admin only)
+        Route::get('/audit-logs', function() {
+            if (Auth::user()->employee->role !== 'Admin') {
+                abort(403, 'Unauthorized action.');
+            }
+            return view('employee.audit_logs');
+        })->name('audit.logs');
     });
     
 });
