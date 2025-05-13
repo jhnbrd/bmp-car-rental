@@ -15,7 +15,7 @@
                     <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Home</a>
                     <a href="{{ route('cars') }}" class="hover:text-gray-700 dark:hover:text-gray-300" style="margin-left: 0 !important;">Cars</a>
                     <a href="{{ route('booking') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Booking</a>
-                    <a href="{{ route('home') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Contacts</a>
+                    <a href="{{ route('contact_user') }}" class="hover:text-gray-700 dark:hover:text-gray-300">Contacts</a>
 
                     <!-- Profile Dropdown -->
                     <div class="relative" x-data="{ open: false }" style="margin-top: 2.6px;">
