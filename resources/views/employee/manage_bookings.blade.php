@@ -1391,16 +1391,16 @@
             <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm space-y-3">
                 <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Booking Details</h3>
                 <div class="grid sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
-                    <p><strong>Pickup Location:</strong> Main Street, City</p>
-                    <p><strong>Drop-off Location:</strong> Central Park, City</p>
-                    <p><strong>Pickup Date & Time:</strong> 2025-04-20 10:00 AM</p>
-                    <p><strong>Return Date & Time:</strong> 2025-04-25 10:00 AM</p>
+                    <p><strong>Pickup Location:</strong> Main Branch, Ecoland, Davao City</p>
+                    <p><strong>Drop-off Location:</strong> Main Branch, Ecoland, Davao City</p>
+                    <p><strong>Pickup Date & Time:</strong> {{ $booking->pickup_date }} </p>
+                    <p><strong>Return Date & Time:</strong> {{ $booking->return_date }} </p>
                     <!-- Booking Status -->
                     <div class="sm:col-span-2">
                         <strong>Status:</strong>
-                        <span
-                            class="ml-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                            Paid
+                        <?php $statusBadge = getStatusBadge($booking->latestStatus->status); ?>
+                        <span class="ml-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <?= $statusBadge['color'] ?>">
+                            {{ $booking->latestStatus->status }}
                         </span>
                     </div>
                 </div>
