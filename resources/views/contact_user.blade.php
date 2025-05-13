@@ -71,11 +71,11 @@
                         <div class="bg-white rounded-lg shadow-lg p-8 text-gray-800 space-y-6">
                             <h3 class="font-bold text-xl text-center">VISIT US</h3>
                             <input type="text" placeholder="Enter your Name"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" name="name" id="name">
                             <input type="email" placeholder="Enter your Email"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600">
+                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" name="email" id="email">
                             <textarea placeholder="Your Message"
-                                class="w-full p-3 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600"></textarea>
+                                class="w-full p-3 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" name="message" id="message"></textarea>
                             <button
                                 class="bg-blue-600 text-white px-6 py-3 rounded-md w-full hover:bg-blue-700 transition duration-300">Find
                                 Us</button>
