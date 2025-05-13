@@ -207,8 +207,8 @@
 
                                                     <!-- Approve -->
                                                     <label for="payment-toggle">
-                                                        <div data-modal-target="payment-modal"
-                                                            data-modal-toggle="payment-modal"
+                                                        <div data-modal-target="payment-modal-{{ $unpaidBooking->id }}"
+                                                            data-modal-toggle="payment-modal-{{ $unpaidBooking->id }}"
                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
                                                             <svg class="w-5 h-5 text-white" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -221,7 +221,7 @@
 
                                                     <!-- Cancel -->
                                                     </label for="approval-toggle">
-                                                    <div data-modal-target="cancel-modal" data-modal-toggle="cancel-modal"
+                                                    <div data-modal-target="cancel-modal-{{ $unpaidBooking->id }}" data-modal-toggle="cancel-modal"
                                                         class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
                                                         <svg class="w-5 h-5 text-white" fill="currentColor"
                                                             viewBox="0 0 20 20">
@@ -279,7 +279,7 @@
                                 @foreach ($paidBookings as $paidBooking)
                                     <?php
                                     $statusBadge = getStatusBadge($paidBooking->latestStatus->status);
-                                    $dropdownId = 'paid-toggle-' . $unpaidBooking->id; ?>
+                                    $dropdownId = 'paid-toggle-' . $paidBooking->id; ?>
                                     <tr class="text-gray-700 dark:text-gray-400">
                                         <!-- For Approval - Client Name Data -->
                                         <td class="px-4 py-3">
@@ -339,8 +339,8 @@
                                                     class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                                     <!-- View Details -->
                                                     <label for="viewdetail-modal">
-                                                        <div data-modal-target="viewdetail-modal"
-                                                            data-modal-toggle="viewdetail-modal"
+                                                        <div data-modal-target="viewdetail-modal-{{ $paidBooking->id }}"
+                                                            data-modal-toggle="viewdetail-modal-{{ $paidBooking->id }}"
                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                             <svg class="w-5 h-5 text-white dark:text-gray-300"
                                                                 fill="currentColor" viewBox="0 0 24 24">
@@ -353,8 +353,8 @@
 
                                                     <!-- Approve -->
                                                     <label for="approval-toggle">
-                                                        <div data-modal-target="approve-modal"
-                                                            data-modal-toggle="approve-modal"
+                                                        <div data-modal-target="approve-modal-{{ $paidBooking->id }}"
+                                                            data-modal-toggle="approve-modal-{{ $paidBooking->id }}"
                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
                                                             <svg class="w-5 h-5 text-white" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -367,7 +367,7 @@
 
                                                     <!-- Cancel -->
                                                     </label for="approval-toggle">
-                                                    <div data-modal-target="cancel-modal" data-modal-toggle="cancel-modal"
+                                                    <div data-modal-target="cancel-modal-{{ $paidBooking->id }}" data-modal-toggle="cancel-modal-{{ $paidBooking->id }}"
                                                         class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
                                                         <svg class="w-5 h-5 text-white" fill="currentColor"
                                                             viewBox="0 0 20 20">
@@ -412,8 +412,7 @@
                     <div class="w-full">
                         <table class="w-full whitespace-no-wrap text-center">
                             <thead>
-                                <tr
-                                    class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
+                                <tr class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3">Client</th>
                                     <th class="px-4 py-3">Amount</th>
                                     <th class="px-4 py-3">Status</th>
@@ -482,7 +481,7 @@
                                             class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                             <!-- View Details -->
                                             <label for="viewdetail-modal">
-                                                <div data-modal-target="viewdetail-modal" data-modal-toggle="viewdetail-modal"
+                                                <div data-modal-target="viewdetail-modal-{{ $approvedBooking->id }}" data-modal-toggle="viewdetail-modal-{{ $approvedBooking->id }}"
                                                     class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                     <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                                                         <path
@@ -494,7 +493,7 @@
 
                                             <!-- Approve -->
                                             <label for="approvedtype-toggle">
-                                                <div data-modal-target="approvedtype-modal" data-modal-toggle="approvedtype-modal"
+                                                <div data-modal-target="approvedtype-modal-{{ $approvedBooking->id }}" data-modal-toggle="approvedtype-modal-{{ $approvedBooking->id }}"
                                                     class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
                                                     <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                         <path fill-rule="evenodd" clip-rule="evenodd"
@@ -506,7 +505,7 @@
 
                                             <!-- Cancel -->
                                             </label for="approval-toggle">
-                                            <div data-modal-target="cancel-modal" data-modal-toggle="cancel-modal"
+                                            <div data-modal-target="cancel-modal-{{ $approvedBooking->id }}" data-modal-toggle="cancel-modal-{{ $approvedBooking->id }}"
                                                 class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
                                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
                                                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -623,8 +622,8 @@
                                                     class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                                     <!-- View Details -->
                                                     <label for="viewdetail-modal">
-                                                        <div data-modal-target="viewdetail-modal"
-                                                            data-modal-toggle="viewdetail-modal"
+                                                        <div data-modal-target="viewdetail-modal-{{ $forPickUpBooking->id }}"
+                                                            data-modal-toggle="viewdetail-modal-{{ $forPickUpBooking->id }}"
                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                             <svg class="w-5 h-5 text-white dark:text-gray-300"
                                                                 fill="currentColor" viewBox="0 0 24 24">
@@ -637,8 +636,8 @@
 
                                                     <!-- Approve -->
                                                     <label for="pickup-toggle">
-                                                        <div data-modal-target="pickup-modal"
-                                                            data-modal-toggle="pickup-modal"
+                                                        <div data-modal-target="pickup-modal-{{ $forPickUpBooking->id }}"
+                                                            data-modal-toggle="pickup-modal-{{ $forPickUpBooking->id }}"
                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer transition mx-2 my-1">
                                                             <svg class="w-5 h-5 text-white" fill="currentColor"
                                                                 viewBox="0 0 20 20">
@@ -751,7 +750,7 @@
                                         class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                         <!-- View Details -->
                                         <label for="viewdetail-modal">
-                                            <div data-modal-target="viewdetail-modal" data-modal-toggle="viewdetail-modal"
+                                            <div data-modal-target="viewdetail-modal-{{ $ongoingBooking->id }}" data-modal-toggle="viewdetail-modal-{{ $ongoingBooking->id }}"
                                                 class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                 <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
                                                     viewBox="0 0 24 24">
@@ -885,8 +884,8 @@
                                             class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                             <!-- View Details -->
                                             <label for="viewdetail-modal">
-                                                <div data-modal-target="viewdetail-modal"
-                                                    data-modal-toggle="viewdetail-modal"
+                                                <div data-modal-target="viewdetail-modal-{{ $dueForReturnBooking->id }}"
+                                                    data-modal-toggle="viewdetail-modal-{{ $dueForReturnBooking->id }}"
                                                     class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                     <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
                                                         viewBox="0 0 24 24">
@@ -899,7 +898,7 @@
 
                                             <!-- Approve -->
                                             <label for="return-modal">
-                                                <div data-modal-target="return-modal" data-modal-toggle="return-modal"
+                                                <div data-modal-target="return-modal-{{ $dueForReturnBooking->id }}" data-modal-toggle="return-modal-{{ $dueForReturnBooking->id }}"
                                                     class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
                                                     <svg class="w-5 h-5 text-white" fill="currentColor"
                                                         viewBox="0 0 24 24">
@@ -911,8 +910,8 @@
 
                                             <!-- Cancel -->
                                             </label for="report-renter-modal">
-                                            <div data-modal-target="report-renter-modal"
-                                                data-modal-toggle="report-renter-modal"
+                                            <div data-modal-target="report-renter-modal-{{ $dueForReturnBooking->id }}"
+                                                data-modal-toggle="report-renter-modal"-{{ $dueForReturnBooking->id }}
                                                 class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
                                                 <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                                                     <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z" />
@@ -1024,8 +1023,8 @@
                                                 class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                                 <!-- View Details -->
                                                 <label for="viewdetail-modal">
-                                                    <div data-modal-target="viewdetail-modal"
-                                                        data-modal-toggle="viewdetail-modal"
+                                                    <div data-modal-target="viewdetail-modal-{{ $reportedBooking->id }}"
+                                                        data-modal-toggle="viewdetail-modal-{{ $reportedBooking->id }}"
                                                         class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
                                                         <svg class="w-5 h-5 text-white dark:text-gray-300"
                                                             fill="currentColor" viewBox="0 0 24 24">
@@ -1038,8 +1037,8 @@
 
                                                 <!-- Resolve Button -->
                                                 <label for="resolve-modal">
-                                                    <div data-modal-target="resolve-modal"
-                                                        data-modal-toggle="resolve-modal"
+                                                    <div data-modal-target="resolve-modal-{{ $reportedBooking->id }}"
+                                                        data-modal-toggle="resolve-modal-{{ $reportedBooking->id }}"
                                                         class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer transition mx-2 my-1">
                                                         <svg class="w-5 h-5 text-white" fill="none"
                                                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
@@ -1053,8 +1052,8 @@
 
                                                 <!-- Blacklisted Button -->
                                                 <label for="blacklist-modal">
-                                                    <div data-modal-target="blacklist-modal"
-                                                        data-modal-toggle="blacklist-modal"
+                                                    <div data-modal-target="blacklist-modal-{{ $reportedBooking->id }}"
+                                                        data-modal-toggle="blacklist-modal-{{ $reportedBooking->id }}"
                                                         class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
                                                         <svg class="w-5 h-5 text-white" fill="none"
                                                             stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
@@ -1089,15 +1088,16 @@
         </div>
     </div>
 
+@foreach ($allBookings as $booking)
     <!-- Resolve Report Modal -->
-    <div id="resolve-modal" tabindex="-1" aria-hidden="true"
+    <div id="resolve-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center p-4 sm:p-6 lg:p-8 bg-black bg-opacity-50 overflow-y-auto">
         <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-4xl p-6 space-y-6">
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center pb-4 border-b dark:border-gray-700">
                 <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Resolve Report</h2>
-                <button data-modal-hide="resolve-modal" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+                <button data-modal-hide="resolve-modal-{{ $booking->id }}" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
 
             <!-- Booking Details Section -->
@@ -1209,7 +1209,7 @@
 
             <!-- Modal Footer -->
             <div class="flex justify-end pt-4 border-t dark:border-gray-700 gap-3">
-                <button data-modal-hide="resolve-modal" type="button"
+                <button data-modal-hide="resolve-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Cancel
                 </button>
@@ -1222,14 +1222,14 @@
     </div>
 
     <!-- Blacklist Report Modal -->
-    <div id="blacklist-modal" tabindex="-1" aria-hidden="true"
+    <div id="blacklist-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center p-4 sm:p-6 lg:p-8 bg-black bg-opacity-50 overflow-y-auto">
         <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-4xl p-6 space-y-6">
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center pb-4 border-b dark:border-gray-700">
                 <h2 class="text-2xl font-semibold text-gray-800 dark:text-white">Blacklist Booking</h2>
-                <button data-modal-hide="blacklist-modal"
+                <button data-modal-hide="blacklist-modal-{{ $booking->id }}"
                     class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
 
@@ -1322,7 +1322,7 @@
 
             <!-- Modal Footer -->
             <div class="flex justify-end pt-4 border-t dark:border-gray-700 gap-3">
-                <button data-modal-hide="blacklist-modal" type="button"
+                <button data-modal-hide="blacklist-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Cancel
                 </button>
@@ -1334,7 +1334,6 @@
         </div>
     </div>
 
-@foreach ($allBookings as $booking)
     <!-- View Detail Modal   -->
     <div id="viewdetail-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-start px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 overflow-y-auto">
@@ -1420,7 +1419,7 @@
     </div>
 
     <!-- Payment Modal -->
-    <div id="payment-modal" tabindex="-1" aria-hidden="true"
+    <div id="payment-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
 
         <div
@@ -1431,7 +1430,7 @@
                 <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
                     Payment Details
                 </h5>
-                <button data-modal-hide="payment-modal" type="button"
+                <button data-modal-hide="payment-modal-{{ $booking->id }}" type="button"
                     class="text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1495,7 +1494,7 @@
                     Confirm Payment
                 </button>
                 </form>
-                <button data-modal-hide="payment-modal" type="button"
+                <button data-modal-hide="payment-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Cancel
                 </button>
@@ -1504,7 +1503,7 @@
     </div>
 
     <!-- Approval Modal -->
-    <div id="approve-modal" tabindex="-1" aria-hidden="true"
+    <div id="approve-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
 
         <div
@@ -1515,7 +1514,7 @@
                 <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
                     Booking Approval
                 </h5>
-                <button data-modal-hide="approve-modal" type="button"
+                <button data-modal-hide="approve-modal-{{ $booking->id }}" type="button"
                     class="text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1539,11 +1538,11 @@
                 <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-left space-y-2">
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Booking ID:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-2104</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-{{ sprintf('%04d', $booking->id) }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Renter Name:</span>
-                        <span class="text-sm text-gray-800 dark:text-gray-100">John Rex Partoza</span>
+                        <span class="text-sm text-gray-800 dark:text-gray-100">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</span>
                     </div>
                     <div class="flex justify-between">
                         <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Pickup:</span>
@@ -1559,11 +1558,14 @@
             <!-- Footer -->
             <div
                 class="flex justify-end gap-3 px-6 py-4 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
-                <button data-modal-hide="approve-modal" type="button"
-                    class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition">
-                    Approve Booking
-                </button>
-                <button data-modal-hide="approve-modal" type="button"
+                <form id="approve-booking-form-{{$booking->id}}" action="{{ route('approve-booking', $booking->id) }}" method="POST">
+                    @csrf
+                    <button type="submit"
+                        class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition approve-button">
+                        Approve Booking
+                    </button>
+                </form>
+                <button data-modal-hide="approve-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Cancel
                 </button>
@@ -1572,7 +1574,7 @@
     </div>
 
     <!-- Modal for Approval Type -->
-    <div id="approvedtype-modal" tabindex="-1" aria-hidden="true"
+    <div id="approvedtype-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
         <div class="relative w-full h-full max-w-md md:h-auto">
             <!-- Modal content -->
@@ -1584,7 +1586,7 @@
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="approvedtype-modal">
+                        data-modal-hide="approvedtype-modal-{{ $booking->id }}">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" clip-rule="evenodd"
                                 d="M6.293 4.293a1 1 0 011.414 0L10 6.586l2.293-2.293a1 1 0 111.414 1.414L11.414 8l2.293 2.293a1 1 0 01-1.414 1.414L10 9.414l-2.293 2.293a1 1 0 01-1.414-1.414L8.586 8 6.293 5.707a1 1 0 010-1.414z" />
@@ -1611,7 +1613,7 @@
                 <!-- Modal footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 dark:border-gray-600">
                     <!-- Cancel Button -->
-                    <button data-modal-hide="approvedtype-modal" type="button"
+                    <button data-modal-hide="approvedtype-modal-{{ $booking->id }}" type="button"
                         class="w-full text-gray-700 bg-white border border-gray-300 hover:bg-gray-100 rounded-md py-2 text-sm">
                         Close
                     </button>
@@ -1626,7 +1628,7 @@
     </div>
 
     <!-- Pickup Confirmation Modal -->
-    <div id="pickup-modal" tabindex="-1" aria-hidden="true"
+    <div id="pickup-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
 
         <div class="relative w-full max-w-lg mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl">
@@ -1639,7 +1641,7 @@
                     <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
                         Car Pickup Confirmation
                     </h5>
-                    <button data-modal-hide="pickup-modal" type="button"
+                    <button data-modal-hide="pickup-modal-{{ $booking->id }}" type="button"
                         class="text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -1691,11 +1693,11 @@
 
                 <!-- Footer -->
                 <div class="flex justify-end gap-3">
-                    <button data-modal-hide="pickup-modal" type="button"
+                    <button data-modal-hide="pickup-modal-{{ $booking->id }}" type="button"
                         class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                         Cancel
                     </button>
-                    <button data-modal-hide="pickup-modal" type="button"
+                    <button data-modal-hide="pickup-modal-{{ $booking->id }}" type="button"
                         class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition"
                         id="confirmPickupBtn" disabled>
                         Confirm Pickup
@@ -1706,7 +1708,7 @@
     </div>
 
     <!-- Cancel Modal -->
-    <div id="cancel-modal" tabindex="-1" aria-hidden="true"
+    <div id="cancel-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex justify-center items-center bg-black bg-opacity-50 overflow-y-auto">
 
         <div
@@ -1717,7 +1719,7 @@
                 <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
                     Reason for Cancellation
                 </h5>
-                <button data-modal-hide="cancel-modal" type="button"
+                <button data-modal-hide="cancel-modal-{{ $booking->id }}" type="button"
                     class="text-gray-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full p-2 transition">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -1790,11 +1792,11 @@
             <!-- Footer -->
             <div
                 class="flex justify-end gap-3 px-6 py-2 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
-                <button data-modal-hide="cancel-modal" type="submit"
+                <button data-modal-hide="cancel-modal-{{ $booking->id }}" type="submit"
                     class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition">
                     Submit Reason
                 </button>
-                <button data-modal-hide="cancel-modal" type="button"
+                <button data-modal-hide="cancel-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                     Close
                 </button>
@@ -1803,14 +1805,14 @@
     </div>
 
     <!-- Modern Return Vehicle Modal -->
-    <div id="return-modal" tabindex="-1" aria-hidden="true"
+    <div id="return-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
         class="hidden fixed inset-0 z-50 flex items-center justify-center p-2 bg-black bg-opacity-50 overflow-y-auto">
         <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-6xl p-4 space-y-6">
 
             <!-- Modal Header -->
             <div class="flex justify-between items-center border-b pb-4 dark:border-gray-700">
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Return Vehicle</h2>
-                <button data-modal-hide="return-modal" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+                <button data-modal-hide="return-modal-{{ $booking->id }}" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
             </div>
 
             <!-- Row 1: Customer Profile (left), Rental Duration (right) -->
@@ -1967,7 +1969,7 @@
 
             <!-- Footer -->
             <div class="flex justify-between items-center gap-3 border-t pt-4 dark:border-gray-700">
-                <button data-modal-hide="return-modal" type="button"
+                <button data-modal-hide="return-modal-{{ $booking->id }}" type="button"
                     class="px-5 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-white border rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium">
                     Cancel
                 </button>
@@ -1980,7 +1982,7 @@
     </div>
 
     <!-- Report Renter Modal -->
-    <div id="report-renter-modal"
+    <div id="report-renter-modal-{{ $booking->id }}"
         class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-50 overflow-y-auto">
         <div class="bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-2xl p-6 space-y-6">
 
@@ -1988,7 +1990,7 @@
             <div class="flex justify-between items-center border-b pb-3 dark:border-gray-700">
                 <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Report Renter</h2>
                 <button class="text-gray-400 hover:text-red-500 text-2xl"
-                    data-modal-hide="report-renter-modal">&times;</button>
+                    data-modal-hide="report-renter-modal-{{ $booking->id }}">&times;</button>
             </div>
 
             <!-- Renter Info -->
@@ -2054,7 +2056,7 @@
 
             <!-- Footer -->
             <div class="flex justify-end space-x-3 pt-4 border-t dark:border-gray-700">
-                <button data-modal-hide="report-renter-modal"
+                <button data-modal-hide="report-renter-modal-{{ $booking->id }}"
                     class="px-4 py-2 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium">
                     Cancel
                 </button>
@@ -2498,6 +2500,31 @@
             const amount = parseFloat(total.textContent);
             const change = paid - amount;
             changeLabel.textContent = change >= 0 ? `Php ${change.toFixed(2)}` : 'Php 0.00';
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const approveButtons = document.querySelectorAll('.approve-button');
+            approveButtons.forEach(button => {
+                button.addEventListener('click', function(event) {
+                    event.preventDefault(); // Prevent the form from submitting immediately
+
+                    const form = this.closest('form'); // Find the form associated with the button
+
+                    Swal.fire({ // Use SweetAlert
+                        title: 'Are you sure?',
+                        text: "Do you want to approve this booking?",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes, approve it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            form.submit(); // Submit the form if the user confirms
+                        }
+                    });
+                });
+            });
         });
     </script>
 @endsection

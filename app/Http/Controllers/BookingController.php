@@ -207,19 +207,14 @@ class BookingController extends Controller
      */
     public function processOfflinePaymentAdmin(int $booking_id, Request $request): RedirectResponse
     {
-        dd($booking_id, $request->all());
+        // dd($booking_id, $request->all());
         $user = Auth::user();
         $booking = Booking::findOrFail($booking_id);
-
-        $request->validate([
-            'booking_id' => 'required|exists:bookings,id',
-            'paid_amount' => 'required',
-        ]);
 
         Payment::create([
             'booking_id' => $booking_id,
             'payment_method' => 'cash',
-            'paid_amount' => $request->paid_amount,
+            'paid_amount' => $booking->amount_due,
             'is_verified' => true,
         ]);
 
@@ -227,12 +222,31 @@ class BookingController extends Controller
             'booking_id' => $booking_id,
             'status' => 'Paid',
             'status_date' => Carbon::now(),
-            'additional_notes' => 'Paid at the counter',
+            'additional_notes' => 'Paid at the counter.',
             'updated_by_id' => $user->id,
         ]);
 
         $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
 
         return redirect()->route('booking-management')->with('success', 'Payment verified successfully!');
+    }
+
+    public function approveBooking(int $booking_id, Request $request): RedirectResponse
+    {
+        dd($booking_id);
+        $user = Auth::user();
+        $booking = Booking::findOrFail($booking_id);
+
+        $bookingPaidStatus = BookingStatus::create([
+            'booking_id' => $booking_id,
+            'status' => 'Approved',
+            'status_date' => Carbon::now(),
+            'additional_notes' => 'Booking approved.',
+            'updated_by_id' => $user->id,
+        ]);
+
+        $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
+
+        return redirect()->route('booking-management')->with('success', 'Booking approved successfully!');
     }
 }

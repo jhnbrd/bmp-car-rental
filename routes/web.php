@@ -53,6 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/bookings/history', [EmployeeController::class, 'booking_history'])->name('booking-history');
         Route::get('/bookings/unsettled', [EmployeeController::class, 'booking_unsettled'])->name('booking-unsettled');
         Route::post('/bookings/pay/{booking}', [BookingController::class, 'processOfflinePaymentAdmin'])->name('process-offline-payment');
+        Route::post('/bookings/approve/{booking}', [BookingController::class, 'approveBooking'])->name('approve-booking');
 
         // Car Management Routes
         Route::get('/cars/manage', [EmployeeController::class, 'car_modification'])->name('cars-modification');

@@ -141,9 +141,11 @@ class EmployeeController extends Controller
             })
             ->with(['customer', 'car', 'latestStatus'])
             ->orderBy(
-                BookingStatus::select('status_date')
+                BookingStatus::query()
                     ->whereColumn('booking_id', 'bookings.id')
-                    ->latest(),
+                    ->orderBy('status_date', 'desc')
+                    ->limit(1)
+                    ->select('status_date'),
                 'desc'
             )
             ->paginate(6, ['*'], $status);
