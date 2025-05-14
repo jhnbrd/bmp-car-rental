@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -11,57 +12,15 @@ use Illuminate\View\View;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Str; 
 
 class ProfileController extends Controller
 {
     /**
-     * Display the user's profile form.
+     * 
+     * @return \Illuminate\Contracts\View\View
      */
-    public function edit(Request $request): View
-    {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
-    }
-
-    /**
-     * Update the user's profile information.
-     */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
-
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
-        }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
-    }
-
-    /**
-     * Delete the user's account.
-     */
-    public function destroy(Request $request): RedirectResponse
-    {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
-
-        $user = $request->user();
-
-        Auth::logout();
-
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
-    }
-
-    public function show()
+    public function index()
     {
         return view('employee.profile');
     }
@@ -73,7 +32,7 @@ class ProfileController extends Controller
             'new_password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
-        $user = auth()->user();
+        $user = User::find(Auth::user()->id);
         $user->password = Hash::make($request->new_password);
         $user->save();
 
@@ -82,19 +41,26 @@ class ProfileController extends Controller
 
     public function updatePicture(Request $request)
     {
+
         $request->validate([
-            'profile_picture' => ['required', 'image', 'max:2048'], // Max 2MB
+            'profile_picture' => ['required', 'image', 'max:2048'],
         ]);
 
-        $user = auth()->user();
-        
-        // Delete old picture if exists
+        $user = User::find(Auth::user()->id);
+
         if ($user->picture_path && Storage::exists($user->picture_path)) {
             Storage::delete($user->picture_path);
         }
 
-        // Store new picture
-        $path = $request->file('profile_picture')->store('profile-pictures', 'public');
+        $file = $request->file('profile_picture');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $user->username . '.' . $extension;
+        $file->move(public_path(path: 'assets/user_profile_pictures'), $filename);
+        $path = 'assets/user_profile_pictures/' . $filename;
+        // $path = $file->storeAs('assets/user_profile_pictures', $filename, 'public');
+
+        // dd($file);
+
         $user->picture_path = $path;
         $user->save();
 

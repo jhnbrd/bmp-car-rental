@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\BookingStatus;
 use App\Models\Car;
 use App\Models\CarModel;
+use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class BookingController extends Controller
         $bookings = Booking::where('customer_id', $user->customer->id)
                                 ->with('car.carModel')
                                 ->orderBy('created_at', 'desc')
-                                ->get();
+                                ->paginate(4);
         return view('booking', compact('bookings'));
     }
 
@@ -80,54 +81,121 @@ class BookingController extends Controller
         return view('payment', compact('pickupDate', 'returnDate', 'carModel', 'totalAmount', 'vat', 'rentalFee', 'plateNumber'));
     }
 
+    /**
+     * Processing of booking details to add booking,
+     * status and payment to database
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
     public function processAddBooking(Request $request): RedirectResponse
     {
+        // dd($request->all());
+
         $request->validate([
-            'terms_accepted' => 'required|accepted',
             'pickup_date' => 'required|date',
             'return_date' => 'required|date|after:pickup_date',
-            'available_car_id' => 'required|exists:cars,id',
+            'car_model_id' => 'required|exists:car_models,id',
+            'total_amount' => 'required|numeric',
+            'payment_method' => 'required|string|in:paymaya,gcash,cash', 
+            'paymaya_ref' => 'nullable|required_if:payment_method,paymaya|string',
+            'paymaya_account_name' => 'nullable|required_if:payment_method,paymaya|string',
+            'gcash_ref' => 'nullable|required_if:payment_method,gcash|string',
+            'gcash_account_name' => 'nullable|required_if:payment_method,gcash|string',
+            'agreement' => 'required|accepted',
         ]);
 
-        $carToBook = Car::findOrFail($request->available_car_id);
+        $user = Auth::user();
+        $carModelId = $request->input('car_model_id');
+        $pickupDate = $request->input('pickup_date');
+        $returnDate = $request->input('return_date');
+        $totalAmount = $request->input('total_amount');
+        $paymentMethod = $request->input('payment_method');
 
-        if ($carToBook->status !== 'Available') {
+        $availableCar = Car::where('car_model_id', $carModelId)
+            ->where('status', 'Available')
+            ->first();
+
+        if (!$availableCar) {
             return redirect()->route('cars')->with('error', 'The selected car is no longer available.');
         }
 
-        $carToBook->update(['status' => 'Booked']);
+        $booking = Booking::create([
+            'customer_id' => $user->customer->id,
+            'car_id' => $availableCar->id,
+            'pickup_date' => $pickupDate,
+            'return_date' => $returnDate,
+            'amount_due' => $totalAmount,
+        ]);
 
-        $pickupDate = Carbon::parse($request->pickup_date);
-        $returnDate = Carbon::parse($request->return_date);
-        $rentalDays = $pickupDate->diffInDays($returnDate) + 1;
+        $availableCar->update(['status' => 'Booked']);
 
-        $amountDue = 0;
-        if ($carToBook->carModel->car_type === 'Sedan') {
-            $amountDue = 500 * $rentalDays;
-        } elseif ($carToBook->carModel->car_type === 'SUV') {
-            $amountDue = 1000 * $rentalDays;
-        } elseif ($carToBook->carModel->car_type === 'Pick-up') {
-            $amountDue = 1500 * $rentalDays;
+        $status = '';
+        $additionalNotes = '';
+        $payment = null;
+
+        if ($paymentMethod === 'gcash' || $paymentMethod === 'paymaya') {
+            $status = 'Pending';
+            $refNumber = ($paymentMethod === 'gcash') ? $request->input('gcash_ref') : $request->input('paymaya_ref');
+            $accountName = ($paymentMethod === 'gcash') ? $request->input('gcash_account_name') : $request->input('paymaya_account_name');
+
+            $additionalNotes = 'Payment via ' . ucfirst($paymentMethod) . '. Ref No: ' . $refNumber . ', Account Name: ' . $accountName;
+
+            $payment = Payment::create([
+                'booking_id' => $booking->id,
+                'payment_method' => $paymentMethod,
+                'paid_amount' => $totalAmount,
+                'ref_number' => $refNumber,
+                'is_verified' => false,
+            ]);
+        } elseif ($paymentMethod === 'cash') {
+            $status = 'Unpaid';
+            $additionalNotes = 'Pay at the counter.';
+        } else {
+            return redirect()->route('cars')->with('error', 'Booking unsuccessful.');
         }
 
-        $booking = new Booking([
-            'customer_id' => Auth::user()->customer->id,
-            'car_id' => $carToBook->id,
-            'pickup_date' => $request->pickup_date,
-            'return_date' => $request->return_date,
-            'amount_due' => $amountDue,
-        ]);
-        $booking->save();
-
-        $bookingStatus = new BookingStatus([
+        // Create the initial booking status record
+        $bookingStatus = BookingStatus::create([
             'booking_id' => $booking->id,
-            'status' => 'Unpaid',
-            'updated_by_id' => Auth::id(),
+            'status' => $status,
+            'status_date' => Carbon::now(),
+            'additional_notes' => $additionalNotes,
+            'updated_by_id' => $user->id,
         ]);
-        $bookingStatus->save();
 
+        // Update the booking's latest_status_id
         $booking->update(['latest_status_id' => $bookingStatus->id]);
-        
-        return redirect()->route('booking')->with('success', 'Booking added successfully!');
+
+        return redirect()->route('booking')->with('success', 'Booking submitted successfully!');
+    }
+
+    /**
+     * Cancellation of Bookings
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
+    public function cancelBookingUser(Request $request): RedirectResponse
+    {
+        // dd($request->all());
+
+        $user = Auth::user();
+        $booking = Booking::findOrFail($request->booking_id);
+
+        $request->validate([
+            'booking_id' => 'required|exists:bookings,id',
+            'cancel_reason' => 'required',
+        ]);
+
+        $bookingCancelStatus = BookingStatus::create([
+            'booking_id' => $request->booking_id,
+            'status' => 'Cancelled',
+            'status_date' => Carbon::now(),
+            'additional_notes' => $request->cancel_reason,
+            'updated_by_id' => $user->id,
+        ]);
+
+        $booking->update(['latest_status_id' => $bookingCancelStatus->id]);
+
+        return redirect()->route('booking')->with('success', 'Booking cancelled successfully!');
     }
 }

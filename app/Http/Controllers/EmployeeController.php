@@ -3,14 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\View\View;
-use App\Models\User;
+use App\Models\Booking;
+use App\Models\BookingStatus;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Models\Payment;
 
 class EmployeeController extends Controller
 {
@@ -115,8 +118,35 @@ class EmployeeController extends Controller
 
     public function booking_management(): View
     {
-        $bookings = Employee::all();
-        return view('employee.manage_bookings', ['bookings' => $bookings]);
+        $allBookings = Booking::all();
+
+        $bookings = [
+            'allBookings' => $allBookings,
+            'unpaidBookings' => $this->getBookingsByStatus('Unpaid'),
+            'paidBookings' => $this->getBookingsByStatus('Paid'),
+            'approvedBookings' => $this->getBookingsByStatus('Approved'),
+            'forPickUpBookings' => $this->getBookingsByStatus('For Pick-up'),
+            'ongoingBookings' => $this->getBookingsByStatus('Ongoing'),
+            'dueForReturnBookings' => $this->getBookingsByStatus('Due for Return'),
+            'reportedBookings' => $this->getBookingsByStatus('Reported'),
+        ];
+
+        return view('employee.manage_bookings', $bookings);
+    }
+
+    private function getBookingsByStatus(string $status)
+    {
+        return Booking::whereHas('latestStatus', function ($query) use ($status) {
+                $query->where('status', $status);
+            })
+            ->with(['customer', 'car', 'latestStatus'])
+            ->orderBy(
+                BookingStatus::select('status_date')
+                    ->whereColumn('booking_id', 'bookings.id')
+                    ->latest(),
+                'desc'
+            )
+            ->paginate(6, ['*'], $status);
     }
 
     public function booking_history(): View
@@ -138,5 +168,88 @@ class EmployeeController extends Controller
         return view('employee.car_modification', ['car_modification' => $car_modification]);
     }
 
-    
+    public function damagedCars(): View
+    {
+        $damagedCars = Car::where('status', 'Damaged')
+            ->with('carModel')
+            ->get();
+        
+        $totalDamagedCars = $damagedCars->count();
+        $underRepairCount = $damagedCars->where('repair_status', 'Under Repair')->count();
+        $repairCompletedCount = $damagedCars->where('repair_status', 'Repair Completed')->count();
+        $totalRepairCost = $damagedCars->sum('damage_cost');
+
+        return view('employee.damaged_cars', [
+            'damagedCars' => $damagedCars,
+            'totalDamagedCars' => $totalDamagedCars,
+            'underRepairCount' => $underRepairCount,
+            'repairCompletedCount' => $repairCompletedCount,
+            'totalRepairCost' => $totalRepairCost
+        ]);
+    }
+
+    public function updateRepairStatus(Request $request)
+    {
+        $request->validate([
+            'carId' => 'required|exists:cars,id',
+            'repairStatus' => 'required|in:Under Repair,Repair Completed,Pending Assessment',
+            'repairCost' => 'required|numeric|min:0',
+            'repairParts' => 'required|string'
+        ]);
+
+        $car = Car::findOrFail($request->carId);
+        $car->repair_status = $request->repairStatus;
+        $car->damage_cost = $request->repairCost;
+        $car->repair_parts = $request->repairParts;
+        $car->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Repair status updated successfully'
+        ]);
+    }
+
+    public function payment_history(Request $request): View
+    {
+        $query = Payment::query()
+            ->with(['booking.customer', 'booking.car.carModel'])
+            ->orderBy('created_at', 'desc');
+
+        // Apply filters
+        if ($request->filled('payment_type')) {
+            if ($request->payment_type === 'booking') {
+                $query->whereNotNull('booking_id');
+            } elseif ($request->payment_type === 'repairment') {
+                $query->whereNull('booking_id');
+            }
+        }
+
+        if ($request->filled('start_date')) {
+            $query->whereDate('created_at', '>=', $request->start_date);
+        }
+
+        if ($request->filled('end_date')) {
+            $query->whereDate('created_at', '<=', $request->end_date);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('is_verified', $request->status === 'verified');
+        }
+
+        $payments = $query->paginate(10);
+
+        // Calculate summary statistics
+        $totalPayments = Payment::sum('paid_amount');
+        $bookingPayments = Payment::whereNotNull('booking_id')->sum('paid_amount');
+        $repairmentCosts = Payment::whereNull('booking_id')->sum('paid_amount');
+        $pendingPayments = Payment::where('is_verified', false)->sum('paid_amount');
+
+        return view('employee.payment_history', compact(
+            'payments',
+            'totalPayments',
+            'bookingPayments',
+            'repairmentCosts',
+            'pendingPayments'
+        ));
+    }
 }

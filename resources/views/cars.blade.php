@@ -218,6 +218,30 @@
         x-data="{
             pickupDate: '',
             returnDate: '',
+            minReturnDate: '', // Add this
+            maxReturnDate: '', // Add this
+            updateReturnDateConstraints() { // Add this function
+                if (this.pickupDate) {
+                    const pickup = new Date(this.pickupDate);
+                    const minReturn = new Date(pickup);
+                    minReturn.setDate(pickup.getDate() + 1);
+                    this.minReturnDate = this.formatDate(minReturn);
+
+                    const maxReturn = new Date(pickup);
+                    maxReturn.setDate(pickup.getDate() + 10);
+                    this.maxReturnDate = this.formatDate(maxReturn);
+                } else {
+                    this.minReturnDate = '';
+                    this.maxReturnDate = '';
+                    this.returnDate = ''; // Optionally clear return date if pickup is cleared
+                }
+            },
+            formatDate(date) {
+                const year = date.getFullYear();
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const day = String(date.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            },
             proceedToTerms() {
                 if (!this.pickupDate) {
                     alert('Please select a pick-up date.');
@@ -303,14 +327,17 @@
                                 <label for="pickup_date-{{ $carModel->id }}" class="block text-sm font-semibold text-gray-700 mb-1">Select Pick-up Date</label>
                                 <input type="date" id="pickup_date-{{ $carModel->id }}"
                                     x-model="pickupDate"
+                                    @change="updateReturnDateConstraints()"
                                     class="border-gray-300 rounded px-3 py-2 text-sm w-1/2"
                                     min="{{ now()->toDateString() }}"
                                     max="{{ now()->addDays(10)->toDateString() }}" />
                             </div>
                             <div>
                                 <label for="return_date-{{ $carModel->id }}" class="block text-sm font-semibold text-gray-700 mb-1">Select Return Date</label>
-                                <input type="date" id="return_date-{{ $carModel->id }}" class="border-gray-300 rounded px-3 py-2 text-sm w-1/2" x-model="returnDate"
-                                    min="{{ now()->addDays(1)->toDateString() }}"
+                                <input type="date" id="return_date-{{ $carModel->id }}"
+                                    class="border-gray-300 rounded px-3 py-2 text-sm w-1/2"
+                                    x-model="returnDate"
+                                    :min="minReturnDate" :max="maxReturnDate" :disabled="!pickupDate" min="{{ now()->addDays(1)->toDateString() }}"
                                     max="{{ now()->addDays(20)->toDateString() }}"/>
                             </div>
                         </div>

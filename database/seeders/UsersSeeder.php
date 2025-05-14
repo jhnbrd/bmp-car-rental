@@ -99,5 +99,28 @@ class UsersSeeder extends Seeder
             'license_expiration_date' => '2027-03-18',
             'license_img_path' => 'license_images/1745171884_jihan_license.jpg',
         ]);
+
+        $user = User::create([
+            'username' => 'johndoe',
+            'email' => 'johndoe@test.com',
+            'password' => Hash::make('bmpcars2025'),
+            'role' => 'Customer',
+            'picture_path' => 'assets/user_profile_pictures/johndoe.jpg',
+        ]);
+
+        Customer::create([
+            'first_name' => 'John',
+            'middle_name' => '',
+            'last_name' => 'Doe',
+            'user_id' => $user->id,
+            'province' => 'Davao del Sur',
+            'city' => 'City of Davao',
+            'barangay' => 'Mudiang',
+            'address' => 'Purok 1',
+            'phone_number' => '09088184444',
+            'driver_license_number' => 'L02-11-200397',
+            'license_expiration_date' => '2028-06-09',
+            'license_img_path' => 'license_images/1745171884_jihan_license.jpg',
+        ]);
     }
 }
