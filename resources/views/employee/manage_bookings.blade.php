@@ -1602,11 +1602,13 @@
 
                     <!-- Dropdown for Approval Type -->
                     <div class="relative">
-                        <select id="approval-type" name="approval-type"
-                            class="block w-full px-4 py-2 text-sm text-gray-700 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-blue-600">
-                            <option value="used-now">Used Now</option>
-                            <option value="for-pickup">For Pickup</option>
-                        </select>
+                        <form action=" {{ route('change-approved-status', $booking->id) }} " method="POST">
+                            @csrf
+                            <select id="approval-type" name="approval_type"
+                                class="block w-full px-4 py-2 text-sm text-gray-700 bg-white rounded-md shadow-sm border border-gray-300 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:focus:ring-blue-600">
+                                <option value="used-now">Used Now</option>
+                                <option value="for-pickup">For Pickup</option>
+                            </select>
                     </div>
                 </div>
 
@@ -1618,10 +1620,12 @@
                         Close
                     </button>
                     <!-- Submit Button -->
-                    <button type="button"
+                    <button type="submit"
                         class="w-full text-white bg-green-600 border border-green-300 hover:bg-green-700 rounded-md py-2 text-sm">
                         Submit
                     </button>
+
+                </form>
                 </div>
             </div>
         </div>

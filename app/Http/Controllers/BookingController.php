@@ -134,7 +134,7 @@ class BookingController extends Controller
         $payment = null;
 
         if ($paymentMethod === 'gcash' || $paymentMethod === 'paymaya') {
-            $status = 'Pending';
+            $status = 'paid';
             $refNumber = ($paymentMethod === 'gcash') ? $request->input('gcash_ref') : $request->input('paymaya_ref');
             $accountName = ($paymentMethod === 'gcash') ? $request->input('gcash_account_name') : $request->input('paymaya_account_name');
 
@@ -145,7 +145,7 @@ class BookingController extends Controller
                 'payment_method' => $paymentMethod,
                 'paid_amount' => $totalAmount,
                 'ref_number' => $refNumber,
-                'is_verified' => false,
+                'is_verified' => true,
             ]);
         } elseif ($paymentMethod === 'cash') {
             $status = 'Unpaid';
@@ -233,7 +233,6 @@ class BookingController extends Controller
 
     public function approveBooking(int $booking_id, Request $request): RedirectResponse
     {
-        dd($booking_id);
         $user = Auth::user();
         $booking = Booking::findOrFail($booking_id);
 
@@ -248,5 +247,43 @@ class BookingController extends Controller
         $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
 
         return redirect()->route('booking-management')->with('success', 'Booking approved successfully!');
+    }
+
+    public function changeApprovedStatus(int $booking_id, Request $request): RedirectResponse
+    {
+        $request->validate([
+            'approval_type' => 'required',
+        ]);
+
+        $user = Auth::user();
+        $booking = Booking::findOrFail($booking_id);
+
+        if ($request->approval_type === 'for-pickup') {
+            $bookingPaidStatus = BookingStatus::create([
+                'booking_id' => $booking_id,
+                'status' => 'For Pick-Up',
+                'status_date' => Carbon::now(),
+                'additional_notes' => 'Car can now be picked-up.',
+                'updated_by_id' => $user->id,
+            ]);
+    
+            $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
+
+            return redirect()->route('booking-management')->with('success', 'Booking updated successfully!');
+        } elseif ($request->approval_type === 'used-now') {
+            $bookingPaidStatus = BookingStatus::create([
+                'booking_id' => $booking_id,
+                'status' => 'Ongoing',
+                'status_date' => Carbon::now(),
+                'additional_notes' => 'Car is being used. Booking ongoing.',
+                'updated_by_id' => $user->id,
+            ]);
+    
+            $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
+
+            return redirect()->route('booking-management')->with('success', 'Booking updated successfully!');
+        } else {
+            return redirect()->route('booking-management')->with('error', 'Booking update unsuccessful.');
+        }
     }
 }

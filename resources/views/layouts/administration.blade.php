@@ -43,7 +43,7 @@
       defer
     ></script>
     <script src="{{ asset('assets/js/charts-lines.js') }}" defer></script>
-    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>.
+    <script src="{{ asset('assets/js/charts-pie.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-default/default.css">
   </head>
