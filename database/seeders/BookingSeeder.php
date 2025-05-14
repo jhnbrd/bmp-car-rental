@@ -82,6 +82,7 @@ class BookingSeeder extends Seeder
             'payment_method' => 'cash',
             'paid_amount' => 500.00,
             'is_verified' => true,
+            'created_at' => '2025-05-14 00:54:28',
         ],
         // Payment for Due 2
         [
@@ -89,6 +90,7 @@ class BookingSeeder extends Seeder
             'payment_method' => 'cash',
             'paid_amount' => 1000.00,
             'is_verified' => true,
+            'created_at' => '2025-05-14 00:54:28'
         ],
     ];
 

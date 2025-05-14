@@ -6,7 +6,7 @@
     </h2>
 
     <!-- Filter Section -->
-    <div class="mb-8 bg-white rounded-lg shadow-md">
+    <div class="mb-8 bg-white rounded-lg shadow-md hidden">
         <div class="p-6 border-b border-gray-200">
             <div class="flex items-center justify-between">
                 <div>
@@ -155,28 +155,28 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
+                @foreach ($payments as $payment)
                     <tr class="text-gray-700 dark:text-gray-400">
                         <td class="px-4 py-3">
                             <div class="flex items-center text-sm">
                                 <div>
-                                    <p class="font-semibold">Jan 1, 2024</p>
-                                    <p class="text-xs text-gray-600">10:00 AM</p>
+                                    <p class="font-semibold">{{ $payment->created_at }}</p>
                                 </div>
                             </div>
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            REF-001
+                            {{ $payment->ref_number }}
                         </td>
                         <td class="px-4 py-3 text-sm">
                             <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
-                                Booking
+                                {{ $payment->type }}
                             </span>
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            ₱1,000.00
+                            Php {{ $payment->paid_amount }}
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            Cash
+                            {{ $payment->payment_method }}
                         </td>
                         <td class="px-4 py-3 text-sm">
                             <span class="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-full">
@@ -189,6 +189,7 @@
                             </button>
                         </td>
                     </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>

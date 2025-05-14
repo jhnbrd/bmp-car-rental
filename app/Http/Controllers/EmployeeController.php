@@ -215,45 +215,49 @@ class EmployeeController extends Controller
 
     public function payment_history(Request $request): View
     {
-        $query = Payment::query()
-            ->with(['booking.customer', 'booking.car.carModel'])
-            ->orderBy('created_at', 'desc');
+        // $query = Payment::query()
+        //     ->with(['booking.customer', 'booking.car.carModel'])
+        //     ->orderBy('created_at', 'desc');
 
-        // Apply filters
-        if ($request->filled('payment_type')) {
-            if ($request->payment_type === 'booking') {
-                $query->whereNotNull('booking_id');
-            } elseif ($request->payment_type === 'repairment') {
-                $query->whereNull('booking_id');
-            }
-        }
+        // // Apply filters
+        // if ($request->filled('payment_type')) {
+        //     if ($request->payment_type === 'booking') {
+        //         $query->whereNotNull('booking_id');
+        //     } elseif ($request->payment_type === 'repairment') {
+        //         $query->whereNull('booking_id');
+        //     }
+        // }
 
-        if ($request->filled('start_date')) {
-            $query->whereDate('created_at', '>=', $request->start_date);
-        }
+        // if ($request->filled('start_date')) {
+        //     $query->whereDate('created_at', '>=', $request->start_date);
+        // }
 
-        if ($request->filled('end_date')) {
-            $query->whereDate('created_at', '<=', $request->end_date);
-        }
+        // if ($request->filled('end_date')) {
+        //     $query->whereDate('created_at', '<=', $request->end_date);
+        // }
 
-        if ($request->filled('status')) {
-            $query->where('is_verified', $request->status === 'verified');
-        }
+        // if ($request->filled('status')) {
+        //     $query->where('is_verified', $request->status === 'verified');
+        // }
 
-        $payments = $query->paginate(10);
+        // $payments = $query->paginate(10);
 
-        // Calculate summary statistics
-        $totalPayments = Payment::sum('paid_amount');
-        $bookingPayments = Payment::whereNotNull('booking_id')->sum('paid_amount');
-        $repairmentCosts = Payment::whereNull('booking_id')->sum('paid_amount');
-        $pendingPayments = Payment::where('is_verified', false)->sum('paid_amount');
+        // // Calculate summary statistics
+        // $totalPayments = Payment::sum('paid_amount');
+        // $bookingPayments = Payment::whereNotNull('booking_id')->sum('paid_amount');
+        // $repairmentCosts = Payment::whereNull('booking_id')->sum('paid_amount');
+        // $pendingPayments = Payment::where('is_verified', false)->sum('paid_amount');
 
-        return view('employee.payment_history', compact(
-            'payments',
-            'totalPayments',
-            'bookingPayments',
-            'repairmentCosts',
-            'pendingPayments'
-        ));
+        // return view('employee.payment_history', compact(
+        //     'payments',
+        //     'totalPayments',
+        //     'bookingPayments',
+        //     'repairmentCosts',
+        //     'pendingPayments'
+        // ));
+
+        $payments = Payment::all();
+
+        return view('employee.payment_history', ['payments' => $payments]);
     }
 }

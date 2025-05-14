@@ -119,7 +119,7 @@
                                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32">
                                 <ul class="py-2 text-sm text-gray-700">
                                     <li>
-                                        <button onclick="openRepairModal(1)" class="w-full text-left px-4 py-2 hover:bg-gray-100">Update Status</button>
+                                        <button onclick="openRepairModal()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Update Status</button>
                                     </li>
                                 </ul>
                             </div>
@@ -140,7 +140,7 @@
                         @if ($carDamage->latestStatus->status === 'Under Repair' || $carDamage->latestStatus->status === 'Complete')
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-600">Damage Cost:</span>
-                            <span class="font-medium">{{ $carDamage->booking->customer->first_name }}</span>
+                            <span class="font-medium">{{ $carDamage->repair_cost }}</span>
                         </div>
                         @endif
                         <div class="flex justify-between text-xs">
