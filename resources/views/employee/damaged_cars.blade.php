@@ -98,17 +98,19 @@
 
             <!-- Damaged Cars Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            @foreach ($carDamages as $carDamage)
                 <!-- Single Car Card -->
                 <div class="bg-white p-3 rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200">
                     <!-- Car Image -->
-                    <img src="{{ asset('assets/images/car-placeholder.jpg') }}" alt="Car Image"
-                        class="w-full h-24 object-cover rounded-md mb-3">
+                    <img src="{{ asset($carDamage->damage_img_path) }}" alt="Car Image"
+                        class="w-full h-25 object-scale-down rounded-md mb-3">
 
                     <!-- Car Model and Dropdown -->
                     <div class="flex justify-between items-center mb-2">
-                        <h3 class="font-semibold text-base">Toyota Camry</h3>
+                        <h3 class="font-semibold text-base">{{ $carDamage->booking->car->carModel->brand }} {{ $carDamage->booking->car->carModel->model_name }} {{ $carDamage->booking->car->carModel->model_year }}</h3>
                         <!-- Three Dots Dropdown -->
                         <div class="relative">
+                            @if ($carDamage->latestStatus->status != 'Complete')
                             <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu"
                                 class="text-dark font-medium rounded-lg text-sm px-2 py-1 text-center inline-flex items-center"
                                 type="button"><i class="bi bi-three-dots-vertical"></i></button>
@@ -121,6 +123,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            @endif
                         </div>
                     </div>
 
@@ -128,41 +131,81 @@
                     <div class="space-y-1.5 mb-3">
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-600">License Plate:</span>
-                            <span class="font-medium">ABC-123</span>
+                            <span class="font-medium">{{ $carDamage->booking->car->license_plate }}</span>
                         </div>
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-600">Customer:</span>
-                            <span class="font-medium">John Doe</span>
+                            <span class="font-medium">{{ $carDamage->booking->customer->first_name }} {{ $carDamage->booking->customer->middle_name ? $carDamage->booking->customer->middle_name . ' ' : '' }} {{ $carDamage->booking->customer->last_name }}</span>
                         </div>
+                        @if ($carDamage->latestStatus->status === 'Under Repair' || $carDamage->latestStatus->status === 'Complete')
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-600">Damage Cost:</span>
-                            <span class="font-medium">₱15,000.00</span>
+                            <span class="font-medium">{{ $carDamage->booking->customer->first_name }}</span>
                         </div>
+                        @endif
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-600">Last Updated:</span>
-                            <span>Mar 15, 2024</span>
+                            <span>{{ $carDamage->latestStatus->status_date }}</span>
                         </div>
+                        @if ($carDamage->latestStatus->status === 'Under Repair' || $carDamage->latestStatus->status === 'Complete')
                         <div class="flex justify-between text-xs">
                             <span class="text-gray-600">Parts to Repair:</span>
-                            <span class="text-xs text-gray-500 truncate max-w-[150px]">Front bumper, Headlight, Fender</span>
+                            <span class="text-xs text-gray-500 truncate max-w-[150px]">{{ $carDamage->repair_desc }}</span>
                         </div>
+                        @endif
                     </div>
 
                     <!-- Status Badges -->
                     <div class="flex space-x-2 mb-3">
-                        <span class="px-2 py-0.5 text-xs font-semibold text-yellow-800 bg-yellow-200 rounded-full">
-                            Under Repair
+                        @php
+                            $statusBadge1 = '';
+                            $statusBadge2 = '';
+                            $statusBadge1ColorClass = '';
+                            $statusBadge2ColorClass = '';
+
+                            switch ($carDamage->latestStatus->status) {
+                                case 'Pending':
+                                    $statusBadge1 = 'Pending Assessment';
+                                    $statusBadge2 = 'Unpaid';
+                                    $statusBadge1ColorClass = 'bg-yellow-200 text-yellow-800';
+                                    $statusBadge2ColorClass = 'bg-red-200 text-red-800';
+                                    break;
+                                case 'Under Repair':
+                                    $statusBadge1 = 'Under Repair';
+                                    $statusBadge2 = 'Paid'; // Assuming 'Paid' is the correct status
+                                    $statusBadge1ColorClass = 'bg-blue-200 text-blue-800'; // You can adjust the color
+                                    $statusBadge2ColorClass = 'bg-green-200 text-green-800';
+                                    break;
+                                case 'Complete':
+                                    $statusBadge1 = 'Complete';
+                                    $statusBadge2 = 'Paid';
+                                    $statusBadge1ColorClass = 'bg-green-200 text-green-800';
+                                    $statusBadge2ColorClass = 'bg-green-200 text-green-800';
+                                    break;
+                                default:
+                                    $statusBadge1 = 'Unknown';
+                                    $statusBadge2 = 'Unknown';
+                                    $statusBadge1ColorClass = 'bg-gray-200 text-gray-800';
+                                    $statusBadge2ColorClass = 'bg-gray-200 text-gray-800';
+                            }
+                        @endphp
+
+                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full {{ $statusBadge1ColorClass }}">
+                            {{ $statusBadge1 }}
                         </span>
-                        <span class="px-2 py-0.5 text-xs font-semibold text-red-800 bg-red-200 rounded-full">
-                            Unpaid
+                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full {{ $statusBadge2ColorClass }}">
+                            {{ $statusBadge2 }}
                         </span>
                     </div>
 
+                    @if ($carDamage->latestStatus->status != 'Complete')
                     <button onclick="openRepairModal(1)" 
                         class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2 focus:outline-none">
                         Update Repair Status
                     </button>
+                    @endif
                 </div>
+            @endforeach
             </div>
         </div>
     </div>

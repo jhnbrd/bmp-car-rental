@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>BMP Car Rental</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -60,7 +60,7 @@
                         With a wide range of comfortable and reliable vehicles, you get the freedom to travel on your
                         terms!
                     </p>
-                    <a href="#"
+                    <a href="/cars"
                         class="mt-6 inline-block bg-white text-black px-6 py-3 rounded-md text-lg font-semibold hover:bg-gray-200 transition">
                         BOOK NOW
                     </a>

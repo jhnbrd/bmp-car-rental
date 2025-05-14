@@ -13,7 +13,7 @@
     function getStatusBadge($status)
     {
         switch ($status) {
-            case 'Completed':
+            case 'Successful':
                 return ['text' => 'Completed', 'color' => 'bg-green-100 text-green-700'];
             case 'Cancelled':
                 return ['text' => 'Cancelled', 'color' => 'bg-red-100 text-red-700'];
@@ -144,8 +144,8 @@
     </div>
 </div>
 
-<div class="w-full overflow-hidden rounded-lg shadow-xs mt-4">
-    <div class="w-full overflow-x-auto">
+<div class="w-full overflow-visible rounded-lg shadow-xs mt-4">
+    <div class="w-full">
         <table class="w-full whitespace-no-wrap text-center">
             <thead>
                 <tr class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
@@ -157,30 +157,32 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y dark:divide-gray-700 dark:bg-gray-800">
-                <?php foreach ($clients as $index => $client): ?>
+            @if ($booking_history->isNotEmpty())
+                <!-- Loop through all bookings -->
+                @foreach ($booking_history as $booking)
                 <?php
-                    $statusBadge = getStatusBadge($client['status']);
-                    $dropdownId = 'dropdown-' . $index;
+                    $statusBadge = getStatusBadge($booking->latestStatus->status);
+                    $dropdownId = 'dropdown-' . $booking->id;
                 ?>
                 <tr class="text-gray-700 dark:text-gray-400">
                     <!-- Client Name Data -->
                     <td class="px-4 py-3">
                         <div class="flex items-center justify-center text-sm">
                             <div class="relative hidden w-8 h-8 mr-3 rounded-full md:block">
-                                <img class="object-cover w-full h-full rounded-full" src="<?= $client['avatar'] ?>"
+                                <img class="object-cover w-full h-full rounded-full" src={{ asset($booking->customer->user->picture_path) }}
                                     alt="" loading="lazy" />
                                 <div class="absolute inset-0 rounded-full shadow-inner" aria-hidden="true">
                                 </div>
                             </div>
                             <div>
-                                <p class="font-semibold"><?= $client['name'] ?></p>
-                                <p class="text-xs text-gray-600 dark:text-gray-400">10x Developer</p>
+                                <p class="font-semibold">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</p>
+                                <p class="text-xs text-gray-600 dark:text-gray-400">Client</p>
                             </div>
                         </div>
                     </td>
 
                     <!-- Amount -->
-                    <td class="px-4 py-3 text-sm"><?= $client['amount'] ?></td>
+                    <td class="px-4 py-3 text-sm">{{ $booking->amount_due }}</td>
 
                     <!-- Status -->
                     <td class="px-4 py-3 text-xs">
@@ -190,7 +192,7 @@
                     </td>
 
                     <!-- Date -->
-                    <td class="px-4 py-3 text-sm"><?= $client['date'] ?></td>
+                    <td class="px-4 py-3 text-sm">{{ $booking->latestStatus->status_date }}</td>
 
                     <!-- Actions -->
                     <td class="px-4 py-3">
@@ -208,7 +210,7 @@
                             <!-- Dropdown Menu -->
                             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                 <!-- View Details -->
-                                <button onclick="openBookingModal(<?= htmlspecialchars(json_encode($client)) ?>)"
+                                <button onclick="openBookingModal()"
                                     class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1 w-[calc(100%-1rem)]">
                                     <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
                                         viewBox="0 0 24 24">
@@ -221,7 +223,14 @@
                         </div>
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                @endforeach
+            @else
+            <tr>
+                <td colspan="5" class="px-5 py-3 text-center text-sm text-gray-500 dark:text-gray-400">
+                    No Due bookings found.
+                </td>
+            </tr>
+            @endif
             </tbody>
         </table>
     </div>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Booking;
 use App\Models\BookingStatus;
 use App\Models\Car;
+use App\Models\CarDamage;
+use App\Models\CarDamageStatus;
 use App\Models\CarModel;
 use App\Models\Payment;
 use Carbon\Carbon;
@@ -302,6 +304,61 @@ class BookingController extends Controller
 
         $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
         $booking->update(['actual_pickup_time' => now()->format('g A')]);
+
+        return redirect()->route('booking-management')->with('success', 'Booking update successful.');
+    }
+
+    public function userReturnsCar(int $booking_id, Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+        $booking = Booking::findOrFail($booking_id);
+        $car = $booking->car;
+
+        if ($request->damage_status === 'no-issue') {
+            $carReturnStatus = BookingStatus::create([
+                'booking_id' => $booking_id,
+                'status' => 'Successful',
+                'status_date' => Carbon::now(),
+                'additional_notes' => 'Car has now been returned. Booking complete.',
+                'updated_by_id' => $user->id,
+            ]);
+
+            $car->update(['status' => 'Available']);
+            $booking->update(['latest_status_id' => $carReturnStatus->id]);
+
+            return redirect()->route('booking-management')->with('success', 'Booking update successful.');
+        } elseif ($request->damage_status === 'returned-damage') {
+            $carDamagedStatus = BookingStatus::create([
+                'booking_id' => $booking_id,
+                'status' => 'Successful',
+                'status_date' => Carbon::now(),
+                'additional_notes' => 'Car returned with damage.',
+                'updated_by_id' => $user->id,
+            ]);
+
+            $car->update(['status' => 'Damaged']);
+            $booking->update(['latest_status_id' => $carDamagedStatus->id]);
+
+            $file = $request->file('car-image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $booking->id . '_cardamage.' . $extension;
+            $file->move(public_path(path: 'assets/car_damage_img'), $filename);
+            $path = 'assets/car_damage_img/' . $filename;
+
+            $carDamage = CarDamage::create([
+                'booking_id' => $booking_id,
+                'repair_desc' => $request->damage_desc,
+                'damage_img_path' => $path,
+            ]);
+
+            $damageStatus = CarDamageStatus::create([
+                'car_damage_id' => $carDamage->id,
+                'additional_notes' => $request->damage_desc,
+                'updated_by_id' => Auth::user()->id,
+            ]);
+
+            $carDamage->update(['latest_repair_status' => $damageStatus->id]);
+        }
 
         return redirect()->route('booking-management')->with('success', 'Booking update successful.');
     }

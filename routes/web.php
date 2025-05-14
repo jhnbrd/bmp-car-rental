@@ -7,7 +7,7 @@ use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\DamageRecordController;
+use App\Http\Controllers\CarDamageController;
 use App\Http\Controllers\AuditLogController;
 
 // Landing Routes
@@ -56,9 +56,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/bookings/approve/{booking}', [BookingController::class, 'approveBooking'])->name('approve-booking');
         Route::post('/bookings/modify/{booking}', [BookingController::class, 'changeApprovedStatus'])->name('change-approved-status');
         Route::post('/bookings/pickup/{booking}', [BookingController::class, 'userPicksUpCar'])->name('customer-picksup-car');
+        Route::post('/bookings/return/{booking}', [BookingController::class, 'userReturnsCar'])->name('customer-returns-car');
 
         // Car Management Routes
         Route::get('/cars/manage', [EmployeeController::class, 'car_modification'])->name('cars-modification');
+        Route::get('/cars/damage', [CarDamageController::class, 'showDamagedCars'])->name('damaged.cars');
 
         // Employee Management Routes
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
@@ -66,7 +68,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::put('/employees/{employee}', [EmployeeController::class, 'update'])->name('update-employee');
 
         // Damaged Cars Routes
-        Route::get('/damaged-cars', [EmployeeController::class, 'damagedCars'])->name('damaged.cars');
+        
         Route::post('/update-repair-status', [EmployeeController::class, 'updateRepairStatus'])->name('update.repair.status');
 
         // Payment History Routes

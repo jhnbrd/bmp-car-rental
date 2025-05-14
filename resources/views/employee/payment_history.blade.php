@@ -27,7 +27,7 @@
                     <select name="payment_type" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pr-8 appearance-none">
                         <option value="">All Payments</option>
                         <option value="booking">Booking Payments</option>
-                        <option value="repairment">Repairment Costs</option>
+                        <option value="repairment">Repair Payments/option>
                     </select>
                     <div class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -120,7 +120,7 @@
                 </svg>
             </div>
             <div>
-                <p class="mb-2 text-sm font-medium text-gray-600">Repairment Costs</p>
+                <p class="mb-2 text-sm font-medium text-gray-600">Repair Payments</p>
                 <p class="text-lg font-semibold text-gray-700">₱0.00</p>
             </div>
         </div>
@@ -280,7 +280,7 @@
 
                     <!-- Repairment Details Section (shown for repairment costs) -->
                     <div class="mt-6 repairment-details hidden">
-                        <h4 class="text-lg font-medium text-gray-900 mb-4">Repairment Details</h4>
+                        <h4 class="text-lg font-medium text-gray-900 mb-4">Repair Details</h4>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-500">Car Details</p>

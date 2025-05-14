@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             UsersSeeder::class,
             CarModelSeeder::class,
             CarSeeder::class,
+            BookingSeeder::class,
         ]);
 
         

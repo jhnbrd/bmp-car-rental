@@ -1662,7 +1662,7 @@
                         </div>
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Pickup Time:</span>
-                            <span class="text-sm text-gray-800 dark:text-gray-100">{{ \Carbon\Carbon::parse(now())->format('F j, Y') }} - {{ now()->format('g A') }}</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">{{ \Carbon\Carbon::parse($booking->pickup_date)->format('F j, Y') }} - {{ $booking->actual_pickup_time }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Status:</span>
@@ -1870,9 +1870,15 @@
                             </div>
 
                             <!-- Rental ID alone below -->
-                            <div>
-                                <p class="font-bold text-gray-800 text-xs">Rental ID</p>
-                                <p class=" text-gray-500">#BKG-{{ sprintf('%04d', $booking->id) }}</p>
+                            <div class="flex gap-4">
+                                <div class="w-1/2">
+                                    <p class="font-bold text-gray-800 text-xs">Rental ID</p>
+                                    <p class=" text-gray-500">#BKG-{{ sprintf('%04d', $booking->id) }}</p>
+                                </div>
+                                <div class="w-1/2">
+                                    <p class="font-bold text-gray-800 text-xs">Last Odometer Reading</p>
+                                    <p class=" text-gray-500">{{ $booking->car->odometer }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -1880,20 +1886,16 @@
 
                 <!-- Charges & Payments -->
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300">
-                    <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Charges & Payments</h3>
+                    <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Payments</h3>
 
                     <div class="grid grid-cols-3 gap-3">
-                        <p><strong>Base:</strong><br>$100.00</p>
-                        <p><strong>Late Fee:</strong><br>$20.00</p>
-                        <p><strong>Discount:</strong><br>-$10.00</p>
-                        <p><strong>Tax:</strong><br>$5.00</p>
-                        <p><strong>Paid:</strong><br>$100.00</p>
-                        <p><strong>Balance:</strong><br><span class="text-red-600">$15.00</span></p>
+                        <p><strong>Base Rental:</strong><br>Php {{ $booking->amount_due - number_format($booking->amount_due - ($booking->amount_due / 1.12), 2)}} </p>
+                        <p><strong>VAT Inclusive 12%:</strong><br>Php {{ number_format($booking->amount_due - ($booking->amount_due / 1.12), 2) }}</p>
                     </div>
 
                     <div class="mt-4 border-t pt-2 dark:border-gray-700">
-                        <p class="text-sm"><strong>Total Due:</strong> <span
-                                class="text-blue-600 font-bold">$115.00</span>
+                        <p class="text-sm"><strong>Total Paid:</strong> <span
+                                class="text-blue-600 font-bold">Php {{ $booking->amount_due }}</span>
                         </p>
                     </div>
 
@@ -1906,16 +1908,17 @@
                 x-data="{ selectedOption: '' }"
                 class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300 space-y-4 max-h-[20vh] overflow-y-auto">
                 <h3 class="font-semibold text-base text-gray-800 dark:text-white">Vehicle Condition</h3>
-
+                <form action="{{ route('customer-returns-car', $booking->id) }}" method="post" enctype="multipart/form-data">
+                @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-semibold block mb-1">ODO Reading</label>
-                        <input type="number" placeholder="e.g., 1200"
-                            class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2" />
+                        <input type="number" placeholder="e.g., 1200" name="latest_odo"
+                            class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2" required />
                     </div>
                     <div>
                         <label class="font-semibold block mb-1">Damage / Issue</label>
-                        <select id="damage-status" x-model="selectedOption"
+                        <select id="damage-status" x-model="selectedOption" name="damage_status"
                             class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2">
                             <option value="no-issue">No Issue</option>
                             <option value="returned-damage">Returned Damaged</option>
@@ -1927,15 +1930,14 @@
                     <div>
                         <label class="font-semibold block mb-1">Damage Description</label>
                         <textarea rows="3" class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2"
-                            placeholder="Describe the damage..."></textarea>
+                            placeholder="Describe the damage..." name="damage_desc" :required="selectedOption === 'returned-damage'"></textarea>
                     </div>
                     <div>
-                        <label class="block font-semibold text-gray-800 dark:text-gray-200 mb-1">Upload Evidence
-                            (Optional)</label>
+                        <label class="block font-semibold text-gray-800 dark:text-gray-200 mb-1">Upload Evidence</label>
                         <div
                             class="flex items-center justify-between p-4 border border-gray-300 bg-white rounded-lg shadow-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
                             <input type="file" id="car-image" name="car-image" accept="image/*"
-                                class="hidden" />
+                                :required="selectedOption === 'returned-damage'"/>
                             <label for="car-image"
                                 class="flex items-center space-x-3 text-sm text-gray-700 cursor-pointer">
                                 <span class="flex items-center">
@@ -1956,9 +1958,11 @@
                     Cancel
                 </button>
                 <button
+                    type="submit"
                     class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition">
                     Confirm Return
                 </button>
+                </form>
             </div>
         </div>
     </div>
@@ -2069,8 +2073,8 @@
                 <!-- Invoice Info -->
                 <div class="text-right">
                     <p class="text-xl font-semibold">Rental Invoice</p>
-                    <p class="text-sm">Invoice #: <span class="font-medium">INV-00123</span></p>
-                    <p class="text-sm">Date: April 20, 2025</p>
+                    <p class="text-sm">Invoice #: <span class="font-medium">INV-{{ sprintf('%04d', $booking->id) }}</span></p>
+                    <p class="text-sm">Date: {{ \Carbon\Carbon::parse(now())->format('F j, Y') }}</p>
                 </div>
             </div>
 
@@ -2079,20 +2083,19 @@
 
             <div class="mb-6">
                 <h4 class="text-md font-semibold mb-2">Customer Details</h4>
-                <p class="text-sm"><span class="font-medium">Name:</span> John Rex T. Partoza</p>
-                <p class="text-sm"><span class="font-medium">Phone:</span> 0912-345-6789</p>
-                <p class="text-sm"><span class="font-medium">Email:</span> johnrex@email.com</p>
+                <p class="text-sm"><span class="font-medium">Name:</span> {{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</p>
+                <p class="text-sm"><span class="font-medium">Phone:</span> {{ $booking->customer->phone_number }}</p>
+                <p class="text-sm"><span class="font-medium">Email:</span> {{ $booking->customer->user->email }}</p>
             </div>
 
             <div class="mb-6">
                 <p class="text-md font-semibold mb-2">Rental Information</p>
                 <div class="grid grid-cols-2 gap-2 text-sm">
-                    <p><span class="font-medium">Car Model:</span> Toyota Vios 2021</p>
-                    <p><span class="font-medium">Plate #:</span> ABC-1234</p>
-                    <p><span class="font-medium">Pickup Date:</span> April 22, 2025 - 10:00 AM</p>
-                    <p><span class="font-medium">Return Date:</span> April 25, 2025 - 10:00 AM</p>
-                    <p><span class="font-medium">Rental Duration:</span> 3 Days</p>
-                    <p><span class="font-medium">Status:</span> Paid</p>
+                    <p><span class="font-medium">Car Model:</span> {{ $booking->car->carModel->brand }} {{ $booking->car->carModel->model_name }} {{ $booking->car->carModel->model_year }}</p>
+                    <p><span class="font-medium">Plate #:</span> {{ $booking->car->license_plate }}</p>
+                    <p><span class="font-medium">Pickup Date:</span> {{ \Carbon\Carbon::parse($booking->pickup_date)->format('F j, Y') }} - {{ $booking->actual_pickup_time }}</p>
+                    <p><span class="font-medium">Return Date:</span> {{ \Carbon\Carbon::parse($booking->return_date)->format('F j, Y') }} - {{ $booking->actual_pickup_time }}</p>
+                    <p><span class="font-medium">Status:</span> {{ $booking->latestStatus->status }}</p>
                 </div>
             </div>
 
@@ -2100,13 +2103,14 @@
                 <h4 class="text-md font-semibold mb-2">Charges</h4>
                 <div class="text-sm space-y-1">
                     <div class="flex justify-between">
-                        <span>Daily Rate</span><span>₱2,000.00</span>
+                        <span>Rental Fee</span><span>Php {{ $booking->amount_due - number_format($booking->amount_due - ($booking->amount_due / 1.12), 2) }}</span>
                     </div>
                     <div class="flex justify-between">
-                        <span>Total Days</span><span>3</span>
+                        <span>VAT Inclusive 12%</span>
+                        <span>Php {{ number_format($booking->amount_due - ($booking->amount_due / 1.12), 2) }}</span>
                     </div>
                     <div class="flex justify-between font-semibold border-t pt-2">
-                        <span>Total Amount</span><span>₱6,000.00</span>
+                        <span>Total Amount</span><span>Php {{ $booking->amount_due }} </span>
                     </div>
                 </div>
             </div>

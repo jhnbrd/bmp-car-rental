@@ -153,9 +153,11 @@ class EmployeeController extends Controller
 
     public function booking_history(): View
     {
-        $booking_history = Employee::all();
-        $customers = Customer::all();
-        return view('employee.booking_history', ['booking_history' =>  $booking_history ], ['customers' => $customers]);
+        $booking_history = Booking::whereHas('latestStatus', function ($query) {
+            $query->whereIn('status', ['Successful', 'Cancelled']);
+        })->get();
+    
+        return view('employee.booking_history', ['booking_history' => $booking_history]);
     }
 
     public function booking_unsettled(): View

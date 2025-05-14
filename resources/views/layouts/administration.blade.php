@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BMP Car Rental - Admin</title>
+    <link rel="icon" href="{{ asset('favicon.ico') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
     tailwind.config = {
@@ -167,21 +168,6 @@
                   </a>
               </li>
               @endif
-              <li class="relative px-6 py-3">
-                  <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="{{ url('/admin-rental_agreement') }}">
-                      <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M8 2h8a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2z"></path>
-                          <path d="M9 8h6"></path>
-                          <path d="M9 12h4"></path>
-                          <path d="M9 16h6"></path>
-                          <path d="M16 20l2 2 4-4"></path>
-                      </svg>
-
-                      <span class="ml-4">Rental Agreement Policy</span>
-                  </a>
-              </li>
               @if(Auth::user()->employee->role == 'Admin')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -193,20 +179,6 @@
                           <path d="M17 8h4M17 12h3"></path>
                       </svg>
                       <span class="ml-4">Customer Records</span>
-                  </a>
-              </li>
-              @endif
-              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
-              <li class="relative px-6 py-3">
-                  <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                  href="{{ url('/admin-report_analytics') }}">
-                      <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
-                          stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                          <path d="M3 3v18h18"></path>
-                          <path d="M7 14v4M11 10v8M15 6v12M19 8v10"></path>
-                      </svg>
-
-                      <span class="ml-4">Report Analytics</span>
                   </a>
               </li>
               @endif
