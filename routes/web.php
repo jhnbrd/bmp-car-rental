@@ -7,6 +7,7 @@ use App\Http\Controllers\BookingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DamageRecordController;
 
 // Landing Routes
 Route::get('/', function () {
@@ -66,6 +67,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
     Route::put('/profile/picture', [ProfileController::class, 'updatePicture'])->name('update-profile-picture');
+    
 });
 
 require __DIR__.'/auth.php';
