@@ -286,4 +286,23 @@ class BookingController extends Controller
             return redirect()->route('booking-management')->with('error', 'Booking update unsuccessful.');
         }
     }
+
+    public function userPicksUpCar(int $booking_id, Request $request): RedirectResponse
+    {
+        $user = Auth::user();
+        $booking = Booking::findOrFail($booking_id);
+
+        $bookingPaidStatus = BookingStatus::create([
+            'booking_id' => $booking_id,
+            'status' => 'Ongoing',
+            'status_date' => Carbon::now(),
+            'additional_notes' => 'Car is being used. Booking ongoing.',
+            'updated_by_id' => $user->id,
+        ]);
+
+        $booking->update(['latest_status_id' => $bookingPaidStatus->id]);
+        $booking->update(['actual_pickup_time' => now()->format('g A')]);
+
+        return redirect()->route('booking-management')->with('success', 'Booking update successful.');
+    }
 }

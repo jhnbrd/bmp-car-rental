@@ -55,6 +55,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/bookings/pay/{booking}', [BookingController::class, 'processOfflinePaymentAdmin'])->name('process-offline-payment');
         Route::post('/bookings/approve/{booking}', [BookingController::class, 'approveBooking'])->name('approve-booking');
         Route::post('/bookings/modify/{booking}', [BookingController::class, 'changeApprovedStatus'])->name('change-approved-status');
+        Route::post('/bookings/pickup/{booking}', [BookingController::class, 'userPicksUpCar'])->name('customer-picksup-car');
 
         // Car Management Routes
         Route::get('/cars/manage', [EmployeeController::class, 'car_modification'])->name('cars-modification');

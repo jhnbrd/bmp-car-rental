@@ -414,7 +414,6 @@
                             <thead>
                                 <tr class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                     <th class="px-4 py-3">Client</th>
-                                    <th class="px-4 py-3">Amount</th>
                                     <th class="px-4 py-3">Status</th>
                                     <th class="px-4 py-3">Date</th>
                                     <th class="px-4 py-3">Actions</th>
@@ -445,9 +444,6 @@
                                         </div>
                                     </div>
                                 </td>
-
-                                <!--  For Approval - Amount -->
-                                <td class="px-4 py-3 text-sm">Php {{ $approvedBooking->amount_due }}</td>
 
                                 <!--  For Approval - Status -->
                                 <td class="px-4 py-3 text-xs">
@@ -550,7 +546,6 @@
                             <tr
                                 class="text-xs font-semibold tracking-wide text-gray-500 uppercase border-b dark:border-gray-700 bg-gray-50 dark:text-gray-400 dark:bg-gray-800">
                                 <th class="px-4 py-3">Client</th>
-                                <th class="px-4 py-3">Amount</th>
                                 <th class="px-4 py-3">Status</th>
                                 <th class="px-4 py-3">Date</th>
                                 <th class="px-4 py-3">Actions</th>
@@ -583,9 +578,6 @@
                                                 </div>
                                             </div>
                                         </td>
-
-                                        <!--  For Approval - Amount -->
-                                        <td class="px-4 py-3 text-sm">Php {{ $forPickUpBooking->amount_due }}</td>
 
                                         <!--  For Approval - Status -->
                                         <td class="px-4 py-3 text-xs">
@@ -683,7 +675,6 @@
                         <tr
                             class="text-xs font-semibold tracking-wide text-center text-gray-500 uppercase border-b bg-gray-50 dark:bg-gray-800 dark:text-gray-400">
                             <th class="px-4 py-3">Client</th>
-                            <th class="px-4 py-3">Amount</th>
                             <th class="px-4 py-3">Status</th>
                             <th class="px-4 py-3">Date</th>
                             <th class="px-4 py-3">Actions</th>
@@ -713,9 +704,6 @@
                                     </div>
                                 </div>
                             </td>
-
-                            <!-- Ongoing - Amount -->
-                            <td class="px-4 py-3 text-sm">Php {{ $ongoingBooking->amount_due }}</td>
 
                             <!-- Ongoing - Status -->
                             <td class="px-4 py-3 text-xs">
@@ -816,7 +804,6 @@
                         <thead>
                             <tr class="text-xs font-semibold tracking-wide text-center text-gray-500 uppercase border-b">
                                 <th class="px-4 py-3">Client</th>
-                                <th class="px-4 py-3">Amount</th>
                                 <th class="px-4 py-3">Status</th>
                                 <th class="px-4 py-3">Date</th>
                                 <th class="px-4 py-3">Actions</th>
@@ -847,9 +834,6 @@
                                         </div>
                                     </div>
                                 </td>
-
-                                <!-- Due - Amount -->
-                                <td class="px-4 py-3 text-sm">Php {{ $dueForReturnBooking->amount_due }}</td>
 
                                 <!-- Due - Status -->
                                 <td class="px-4 py-3 text-xs">
@@ -908,7 +892,7 @@
                                                 </div>
                                             </label>
 
-                                            <!-- Cancel -->
+                                            <!-- Report -->
                                             </label for="report-renter-modal">
                                             <div data-modal-target="report-renter-modal-{{ $dueForReturnBooking->id }}"
                                                 data-modal-toggle="report-renter-modal"-{{ $dueForReturnBooking->id }}
@@ -1670,15 +1654,15 @@
                     <div class="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 text-left space-y-2">
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Booking ID:</span>
-                            <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-2104</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">#BKG-{{ sprintf('%04d', $booking->id) }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Renter Name:</span>
-                            <span class="text-sm text-gray-800 dark:text-gray-100">John Rex Partoza</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Pickup Time:</span>
-                            <span class="text-sm text-gray-800 dark:text-gray-100">April 22, 2025 - 10:00 AM</span>
+                            <span class="text-sm text-gray-800 dark:text-gray-100">{{ \Carbon\Carbon::parse(now())->format('F j, Y') }} - {{ now()->format('g A') }}</span>
                         </div>
                         <div class="flex justify-between">
                             <span class="text-sm font-medium text-gray-600 dark:text-gray-300">Status:</span>
@@ -1687,9 +1671,11 @@
                     </div>
 
                     <!-- Checkbox for confirmation -->
+                    <form action="{{ route('customer-picksup-car', $booking->id) }}" method="POST">
+                    @csrf
                     <div class="flex items-center justify-center space-x-2">
                         <input type="checkbox" id="confirmPickup"
-                            class="h-5 w-5 text-green-600 border-gray-300 dark:border-gray-600 rounded" />
+                            class="h-5 w-5 text-green-600 border-gray-300 dark:border-gray-600 rounded" required/>
                         <label for="confirmPickup" class="text-sm text-gray-700 dark:text-gray-200">I confirm that the car
                             has been picked up</label>
                     </div>
@@ -1701,11 +1687,12 @@
                         class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
                         Cancel
                     </button>
-                    <button data-modal-hide="pickup-modal-{{ $booking->id }}" type="button"
+                    <button type="submit"
                         class="px-5 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium rounded-lg transition"
-                        id="confirmPickupBtn" disabled>
+                        id="confirmPickupBtn">
                         Confirm Pickup
                     </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1825,16 +1812,16 @@
                 <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300">
                     <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Customer Profile</h3>
                     <div class="flex items-center gap-4">
-                        <img src="profile.jpg" alt="Customer" class="w-24 h-24 object-cover rounded-full border">
+                        <img src={{ asset($booking->customer->user->picture_path) }} alt="Customer" class="w-24 h-24 object-cover rounded-full border">
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <p class="text-sm"><strong>Name:</strong><br>John Doe</p>
+                                <p class="text-sm"><strong>Name:</strong><br>{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</p>
                             </div>
                             <div>
-                                <p class="text-sm"><strong>Email:</strong><br>johndoe@email.com</p>
+                                <p class="text-sm"><strong>Email:</strong><br>{{ $booking->customer->user->email }}</p>
                             </div>
                             <div>
-                                <p class="text-sm"><strong>Phone:</strong><br>+123 456 7890</p>
+                                <p class="text-sm"><strong>Phone:</strong><br>{{ $booking->customer->phone_number }}</p>
                             </div>
                         </div>
                     </div>
@@ -1845,16 +1832,13 @@
                     <h3 class="font-semibold text-base text-gray-800 dark:text-white mb-2">Rental Duration</h3>
                     <div class="grid grid-cols-2 gap-4">
                         <div>
-                            <p class="text-sm"><strong>Start:</strong><br>Apr 10, 10:00 AM</p>
+                            <p class="text-sm"><strong>Rental Start/Pickup Time:</strong><br>{{ \Carbon\Carbon::parse($booking->pickup_date)->format('F j') }}, {{ $booking->actual_pickup_time }}</p>
                         </div>
                         <div>
-                            <p class="text-sm"><strong>Expected Return:</strong><br>Apr 12, 10:00 AM</p>
+                            <p class="text-sm"><strong>Expected Return Before:</strong><br>{{ \Carbon\Carbon::parse($booking->return_date)->format('F j') }}, {{ $booking->actual_pickup_time }}</p>
                         </div>
                         <div>
-                            <p class="text-sm"><strong>Actual Return:</strong><br>Apr 12, 11:30 AM</p>
-                        </div>
-                        <div>
-                            <p class="text-sm"><strong>Duration:</strong><br>2d, 1.5h</p>
+                            <p class="text-sm"><strong>Actual Return:</strong><br>{{ \Carbon\Carbon::parse(now())->format('F j') }}, {{ now()->format('g A') }}</p>
                         </div>
                     </div>
                 </div>
@@ -1868,8 +1852,8 @@
 
                     <div class="flex flex-col md:flex-row items-center gap-4">
                         <!-- Left Side: Vehicle Image -->
-                        <img src="vehicle-image.jpg" alt="Vehicle"
-                            class="w-full md:w-1/2 h-[15vh] object-cover rounded-xl shadow-sm border">
+                        <img src={{ asset($booking->car->carModel->img_file_path) }} alt="Vehicle"
+                            class="w-full md:w-1/2 h-[15vh] object-scale-down rounded-xl shadow-sm border">
 
                         <!-- Right Side: Vehicle Details -->
                         <div class="w-full md:w-1/2 space-y-4 text-left">
@@ -1877,18 +1861,18 @@
                             <div class="flex gap-4">
                                 <div class="w-1/2">
                                     <p class="font-bold text-gray-800 text-xs">Model</p>
-                                    <p class="text-gray-500">Toyota Corolla</p>
+                                    <p class="text-gray-500">{{ $booking->car->carModel->brand }} {{ $booking->car->carModel->model_name }} {{ $booking->car->carModel->model_year }}</p>
                                 </div>
                                 <div class="w-1/2">
                                     <p class="font-bold text-gray-800 text-xs">Plate</p>
-                                    <p class="text-gray-500">ABC1234</p>
+                                    <p class="text-gray-500">{{ $booking->car->license_plate }}</p>
                                 </div>
                             </div>
 
                             <!-- Rental ID alone below -->
                             <div>
                                 <p class="font-bold text-gray-800 text-xs">Rental ID</p>
-                                <p class=" text-gray-500">#456789</p>
+                                <p class=" text-gray-500">#BKG-{{ sprintf('%04d', $booking->id) }}</p>
                             </div>
                         </div>
                     </div>
@@ -1919,33 +1903,27 @@
 
             <!-- Row 3: Vehicle Condition -->
             <div
+                x-data="{ selectedOption: '' }"
                 class="bg-gray-50 dark:bg-gray-800 rounded-xl p-4 text-sm text-gray-700 dark:text-gray-300 space-y-4 max-h-[20vh] overflow-y-auto">
                 <h3 class="font-semibold text-base text-gray-800 dark:text-white">Vehicle Condition</h3>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="font-semibold block mb-1">Fuel Level</label>
-                        <input type="text" placeholder="Full / 3/4 / etc."
-                            class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2" />
-                    </div>
-
-                    <div>
                         <label class="font-semibold block mb-1">ODO Reading</label>
                         <input type="number" placeholder="e.g., 1200"
                             class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2" />
                     </div>
+                    <div>
+                        <label class="font-semibold block mb-1">Damage / Issue</label>
+                        <select id="damage-status" x-model="selectedOption"
+                            class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2">
+                            <option value="no-issue">No Issue</option>
+                            <option value="returned-damage">Returned Damaged</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div>
-                    <label class="font-semibold block mb-1">Damage / Issue</label>
-                    <select id="damage-status"
-                        class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2">
-                        <option value="no-issue">No Issue</option>
-                        <option value="returned-damage">Returned Damaged</option>
-                    </select>
-                </div>
-
-                <div id="damage-details-section" class="hidden space-y-3">
+                <div x-show="selectedOption === 'returned-damage'" id="damage-details-section" class="space-y-3">
                     <div>
                         <label class="font-semibold block mb-1">Damage Description</label>
                         <textarea rows="3" class="w-full bg-white dark:bg-gray-700 border dark:border-gray-600 rounded px-3 py-2"
@@ -2230,23 +2208,30 @@
     </div>
 @endforeach
 
+@if(session('success'))
+<div id="toast-success" class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <span class="sr-only">Success icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal">{{ session('success') }}</div>
+    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+</div>
+@endif
+
     <script>
         document.querySelectorAll('.suggest-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const reason = button.getAttribute('data-reason');
                 document.getElementById('cancel-reason').value = reason;
             });
-        });
-
-        const damageStatus = document.getElementById('damage-status');
-        const damageDetailsSection = document.getElementById('damage-details-section');
-
-        damageStatus.addEventListener('change', function() {
-            if (damageStatus.value === 'returned-damage') {
-                damageDetailsSection.classList.remove('hidden');
-            } else {
-                damageDetailsSection.classList.add('hidden');
-            }
         });
 
         function printInvoice() {
@@ -2507,6 +2492,17 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+            const damageStatus = document.getElementById('damage-status');
+            const damageDetailsSection = document.getElementById('damage-details-section');
+
+            damageStatus.addEventListener('change', function() {
+                if (damageStatus.value === 'returned-damage') {
+                    damageDetailsSection.classList.remove('hidden');
+                } else {
+                    damageDetailsSection.classList.add('hidden');
+                }
+            });
+
             const approveButtons = document.querySelectorAll('.approve-button');
             approveButtons.forEach(button => {
                 button.addEventListener('click', function(event) {
@@ -2519,8 +2515,8 @@
                         text: "Do you want to approve this booking?",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
+                        confirmButtonColor: '#3085d6 !important',
+                        cancelButtonColor: '#d33 !important',
                         confirmButtonText: 'Yes, approve it!'
                     }).then((result) => {
                         if (result.isConfirmed) {

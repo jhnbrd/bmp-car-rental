@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->foreignId('car_id')->constrained('cars')->onDelete('cascade');
             $table->dateTime('pickup_date');
+            $table->string('actual_pickup_time')->nullable()->default(null);
             $table->dateTime('return_date');
             $table->decimal('amount_due', 8, 2);
             $table->foreignId('latest_status_id')->nullable();

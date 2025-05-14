@@ -15,6 +15,7 @@ class Booking extends Model
         'customer_id',
         'car_id',
         'pickup_date',
+        'actual_pickup_time',
         'return_date',
         'amount_due',
         'latest_status_id'
