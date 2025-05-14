@@ -26,8 +26,8 @@
     />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.0/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link href="https://cdn.jsdelivr.net/npm/flowbite@1.4.4/dist/flowbite.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@1.4.4/dist/flowbite.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/bmp_icon.ico') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/tailwind.output.css') }}" />
     <script
       src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js"

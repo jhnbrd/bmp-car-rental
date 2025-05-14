@@ -4,9 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>BMP Car Rental</title>
-
+    <title>BMP Car Rental System</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/bmp_icon.ico') }}">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
