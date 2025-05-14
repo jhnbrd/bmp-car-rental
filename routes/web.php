@@ -24,6 +24,7 @@ Route::get('/', function () {
 // Guest Routes (Handles redirection based on login role)
 Route::get('/cars', [CarController::class, 'showCars'])->name('cars');
 Route::get('/contact_user', [CustomerController::class, 'contact_user'])->name('contact_user');
+Route::get('/userprofile', [CustomerController::class, 'userprofile'])->name('userprofile');
 Route::get('/payment', function() {
     return view('payment');
 })->name('contacts');
