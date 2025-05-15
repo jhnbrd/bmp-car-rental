@@ -168,8 +168,9 @@ class EmployeeController extends Controller
 
     public function car_modification(): View
     {
-        $car_modification = Employee::all();
-        return view('employee.car_modification', ['car_modification' => $car_modification]);
+        $cars = Car::all();
+        // dd($cars);
+        return view('employee.car_modification', ['cars' => $cars]);
     }
 
     public function damagedCars(): View

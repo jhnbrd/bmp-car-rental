@@ -1,19 +1,31 @@
+<?php
+
+function getCarStatusColor($status) {
+    switch ($status) {
+        case 'Available':
+            return ['text' => 'Available', 'color' => 'bg-green-100 text-green-800']; // Green
+        case 'Booked':
+            return ['text' => 'Booked', 'color' => 'bg-yellow-100 text-yellow-800']; // Yellow
+        case 'Under Maintenance':
+            return ['text' => 'Under Maintenance', 'color' => 'bg-blue-100 text-blue-800']; // Blue
+        case 'Damaged':
+            return ['text' => 'Damaged', 'color' => 'bg-red-100 text-red-800']; // Red
+        case 'Expired':
+            return ['text' => 'Expired', 'color' => 'bg-gray-100 text-gray-800']; // Gray
+        case 'Unavailable':
+            return ['text' => 'Unavailable', 'color' => 'bg-purple-100 text-purple-800']; // Purple
+        case 'Missing':
+            return ['text' => 'Missing', 'color' => 'bg-orange-100 text-orange-800']; // Orange (or another color you prefer)
+        default:
+            return ['text' => 'Unknown', 'color' => 'bg-gray-100 text-gray-800']; // Gray
+    }
+}
+?>
+
 @extends('layouts.administration')
 
 @section('content')
     <?php
-    $cars = [
-        `   ['model' => 'Car Model A', 'type' => 'Sedan', 'brand' => 'Brand X'],
-                                                        ['model' => 'Car Model B', 'type' => 'SUV', 'brand' => 'Brand Y'],
-                                                        ['model' => 'Car Model C', 'type' => 'Truck', 'brand' => 'Brand Z'],
-                                                        ['model' => 'Car Model D', 'type' => 'Coupe', 'brand' => 'Brand A'],
-                                                        ['model' => 'Car Model E', 'type' => 'Convertible', 'brand' => 'Brand B'],
-                                                        ['model' => 'Car Model F', 'type' => 'Sedan', 'brand' => 'Brand X'],
-                                                        ['model' => 'Car Model G', 'type' => 'SUV', 'brand' => 'Brand Y'],
-                                                        ['model' => 'Car Model H', 'type' => 'Truck', 'brand' => 'Brand Z'],
-                                                        ['model' => 'Car Model I', 'type' => 'Coupe', 'brand' => 'Brand A'],
-                                                        ['model' => 'Car Model J', 'type' => 'Convertible', 'brand' => 'Brand B']`,
-    ];
     
     ?>
     <h2 class="mt-4 text-2xl font-semibold text-gray-700">
@@ -57,15 +69,15 @@
                         <div class="hidden md:flex items-center space-x-4">
                             <div class="flex items-center">
                                 <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                                <span class="ml-2 text-sm text-gray-600">Available: 15</span>
+                                <span class="ml-2 text-sm text-gray-600">Available: {{ $cars->where('status', 'Available')->count() }} </span>
                             </div>
                             <div class="flex items-center">
                                 <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                                <span class="ml-2 text-sm text-gray-600">Rented: 8</span>
+                                <span class="ml-2 text-sm text-gray-600">Rented: {{ $cars->where('status', 'Booked')->count() }}</span>
                             </div>
                             <div class="flex items-center">
                                 <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                                <span class="ml-2 text-sm text-gray-600">Maintenance: 3</span>
+                                <span class="ml-2 text-sm text-gray-600">Maintenance: {{ $cars->where('status', 'Under Maintenance')->count() }}</span>
                             </div>
                         </div>
                     </div>
@@ -116,29 +128,30 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        <!-- Car Card 1 -->
+                        @foreach ($cars as $car)
+                        <!-- Car Card {{ $car->id }} -->
                         <div class="bg-white p-4 rounded-lg shadow-lg border">
                             <!-- Car Image -->
-                            <img src="https://via.placeholder.com/200x150" alt="Car Image"
-                                class="w-full h-32 object-cover rounded-md mb-4">
+                            <img src={{ asset($car->carModel->img_file_path) }} alt="Car Image"
+                                class="w-full h-32 object-scale-down rounded-md mb-4">
 
                             <!-- Car Model and Dropdown -->
                             <div class="flex justify-between items-center mb-2">
-                                <h3 class="font-semibold text-lg">Car Model A</h3>
+                                <h3 class="font-semibold text-lg">{{ $car->carModel->brand }} {{ $car->carModel->model_name }} {{ $car->carModel->model_year }}</h3>
                                 <!-- Three Dots Dropdown -->
                                 <div class="relative">
-                                    <button id="dropdownMenuButton" data-dropdown-toggle="dropdownMenu"
+                                    <button id="dropdownMenuButton-{{ $car->id }}" data-dropdown-toggle="dropdownMenu-{{ $car->id }}"
                                         class="text-dark font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
                                         type="button"><i class="bi bi-three-dots-vertical"></i></button>
                                     <!-- Dropdown Menu -->
-                                    <div id="dropdownMenu"
+                                    <div id="dropdownMenu-{{ $car->id }}"
                                         class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32">
                                         <ul class="py-2 text-sm text-gray-700">
                                             <li>
-                                                <button onclick="openEditModal()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Edit</button>
+                                                <button data-modal-target="editCarModal-{{ $car->id }}" data-modal-toggle="editCarModal-{{ $car->id }}" class="w-full text-left px-4 py-2 hover:bg-gray-100">Edit</button>
                                             </li>
                                             <li>
-                                                <button onclick="openUnavailableModal()" class="w-full text-left px-4 py-2 hover:bg-gray-100">Unavailable</button>
+                                                <button data-modal-target="unavailableModal-{{ $car->id }}" data-modal-toggle="unavailableModal-{{ $car->id }}" class="w-full text-left px-4 py-2 hover:bg-gray-100">Unavailable</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -147,15 +160,19 @@
 
                             <!-- Car Type and Brand with Status Badge -->
                             <div class="flex justify-between items-center mb-2">
-                                <p class="text-sm text-gray-500">Type: Sedan</p>
                                 <div class="flex items-center space-x-2">
-                                    <p class="text-sm text-gray-500">Brand: Brand X</p>
+                                    <p class="text-sm text-gray-500">Plate: {{ $car->license_plate }}</p>
                                 </div>
                             </div>
                             <!-- Status Badge -->
+
+                            @php
+                                $carStatusColor = getCarStatusColor($car->status);
+                            @endphp
                             <span
-                                class="px-3 py-1 text-xs font-semibold text-green-800 bg-green-200 rounded-full">Available</span>
+                                class="px-3 py-1 text-xs font-semibold {{ $carStatusColor['color'] }} rounded-full"> {{ $car->status }} </span>
                         </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -378,7 +395,7 @@
                                         <div class="col-span-2">
                                             <div id="image-preview" class="hidden mt-2 flex justify-center">
                                                 <div class="relative inline-block">
-                                                    <img id="preview-img" src="#" alt="Preview" class="max-w-full h-48 object-contain rounded-lg border border-gray-300">
+                                                    <img id="preview-img" src="#" alt="Preview" class="max-w-full h-48 object-scale-down rounded-lg border border-gray-300">
                                                     <button onclick="removeImage()" class="absolute -top-2 -right-2 bg-gray-500 text-white rounded-full p-1.5 hover:bg-gray-600 focus:outline-none shadow-md">
                                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -484,8 +501,10 @@
         </div>
     </div>
 
+
+    @foreach ($cars as $car)
     <!-- Edit Car Modal -->
-    <div id="editCarModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
+    <div id="editCarModal-{{ $car->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
         <div class="relative w-full max-w-4xl max-h-full">
             <!-- Modal content -->
@@ -495,17 +514,19 @@
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Edit Car Details
                     </h3>
-                    <button type="button" onclick="closeEditModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button type="button" data-modal-hide="editCarModal-{{ $car->id }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
+
+                
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 space-y-4">
                     <div class="grid md:grid-cols-2 gap-4">
                         <!-- Car Image -->
                         <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
-                            <img src="https://via.placeholder.com/300x200" alt="Car Image" 
-                                class="w-full h-48 object-cover rounded-lg">
+                            <img src={{ asset($car->carModel->img_file_path) }} alt="Car Image" 
+                                class="w-full h-48 object-scale-down rounded-lg">
                         </div>
 
                         <!-- Car Details -->
@@ -514,51 +535,53 @@
                             <div class="grid grid-cols-3 gap-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Car Model</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Car Model A</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->brand }} {{ $car->carModel->model_name }}</p>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Brand</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Brand X</p>
+                                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Odometer</label>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->odometer }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Type</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Sedan</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->car_type }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Year</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">2023</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->model_year }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Engine Type</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">V6</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->engine_type }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Seating Capacity</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">5</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->seat_capacity }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Color</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Silver</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->color }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Transmission</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Automatic</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->transmission }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Fuel Type</label>
-                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Petrol</p>
+                                    <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ $car->carModel->fuel_type }}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Editable Fields -->
+                    <form action="{{ route('update-car-details', $car->id) }}" method="post">
+                    @csrf
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4">
                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Update Details</h3>
                         <div class="grid sm:grid-cols-2 gap-4">
                             <div>
                                 <label for="edit-odometer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Odometer</label>
-                                <input type="number" id="edit-odometer" name="odometer"
+                                <input type="number" id="edit-odometer" name="odometer" value="{{ $car->odometer }}"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
                                     placeholder="Enter odometer reading">
                             </div>
@@ -566,10 +589,10 @@
                                 <label for="edit-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status</label>
                                 <select id="edit-status" name="status"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
-                                    <option value="available">Available</option>
-                                    <option value="rented">Rented</option>
-                                    <option value="maintenance">Maintenance</option>
-                                    <option value="unavailable">Unavailable</option>
+                                    <option value="Available">Available</option>
+                                    <option value="Booked">Rented</option>
+                                    <option value="Under Maintenance">Maintenance</option>
+                                    <option value="Unavailable">Unavailable</option>
                                 </select>
                             </div>
                         </div>
@@ -577,19 +600,21 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 space-x-4">
-                    <button type="button" onclick="closeEditModal()" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button type="button" data-modal-hide="editCarModal-{{ $car->id }}" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         Cancel
                     </button>
-                    <button type="button" onclick="saveCarChanges()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                         Save Changes
                     </button>
                 </div>
+                </form>
             </div>
         </div>
     </div>
+    
 
     <!-- Unavailable Confirmation Modal -->
-    <div id="unavailableModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
+    <div id="unavailableModal-{{ $car->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
         <div class="relative w-full max-w-md max-h-full">
             <!-- Modal content -->
@@ -599,7 +624,7 @@
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Mark Car as Unavailable
                     </h3>
-                    <button type="button" onclick="closeUnavailableModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                    <button type="button" data-modal-hide="unavailableModal-{{ $car->id }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
                         <i class="bi bi-x-lg"></i>
                     </button>
                 </div>
@@ -614,7 +639,7 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center justify-end p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600 space-x-4">
-                    <button type="button" onclick="closeUnavailableModal()" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                    <button type="button" data-modal-hide="unavailableModal-{{ $car->id }}" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                         Cancel
                     </button>
                     <button type="button" onclick="confirmUnavailable()" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
@@ -624,6 +649,37 @@
             </div>
         </div>
     </div>
+    @endforeach
+    @if (session('error'))
+                <div class="bg-red-200 border border-red-400 text-red-700 px-4 py-3 rounded relative max-w-[750px]" role="alert">
+                    <strong class="font-bold">Error!</strong>
+                    <span class="block sm:inline">{{ session('error') }}</span>
+                    <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+                        <svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                            <title>Close</title>
+                            <path fill-rule="evenodd" d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.15 2.759 3.152a1.2 1.2 0 0 1 0 1.697z" clip-rule="evenodd" />
+                        </svg>
+                    </span>
+                </div>
+                @endif
+
+                @if(session('success'))
+                <div id="toast-success" class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+                    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                        </svg>
+                        <span class="sr-only">Success icon</span>
+                    </div>
+                    <div class="ms-3 text-sm font-normal">{{ session('success') }}</div>
+                    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                        <span class="sr-only">Close</span>
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                        </svg>
+                    </button>
+                </div>
+                @endif
 
     <script>
         document.getElementById("toggle-filter").addEventListener("click", function() {
@@ -640,14 +696,6 @@
             icon.classList.toggle("rotate-180");
         });
 
-        // Edit Modal Functions
-        function openEditModal() {
-            document.getElementById('editCarModal').classList.remove('hidden');
-        }
-
-        function closeEditModal() {
-            document.getElementById('editCarModal').classList.add('hidden');
-        }
 
         function saveCarChanges() {
             // Add your save logic here

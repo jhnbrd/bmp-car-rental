@@ -47,7 +47,7 @@
                             </li>
                             <li>
                                 <button
-                                    class="w-full text-left px-4 py-2 rounded-md hover:bg-blue-400 hover:text-black transition-colors duration-200"
+                                    class="hidden w-full text-left px-4 py-2 rounded-md hover:bg-blue-400 hover:text-black transition-colors duration-200"
                                     onclick="showTab('carHistory')">
                                     Car History
                                 </button>
@@ -69,7 +69,7 @@
                         <div id="profileInfo" class="bg-white text-black p-6 rounded-lg shadow-md space-y-6">
                             <!-- Card 1: Profile Picture & Name -->
                             <div class="flex flex-col items-center text-center">
-                                <img src="https://via.placeholder.com/150" alt="Profile Picture"
+                                <img src={{ Auth::user()->picture_path }} alt="Profile Picture"
                                     class="w-32 h-32 rounded-full object-cover border-4 border-blue-500">
                                 <h3 class="mt-4 text-2xl font-bold">John Doe</h3>
                             </div>
@@ -124,12 +124,13 @@
                         <!-- Change Password Card (hidden by default) -->
                         <div id="changePassword" class="hidden bg-white text-black p-6 rounded-lg shadow-md">
                             <h3 class="text-2xl font-bold mb-4">Change Password</h3>
-                            <form>
-                                <input type="password" placeholder="Current Password"
+                            <form id="changePasswordForm" method="POST" action="{{ route('update-password') }}">
+                            @csrf
+                                <input type="password" placeholder="Current Password" name="current_password"
                                     class="mb-2 w-full p-2 border rounded">
-                                <input type="password" placeholder="New Password"
+                                <input type="password" placeholder="New Password" name="new_password"
                                     class="mb-2 w-full p-2 border rounded">
-                                <input type="password" placeholder="Confirm New Password"
+                                <input type="password" placeholder="Confirm New Password" name="new_password_confirmation"
                                     class="mb-4 w-full p-2 border rounded">
                                 <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Update
                                     Password</button>

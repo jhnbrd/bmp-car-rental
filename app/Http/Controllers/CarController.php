@@ -27,4 +27,14 @@ class CarController extends Controller
 
         return view('cars', ['carModels' => $carModels]);
     }
+
+    public function editCarDetails(int $car_id, Request $request): RedirectResponse|View
+    {
+        $car = Car::findOrFail($car_id);
+
+        $car->update(['odometer' => $request->odometer, 'status' => $request->status]);
+        
+        
+        return redirect()->route('cars-modification')->with('success', 'Car update successfully.');
+    }
 }

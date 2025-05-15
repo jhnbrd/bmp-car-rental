@@ -199,7 +199,7 @@
                     </div>
 
                     @if ($carDamage->latestStatus->status != 'Complete')
-                    <button onclick="openRepairModal(1)" 
+                    <button data-modal-target="repairModal-{{ $carDamage->id }}" data-modal-toggle="repairModal-{{ $carDamage->id }}"
                         class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-2 focus:outline-none">
                         Update Repair Status
                     </button>
@@ -212,7 +212,7 @@
 </div>
 
 <!-- Repair Status Modal -->
-<div id="repairModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
+<div id="repairModal-{{ $carDamage->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
     <div class="relative w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -230,15 +230,15 @@
                 </button>
             </div>
             <!-- Modal body -->
-            <form id="repairForm" class="p-4 md:p-5 space-y-4">
+            <form id="repairForm" action="{{ route('update-damage-repair-status', $carDamage->id) }}" method="POST" class="p-4 md:p-5 space-y-4">
                 <input type="hidden" id="carId" name="carId">
-                
+                @csrf
                 <div>
                     <label for="repairStatus" class="block mb-2 text-sm font-medium text-gray-900">Repair Status</label>
                     <select id="repairStatus" name="repairStatus" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         <option value="Under Repair">Under Repair</option>
-                        <option value="Repair Completed">Repair Completed</option>
-                        <option value="Pending Assessment">Pending Assessment</option>
+                        <option value="Complete">Repair Completed</option>
+                        <option value="Pending">Pending Assessment</option>
                     </select>
                 </div>
 
@@ -270,6 +270,23 @@
         </div>
     </div>
 </div>
+@if(session('success'))
+<div id="toast-success" class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
+    <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <span class="sr-only">Success icon</span>
+    </div>
+    <div class="ms-3 text-sm font-normal">{{ session('success') }}</div>
+    <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+</div>
+@endif
 
 <script>
 function openRepairModal(carId) {
@@ -281,40 +298,6 @@ function closeRepairModal() {
     document.getElementById('repairModal').classList.add('hidden');
     document.getElementById('repairForm').reset();
 }
-
-document.getElementById('repairForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(this);
-    
-    fetch('{{ route("update.repair.status") }}', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-TOKEN': '{{ csrf_token() }}',
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            carId: formData.get('carId'),
-            repairStatus: formData.get('repairStatus'),
-            repairCost: formData.get('repairCost'),
-            repairParts: formData.get('repairParts')
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert(data.message);
-            window.location.reload();
-        } else {
-            alert('Error updating repair status');
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Error updating repair status');
-    });
-});
 
 // Status Dropdown Functions
 document.getElementById("toggle-status").addEventListener("click", function() {

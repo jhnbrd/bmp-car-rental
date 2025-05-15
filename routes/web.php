@@ -61,7 +61,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         // Car Management Routes
         Route::get('/cars/manage', [EmployeeController::class, 'car_modification'])->name('cars-modification');
+        Route::post('/cars/update/{car}', [CarController::class, 'editCarDetails'])->name('update-car-details');
         Route::get('/cars/damage', [CarDamageController::class, 'showDamagedCars'])->name('damaged.cars');
+        Route::post('/cars/damage/update/{car_damage}', [CarDamageController::class, 'updateRepairStatus'])->name('update-damage-repair-status');
 
         // Employee Management Routes
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');
@@ -89,7 +91,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 // Profile Routes
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
-    Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('update-password');
+    Route::put('/profile/password/', [ProfileController::class, 'updatePassword'])->name('update-password');
     Route::put('/profile/picture', [ProfileController::class, 'updatePicture'])->name('update-profile-picture');
 });
 

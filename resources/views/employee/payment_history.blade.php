@@ -95,7 +95,7 @@
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600">Total Payments</p>
-                <p class="text-lg font-semibold text-gray-700">₱0.00</p>
+                <p class="text-lg font-semibold text-gray-700">Php {{ $payments->sum('paid_amount') }}</p>
             </div>
         </div>
 
@@ -108,7 +108,7 @@
             </div>
             <div>
                 <p class="mb-2 text-sm font-medium text-gray-600">Booking Payments</p>
-                <p class="text-lg font-semibold text-gray-700">₱0.00</p>
+                <p class="text-lg font-semibold text-gray-700">Php {{ $payments->sum('paid_amount') }}</p>
             </div>
         </div>
 
@@ -184,7 +184,7 @@
                             </span>
                         </td>
                         <td class="px-4 py-3 text-sm">
-                            <button data-modal-target="payment-modal" data-modal-toggle="payment-modal" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
+                            <button data-modal-target="payment-modal-{{ $payment->id }}" data-modal-toggle="payment-modal-{{ $payment->id }}" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
                                 View Details
                             </button>
                         </td>
@@ -198,8 +198,9 @@
         </div>
     </div>
 
+    @foreach ($payments as $payment)
     <!-- Payment Details Modal -->
-    <div id="payment-modal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div id="payment-modal-{{ $payment->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
         <div class="relative w-full max-w-2xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -208,7 +209,7 @@
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         Payment Details
                     </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="payment-modal">
+                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="payment-modal-{{ $payment->id }}">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
@@ -228,19 +229,19 @@
                     <div class="grid grid-cols-2 gap-4">
                         <div>
                             <p class="text-sm font-medium text-gray-500">Payment ID</p>
-                            <p class="mt-1 text-sm text-gray-900">PAY-001</p>
+                            <p class="mt-1 text-sm text-gray-900">PAY-{{ sprintf('%04d', $payment->id) }}</p>
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-500">Reference Number</p>
-                            <p class="mt-1 text-sm text-gray-900">REF-001</p>
+                            <p class="mt-1 text-sm text-gray-900">{{ $payment->ref_number }}</p>
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-500">Amount</p>
-                            <p class="mt-1 text-sm text-gray-900">₱1,000.00</p>
+                            <p class="mt-1 text-sm text-gray-900">Php {{ $payment->paid_amount }}</p>
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-500">Payment Method</p>
-                            <p class="mt-1 text-sm text-gray-900">Cash</p>
+                            <p class="mt-1 text-sm text-gray-900">{{ $payment->payment_method }}</p>
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-500">Status</p>
@@ -252,7 +253,7 @@
                         </div>
                         <div>
                             <p class="text-sm font-medium text-gray-500">Date</p>
-                            <p class="mt-1 text-sm text-gray-900">Jan 1, 2024 10:00 AM</p>
+                            <p class="mt-1 text-sm text-gray-900">{{ \Carbon\Carbon::parse($payment->created_at)->format('F j, Y') }}</p>
                         </div>
                     </div>
 
@@ -262,19 +263,19 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <p class="text-sm font-medium text-gray-500">Booking ID</p>
-                                <p class="mt-1 text-sm text-gray-900">BK-001</p>
+                                <p class="mt-1 text-sm text-gray-900">BKG-{{ sprintf('%04d', $payment->booking->id) }}</p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-500">Customer Name</p>
-                                <p class="mt-1 text-sm text-gray-900">John Doe</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $payment->booking->customer->first_name }} {{ $payment->booking->customer->middle_name ? $payment->booking->customer->middle_name . ' ' : '' }} {{ $payment->booking->customer->last_name }}</p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-500">Car Details</p>
-                                <p class="mt-1 text-sm text-gray-900">Toyota Camry 2023</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ $payment->booking->car->carModel->brand }} {{ $payment->booking->car->carModel->model_name }} {{ $payment->booking->car->carModel->model_year }}</p>
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-500">Rental Period</p>
-                                <p class="mt-1 text-sm text-gray-900">Jan 1 - Jan 3, 2024</p>
+                                <p class="mt-1 text-sm text-gray-900">{{ date('F j', strtotime($payment->booking->pickup_date)) }} to {{ date('F j', strtotime($payment->booking->return_date)) }}</p>
                             </div>
                         </div>
                     </div>
@@ -312,11 +313,12 @@
                 </div>
                 <!-- Modal footer -->
                 <div class="flex items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button data-modal-hide="payment-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
+                    <button data-modal-hide="payment-modal-{{ $payment->id }}" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Close</button>
                 </div>
             </div>
         </div>
     </div>
+    @endforeach
 
     @push('scripts')
     <script>

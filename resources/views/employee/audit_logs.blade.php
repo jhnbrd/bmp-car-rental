@@ -6,7 +6,7 @@
     </h2>
 
     <!-- Filter Section -->
-    <div class="mb-8 bg-white rounded-lg shadow-md">
+    <div class="mb-8 bg-white rounded-lg shadow-md hidden">
         <div class="p-6 border-b border-gray-200">
             <div class="flex items-center justify-between">
                 <div>
@@ -99,7 +99,6 @@
                         <th class="px-4 py-3">Action</th>
                         <th class="px-4 py-3">Module</th>
                         <th class="px-4 py-3">Description</th>
-                        <th class="px-4 py-3">IP Address</th>
                         <th class="px-4 py-3">Actions</th>
                     </tr>
                 </thead>
@@ -127,9 +126,6 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                             Created new user account
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            192.168.1.1
                         </td>
                         <td class="px-4 py-3 text-sm">
                             <button data-modal-target="audit-modal-1" data-modal-toggle="audit-modal-1" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
@@ -161,9 +157,6 @@
                         </td>
                         <td class="px-4 py-3 text-sm">
                             Updated car details
-                        </td>
-                        <td class="px-4 py-3 text-sm">
-                            192.168.1.2
                         </td>
                         <td class="px-4 py-3 text-sm">
                             <button data-modal-target="audit-modal-2" data-modal-toggle="audit-modal-2" class="px-3 py-1 text-sm font-medium leading-5 text-white transition-colors duration-150 bg-blue-600 border border-transparent rounded-md active:bg-blue-600 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue">
@@ -232,18 +225,14 @@
                             <p class="mt-1 text-sm text-gray-900">Mar 19, 2024 10:30 AM</p>
                         </div>
                         <div>
-                            <p class="text-sm font-medium text-gray-500">IP Address</p>
-                            <p class="mt-1 text-sm text-gray-900">192.168.1.1</p>
-                        </div>
-                        <div>
                             <p class="text-sm font-medium text-gray-500">User Agent</p>
                             <p class="mt-1 text-sm text-gray-900">Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36</p>
                         </div>
-                        <div class="col-span-2">
+                        <div>
                             <p class="text-sm font-medium text-gray-500">Description</p>
                             <p class="mt-1 text-sm text-gray-900">Created new user account</p>
                         </div>
-                        <div class="col-span-2">
+                        <div>
                             <p class="text-sm font-medium text-gray-500">New Values</p>
                             <pre class="mt-1 text-sm text-gray-900 bg-gray-50 p-2 rounded">{
     "name": "New User",
