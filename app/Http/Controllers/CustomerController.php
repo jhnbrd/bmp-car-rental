@@ -18,10 +18,17 @@ class CustomerController extends Controller
     {
         return view('customer.home');
     }
-
+    public function contact_user(): View
+    {
+        return view('contact_user');
+    }
     public function contacts(): View
     {
         return view('guest.contacts');
+    }
+    public function userprofile(): View
+    {
+        return view('userprofile');
     }
 
     public function termsCondition(int $car_model, Request $request): RedirectResponse|View
