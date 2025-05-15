@@ -92,7 +92,7 @@ function getCarStatusColor($status) {
                     <div class="flex flex-col md:flex-row items-center justify-between space-y-2 md:space-y-0 mb-4">
                         <!-- Search Input -->
                         <div class="relative w-full md:w-64">
-                            <input type="text" placeholder="Search cars..." 
+                            <input type="text" id="car-search" placeholder="Search cars..." 
                                 class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
                             <i class="bi bi-search absolute left-3 top-2.5 text-gray-400"></i>
                         </div>
@@ -101,7 +101,7 @@ function getCarStatusColor($status) {
                             <!-- Status Dropdown -->
                             <div class="relative">
                                 <button id="toggle-status" class="w-full md:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none flex justify-between items-center">
-                                    <span>All Status</span>
+                                    <span id="selected-status">All Status</span>
                                     <svg id="status-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-5 h-5 transition-transform duration-300">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                     </svg>
@@ -109,19 +109,31 @@ function getCarStatusColor($status) {
                                 <div id="status-dropdown" class="hidden absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg">
                                     <ul class="py-1">
                                         <li>
-                                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Available</button>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="all">All Status</button>
                                         </li>
                                         <li>
-                                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Rented</button>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="Available">Available</button>
                                         </li>
                                         <li>
-                                            <button class="w-full text-left px-4 py-2 hover:bg-gray-100">Maintenance</button>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="Booked">Booked</button>
+                                        </li>
+                                        <li>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="Under Maintenance">Under Maintenance</button>
+                                        </li>
+                                        <li>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="Damaged">Damaged</button>
+                                        </li>
+                                        <li>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="Expired">Expired</button>
+                                        </li>
+                                        <li>
+                                            <button class="status-option w-full text-left px-4 py-2 hover:bg-gray-100" data-status="Unavailable">Unavailable</button>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <!-- Search Button -->
-                            <button class="w-full md:w-auto px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <button id="search-button" class="w-full md:w-auto px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                                 <i class="bi bi-search mr-2"></i>Search
                             </button>
                         </div>
@@ -130,7 +142,7 @@ function getCarStatusColor($status) {
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         @foreach ($cars as $car)
                         <!-- Car Card {{ $car->id }} -->
-                        <div class="bg-white p-4 rounded-lg shadow-lg border">
+                        <div class="bg-white p-4 rounded-lg shadow-lg border car-card">
                             <!-- Car Image -->
                             <img src={{ asset($car->carModel->img_file_path) }} alt="Car Image"
                                 class="w-full h-32 object-scale-down rounded-md mb-4">
@@ -150,9 +162,6 @@ function getCarStatusColor($status) {
                                             <li>
                                                 <button data-modal-target="editCarModal-{{ $car->id }}" data-modal-toggle="editCarModal-{{ $car->id }}" class="w-full text-left px-4 py-2 hover:bg-gray-100">Edit</button>
                                             </li>
-                                            <li>
-                                                <button data-modal-target="unavailableModal-{{ $car->id }}" data-modal-toggle="unavailableModal-{{ $car->id }}" class="w-full text-left px-4 py-2 hover:bg-gray-100">Unavailable</button>
-                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -165,12 +174,10 @@ function getCarStatusColor($status) {
                                 </div>
                             </div>
                             <!-- Status Badge -->
-
                             @php
                                 $carStatusColor = getCarStatusColor($car->status);
                             @endphp
-                            <span
-                                class="px-3 py-1 text-xs font-semibold {{ $carStatusColor['color'] }} rounded-full"> {{ $car->status }} </span>
+                            <span class="car-status px-3 py-1 text-xs font-semibold {{ $carStatusColor['color'] }} rounded-full">{{ $car->status }}</span>
                         </div>
                         @endforeach
                     </div>
@@ -181,7 +188,7 @@ function getCarStatusColor($status) {
                     <!-- Filter Options Section -->
                     <div class="space-y-4">
                         <button id="toggle-filter"
-                            class="w-full flex justify-between items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                            class="hidden w-full flex justify-between items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
                             Filter Options
                             <svg id="toggle-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor" class="w-5 h-5 transition-transform duration-300">
@@ -276,7 +283,8 @@ function getCarStatusColor($status) {
 
                             <div id="add-dropdown"
                                 class="hidden mt-2 space-y-2 bg-white rounded-2xl border border-gray-200 shadow-md p-4">
-                                <form>
+                                <form action="{{ route('store-car-model') }}" method="POST" enctype="multipart/form-data">
+                                    @csrf
                                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                         <!-- Brand and Model Name -->
                                         <div>
@@ -420,7 +428,8 @@ function getCarStatusColor($status) {
                         <!-- Add New Car Section -->
                         <div class="border-t border-gray-300 mt-4 pt-4">
                             <h2 class="text-xl font-semibold text-gray-800 mb-4">Add a New Car</h2>
-                            <form class="space-y-4">
+                            <form action="{{ route('store-car') }}" method="POST" class="space-y-4">
+                                @csrf
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                     <!-- Car Brand and Car Model -->
                                     <div>
@@ -428,55 +437,48 @@ function getCarStatusColor($status) {
                                         <select id="car_brand" name="car_brand"
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
                                             <option value="" disabled selected>Select Brand</option>
-                                            <option value="Toyota">Toyota</option>
-                                            <option value="Honda">Honda</option>
-                                            <option value="Ford">Ford</option>
-                                            <option value="Tesla">Tesla</option>
-                                            <option value="Hyundai">Hyundai</option>
+                                            @foreach($uniqueCarBrands as $brand)
+                                                <option value="{{ $brand }}">{{ $brand }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div>
                                         <label for="car_model" class="block text-sm font-medium text-gray-700 mb-2">Car Model</label>
-                                        <select id="car_model" name="car_model"
+                                        <select id="car_model" name="car_model_id" disabled
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm">
                                             <option value="" disabled selected>Select Model</option>
-                                            <option value="Corolla">Corolla</option>
-                                            <option value="Civic">Civic</option>
-                                            <option value="Mustang">Mustang</option>
-                                            <option value="Model 3">Model 3</option>
-                                            <option value="Accent">Accent</option>
                                         </select>
                                     </div>
 
-                                    <!-- Odometer and Licence Plate -->
+                                    <!-- Odometer and License Plate -->
                                     <div>
                                         <label for="car_odometer" class="block text-sm font-medium text-gray-700 mb-2">Odometer</label>
-                                        <input type="number" id="car_odometer" name="car_odometer"
+                                        <input type="number" id="car_odometer" name="odometer"
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
-                                            placeholder="Enter odometer reading" min="0">
+                                            placeholder="Enter odometer reading" min="0" required>
                                     </div>
                                     <div>
                                         <label for="car_license_plate" class="block text-sm font-medium text-gray-700 mb-2">License Plate</label>
-                                        <input type="text" id="car_license_plate" name="car_license_plate"
+                                        <input type="text" id="car_license_plate" name="license_plate"
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
-                                            placeholder="Enter license plate">
+                                            placeholder="Enter license plate" required>
                                     </div>
 
                                     <!-- Registration Number -->
-                                    <div class="col-span-2">
+                                    <div>
                                         <label for="car_registration_number" class="block text-sm font-medium text-gray-700 mb-2">Registration Number</label>
-                                        <input type="text" id="car_registration_number" name="car_registration_number"
+                                        <input type="text" id="car_registration_number" name="registration_number"
                                             class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
-                                            placeholder="Enter registration number">
+                                            placeholder="Enter registration number" required>
                                     </div>
 
                                     <!-- Registration Date -->
-                                    <div class="col-span-2">
+                                    <div>
                                         <label for="car_registration_date" class="block text-sm font-medium text-gray-700 mb-2">Registration Date</label>
                                         <div class="relative">
-                                            <input type="date" id="car_registration_date" name="car_registration_date"
+                                            <input type="date" id="car_registration_date" name="registration_date"
                                                 class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
-                                                placeholder="Select date">
+                                                required>
                                             <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                                                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
@@ -682,61 +684,119 @@ function getCarStatusColor($status) {
                 @endif
 
     <script>
-        document.getElementById("toggle-filter").addEventListener("click", function() {
+        // Original toggle functions for other dropdowns
+        document.getElementById("toggle-filter")?.addEventListener("click", function() {
             const dropdown = document.getElementById("filter-dropdown");
             const icon = document.getElementById("toggle-icon");
             dropdown.classList.toggle("hidden");
             icon.classList.toggle("rotate-180");
         });
 
-        document.getElementById("toggle-add").addEventListener("click", function() {
+        document.getElementById("toggle-add")?.addEventListener("click", function() {
             const dropdown = document.getElementById("add-dropdown");
             const icon = document.getElementById("toggle-add-icon");
             dropdown.classList.toggle("hidden");
             icon.classList.toggle("rotate-180");
         });
 
+        // Status dropdown functionality
+        const toggleStatusBtn = document.getElementById("toggle-status");
+        const statusDropdown = document.getElementById("status-dropdown");
+        const statusIcon = document.getElementById("status-icon");
+        const selectedStatus = document.getElementById("selected-status");
+        const statusOptions = document.querySelectorAll(".status-option");
+        const searchInput = document.getElementById("car-search");
+        const searchButton = document.getElementById("search-button");
 
-        function saveCarChanges() {
-            // Add your save logic here
-            closeEditModal();
-        }
-
-        // Unavailable Modal Functions
-        function openUnavailableModal() {
-            document.getElementById('unavailableModal').classList.remove('hidden');
-        }
-
-        function closeUnavailableModal() {
-            document.getElementById('unavailableModal').classList.add('hidden');
-        }
-
-        function confirmUnavailable() {
-            // Add your unavailable confirmation logic here
-            closeUnavailableModal();
-        }
-
-        // Status Dropdown Functions
-        document.getElementById("toggle-status").addEventListener("click", function() {
-            const dropdown = document.getElementById("status-dropdown");
-            const icon = document.getElementById("status-icon");
-            dropdown.classList.toggle("hidden");
-            icon.classList.toggle("rotate-180");
+        // Toggle status dropdown
+        toggleStatusBtn?.addEventListener("click", function(e) {
+            e.preventDefault();
+            statusDropdown.classList.toggle("hidden");
+            statusIcon.classList.toggle("rotate-180");
         });
 
         // Close dropdown when clicking outside
-        document.addEventListener("click", function(event) {
-            const dropdown = document.getElementById("status-dropdown");
-            const toggleButton = document.getElementById("toggle-status");
-            const icon = document.getElementById("status-icon");
-            
-            if (!toggleButton.contains(event.target) && !dropdown.contains(event.target)) {
-                dropdown.classList.add("hidden");
-                icon.classList.remove("rotate-180");
+        document.addEventListener("click", function(e) {
+            if (toggleStatusBtn && statusDropdown && !toggleStatusBtn.contains(e.target) && !statusDropdown.contains(e.target)) {
+                statusDropdown.classList.add("hidden");
+                statusIcon.classList.remove("rotate-180");
             }
         });
 
-        // Image Preview Functions
+        // Handle status option selection
+        statusOptions.forEach(option => {
+            option.addEventListener("click", function(e) {
+                e.preventDefault();
+                const status = this.getAttribute("data-status");
+                selectedStatus.textContent = this.textContent;
+                statusDropdown.classList.add("hidden");
+                statusIcon.classList.remove("rotate-180");
+                console.log("Selected status:", status); // Debug log
+                filterCars(this.textContent, searchInput.value);
+            });
+        });
+
+        // Handle search
+        let searchTimeout;
+        searchInput?.addEventListener("input", function() {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                filterCars(selectedStatus.textContent, this.value);
+            }, 300);
+        });
+
+        searchButton?.addEventListener("click", function(e) {
+            e.preventDefault();
+            filterCars(selectedStatus.textContent, searchInput.value);
+        });
+
+        // Filter cars function
+        function filterCars(status, searchText) {
+            console.log("Filtering with status:", status); // Debug log
+            const cards = document.querySelectorAll(".car-card");
+            const searchQuery = searchText.toLowerCase();
+            
+            cards.forEach(card => {
+                const cardStatus = card.querySelector(".car-status")?.textContent.trim();
+                const cardTitle = card.querySelector(".font-semibold")?.textContent.toLowerCase();
+                const cardPlate = card.querySelector(".text-sm.text-gray-500")?.textContent.toLowerCase();
+
+                // Debug logs
+                console.log("Card status:", cardStatus);
+                console.log("Selected status:", status);
+
+                // Check if status is "All Status" or matches the card status
+                const matchesStatus = status === "All Status" || status === "all" || cardStatus === status;
+                const matchesSearch = !searchQuery || 
+                                    (cardTitle && cardTitle.includes(searchQuery)) || 
+                                    (cardPlate && cardPlate.includes(searchQuery));
+
+                if (matchesStatus && matchesSearch) {
+                    card.classList.remove("hidden");
+                } else {
+                    card.classList.add("hidden");
+                }
+            });
+
+            // Handle no results message
+            const visibleCards = document.querySelectorAll(".car-card:not(.hidden)");
+            const carGrid = document.querySelector(".grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3");
+            let noResultsMessage = document.getElementById("no-results-message");
+
+            if (visibleCards.length === 0) {
+                if (!noResultsMessage && carGrid) {
+                    noResultsMessage = document.createElement("div");
+                    noResultsMessage.id = "no-results-message";
+                    noResultsMessage.className = "col-span-3 text-center py-8 text-gray-500";
+                    noResultsMessage.textContent = "No cars found matching your criteria";
+                    carGrid.appendChild(noResultsMessage);
+                }
+            } else if (noResultsMessage) {
+                noResultsMessage.remove();
+            }
+        }
+
+        // Rest of your existing code (image preview, car brand selection, etc.)
         function previewImage(event) {
             const file = event.target.files[0];
             if (file) {
@@ -762,5 +822,33 @@ function getCarStatusColor($status) {
             previewImg.src = '#';
             previewDiv.classList.add('hidden');
         }
+
+        document.getElementById('car_brand')?.addEventListener('change', function() {
+            const brand = this.value;
+            const modelSelect = document.getElementById('car_model');
+            
+            if (brand && modelSelect) {
+                modelSelect.disabled = false;
+                
+                fetch(`/cars/models/${brand}`)
+                    .then(response => response.json())
+                    .then(models => {
+                        modelSelect.innerHTML = '<option value="" disabled selected>Select Model</option>';
+                        models.forEach(model => {
+                            const option = document.createElement('option');
+                            option.value = model.id;
+                            option.textContent = model.model_name;
+                            modelSelect.appendChild(option);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error fetching car models:', error);
+                        modelSelect.innerHTML = '<option value="" disabled selected>Error loading models</option>';
+                    });
+            } else if (modelSelect) {
+                modelSelect.disabled = true;
+                modelSelect.innerHTML = '<option value="" disabled selected>Select Model</option>';
+            }
+        });
     </script>
 @endsection

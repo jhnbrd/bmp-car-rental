@@ -362,4 +362,40 @@ class BookingController extends Controller
 
         return redirect()->route('booking-management')->with('success', 'Booking update successful.');
     }
+
+    /**
+     * Employee cancellation of bookings
+     * @param int $booking_id
+     * @param \Illuminate\Http\Request $request
+     * @return RedirectResponse
+     */
+    public function cancelBookingEmployee(int $booking_id, Request $request): RedirectResponse
+    {
+        $request->validate([
+            'cancel_reason' => 'required|string',
+            'confirm_cancel' => 'required|accepted'
+        ]);
+
+        $user = Auth::user();
+        $booking = Booking::findOrFail($booking_id);
+
+        // Create cancellation status
+        $bookingCancelStatus = BookingStatus::create([
+            'booking_id' => $booking_id,
+            'status' => 'Cancelled',
+            'status_date' => Carbon::now(),
+            'additional_notes' => $request->cancel_reason,
+            'updated_by_id' => $user->id,
+        ]);
+
+        // Update booking's latest status
+        $booking->update(['latest_status_id' => $bookingCancelStatus->id]);
+
+        // Update car status back to Available if it was Booked
+        if ($booking->car && $booking->car->status === 'Booked') {
+            $booking->car->update(['status' => 'Available']);
+        }
+
+        return redirect()->route('booking-management')->with('success', 'Booking cancelled successfully!');
+    }
 }

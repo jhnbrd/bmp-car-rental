@@ -58,12 +58,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::post('/bookings/modify/{booking}', [BookingController::class, 'changeApprovedStatus'])->name('change-approved-status');
         Route::post('/bookings/pickup/{booking}', [BookingController::class, 'userPicksUpCar'])->name('customer-picksup-car');
         Route::post('/bookings/return/{booking}', [BookingController::class, 'userReturnsCar'])->name('customer-returns-car');
+        Route::post('/bookings/cancel/{booking}', [BookingController::class, 'cancelBookingEmployee'])->name('employee-cancel-booking');
 
         // Car Management Routes
         Route::get('/cars/manage', [EmployeeController::class, 'car_modification'])->name('cars-modification');
         Route::post('/cars/update/{car}', [CarController::class, 'editCarDetails'])->name('update-car-details');
+        Route::post('/cars/store', [CarController::class, 'store'])->name('store-car');
+        Route::post('/cars/model/store', [CarController::class, 'storeCarModel'])->name('store-car-model');
         Route::get('/cars/damage', [CarDamageController::class, 'showDamagedCars'])->name('damaged.cars');
         Route::post('/cars/damage/update/{car_damage}', [CarDamageController::class, 'updateRepairStatus'])->name('update-damage-repair-status');
+        Route::get('/cars/models/{brand}', [EmployeeController::class, 'getCarModelsByBrand'])->name('get-car-models');
 
         // Employee Management Routes
         Route::get('/employees', [EmployeeController::class, 'employee_records'])->name('employee-records');

@@ -58,7 +58,7 @@
                 </div>
                 @endif
 
-                <div class="grid grid-cols-4 justify-center mx-[10%]">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 justify-center mx-[10%]">
                 @foreach ($carModels as $carModel)
                 @php
                     $hasAvailableCar = $carModel->cars()->where('status', 'Available')->exists();
@@ -143,9 +143,11 @@
                     </div>
                 @endforeach
             </section>
-            <div class="bg-[#0f1021] flex flex-row mx-auto">
-                <div class="py-8 mx-auto flex justify-end">
-                    {{ $carModels->links() }}
+            <div class="bg-[#0f1021] flex flex-row mx-auto w-full">
+                <div class="py-8 mx-auto">
+                    <div class="pagination">
+                        {{ $carModels->links('vendor.pagination.custom') }}
+                    </div>
                 </div>
             </div>
             

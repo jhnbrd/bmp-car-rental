@@ -53,10 +53,10 @@
 
 <!-- Filter Section -->
 <div class="mb-6">
-    <div class="flex flex-wrap items-center gap-4">
+    <form id="filterForm" action="{{ route('booking-history') }}" method="GET" class="flex flex-wrap items-center gap-4">
         <!-- Status Filter -->
         <div class="relative" x-data="{ open: false }">
-            <button @click="open = !open" type="button"
+            <button type="button" @click="open = !open"
                 class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200">
                 <svg class="w-5 h-5 text-blue-600 dark:text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -76,16 +76,16 @@
                         <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Booking Status</h3>
                         <div class="grid grid-cols-2 gap-4">
                             <label class="inline-flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                                <input type="checkbox" name="status[]" value="Successful" 
+                                    {{ in_array('Successful', request()->input('status', [])) ? 'checked' : '' }}
+                                    class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
                                 <span class="ml-3 text-sm text-gray-700 dark:text-gray-200">Completed</span>
                             </label>
                             <label class="inline-flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                                <input type="checkbox" name="status[]" value="Cancelled"
+                                    {{ in_array('Cancelled', request()->input('status', [])) ? 'checked' : '' }}
+                                    class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
                                 <span class="ml-3 text-sm text-gray-700 dark:text-gray-200">Cancelled</span>
-                            </label>
-                            <label class="inline-flex items-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors duration-200">
-                                <input type="checkbox" class="form-checkbox h-5 w-5 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
-                                <span class="ml-3 text-sm text-gray-700 dark:text-gray-200">Banned</span>
                             </label>
                         </div>
                     </div>
@@ -96,11 +96,13 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm text-gray-500 dark:text-gray-400 mb-2">From</label>
-                                <input type="date" class="w-full px-4 py-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:ring-blue-500 focus:border-blue-500">
+                                <input type="date" name="date_from" value="{{ request()->input('date_from') }}"
+                                    class="w-full px-4 py-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:ring-blue-500 focus:border-blue-500">
                             </div>
                             <div>
                                 <label class="block text-sm text-gray-500 dark:text-gray-400 mb-2">To</label>
-                                <input type="date" class="w-full px-4 py-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:ring-blue-500 focus:border-blue-500">
+                                <input type="date" name="date_to" value="{{ request()->input('date_to') }}"
+                                    class="w-full px-4 py-2.5 text-sm border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 focus:ring-blue-500 focus:border-blue-500">
                             </div>
                         </div>
                     </div>
@@ -109,16 +111,20 @@
                     <div class="space-y-3">
                         <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-200">Quick Filters</h3>
                         <div class="flex flex-wrap gap-3">
-                            <button class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <button type="button" data-quick-filter="today"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
                                 Today
                             </button>
-                            <button class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <button type="button" data-quick-filter="7days"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
                                 Last 7 Days
                             </button>
-                            <button class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <button type="button" data-quick-filter="30days"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
                                 Last 30 Days
                             </button>
-                            <button class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
+                            <button type="button" data-quick-filter="month"
+                                class="px-4 py-2 text-sm font-medium text-gray-700 dark:text-gray-200 bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200">
                                 This Month
                             </button>
                         </div>
@@ -127,21 +133,43 @@
 
                 <!-- Filter Actions -->
                 <div class="flex items-center justify-between p-6 border-t border-gray-200 dark:border-gray-700">
-                    <button class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
+                    <button type="button" id="resetFilters"
+                        class="text-sm text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
                         Reset Filters
                     </button>
                     <div class="flex gap-3">
-                        <button @click="open = false" class="px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="button" @click="open = false"
+                            class="px-5 py-2.5 text-sm font-medium text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             Cancel
                         </button>
-                        <button class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <button type="submit"
+                            class="px-5 py-2.5 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                             Apply Filters
                         </button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <!-- Search Input (moved inside the form) -->
+        <div class="w-full sm:w-[300px] md:w-[400px] lg:w-[500px] xl:w-[500px] hidden">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                        fill="none" viewBox="0 0 20 20">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                    </svg>
+                </div>
+                <input type="search" id="default-search" name="search" value="{{ request()->input('search') }}"
+                    class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Search Customer Name ..." />
+                <button type="submit"
+                    class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <div class="w-full overflow-visible rounded-lg shadow-xs mt-4">
@@ -175,7 +203,7 @@
                                 </div>
                             </div>
                             <div>
-                                <p class="font-semibold">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</p>
+                                <p class="font-semibold">{{ $booking->customer->first_name }} {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }} {{ $booking->customer->last_name }}</p>
                                 <p class="text-xs text-gray-600 dark:text-gray-400">Client</p>
                             </div>
                         </div>
@@ -210,7 +238,9 @@
                             <!-- Dropdown Menu -->
                             <div class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
                                 <!-- View Details -->
-                                <button onclick="openBookingModal()"
+                                <button type="button"
+                                    data-modal-target="viewdetail-modal-{{ $booking->id }}"
+                                    data-modal-toggle="viewdetail-modal-{{ $booking->id }}"
                                     class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1 w-[calc(100%-1rem)]">
                                     <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
                                         viewBox="0 0 24 24">
@@ -223,6 +253,107 @@
                         </div>
                     </td>
                 </tr>
+
+                <!-- View Detail Modal for each booking -->
+                <div id="viewdetail-modal-{{ $booking->id }}" tabindex="-1" aria-hidden="true"
+                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                    <div class="relative w-full max-w-5xl max-h-full">
+                        <!-- Modal content -->
+                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
+                            <!-- Modal header -->
+                            <div class="flex items-center justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                    Booking Overview
+                                </h3>
+                                <button type="button"
+                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                    data-modal-hide="viewdetail-modal-{{ $booking->id }}">
+                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                        viewBox="0 0 14 14">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                    </svg>
+                                    <span class="sr-only">Close modal</span>
+                                </button>
+                            </div>
+
+                            <!-- Modal body -->
+                            <div class="p-6 space-y-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <!-- Renter Info Card -->
+                                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-5 shadow-sm space-y-4">
+                                        <div class="flex items-center space-x-4">
+                                            <img src="{{ asset($booking->customer->user->picture_path) }}" alt="Renter"
+                                                class="w-16 h-16 rounded-full border-2 border-gray-400 shadow-md">
+                                            <div>
+                                                <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                                                    {{ $booking->customer->first_name }}
+                                                    {{ $booking->customer->middle_name ? $booking->customer->middle_name . ' ' : '' }}
+                                                    {{ $booking->customer->last_name }}
+                                                </p>
+                                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ $booking->customer->user->email }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                                            <p><strong>Contact:</strong> {{ $booking->customer->phone_number }}</p>
+                                            <p><strong>License #:</strong> {{ $booking->customer->driver_license_number }}</p>
+                                            <p><strong>Expiry:</strong> {{ $booking->customer->license_expiration_date }}</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Vehicle Info Card -->
+                                    <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-5 shadow-sm space-y-4">
+                                        <img src="{{ asset($booking->car->carModel->img_file_path) }}" alt="Vehicle"
+                                            class="w-full h-40 object-scale-down rounded-xl shadow-sm">
+                                        <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                                            <p><strong>Brand:</strong> {{ $booking->car->carModel->brand }}</p>
+                                            <p><strong>Model:</strong> {{ $booking->car->carModel->model_name }}</p>
+                                            <p><strong>Type:</strong> {{ $booking->car->carModel->car_type }}</p>
+                                            <p><strong>Plate:</strong> {{ $booking->car->license_plate }}</p>
+                                            <p><strong>Transmission:</strong> {{ $booking->car->carModel->transmission }}</p>
+                                            <p><strong>Fuel Type:</strong> {{ $booking->car->carModel->fuel_type }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Booking Details -->
+                                <div class="bg-gray-50 dark:bg-gray-700 rounded-xl p-5 shadow-sm space-y-3">
+                                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-2">Booking Details</h3>
+                                    <div class="grid sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
+                                        <p><strong>Pickup Location:</strong> Main Branch, Ecoland, Davao City</p>
+                                        <p><strong>Drop-off Location:</strong> Main Branch, Ecoland, Davao City</p>
+                                        <p><strong>Pickup Date:</strong> {{ $booking->pickup_date }}</p>
+                                        <p><strong>Return Date:</strong> {{ $booking->return_date }}</p>
+                                        <p><strong>Amount Due:</strong> ₱{{ number_format($booking->amount_due, 2) }}</p>
+                                        @if($booking->actual_pickup_time)
+                                            <p><strong>Actual Pickup Time:</strong> {{ $booking->actual_pickup_time }}</p>
+                                        @endif
+                                        <!-- Booking Status -->
+                                        <div class="sm:col-span-2">
+                                            <strong>Status:</strong>
+                                            <?php $statusBadge = getStatusBadge($booking->latestStatus->status); ?>
+                                            <span class="ml-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium <?= $statusBadge['color'] ?>">
+                                                {{ $booking->latestStatus->status }}
+                                            </span>
+                                            @if($booking->latestStatus->additional_notes)
+                                                <p class="mt-2"><strong>Additional Notes:</strong> {{ $booking->latestStatus->additional_notes }}</p>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal footer -->
+                            <div class="flex items-center justify-end p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button type="button"
+                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+                                    data-modal-hide="viewdetail-modal-{{ $booking->id }}">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @endforeach
             @else
             <tr>
@@ -306,160 +437,102 @@
     </span>
 </div>
 
-<!-- View Detail Modal -->
-<div id="viewdetail-modal" tabindex="-1" aria-hidden="true"
-    class="hidden fixed inset-0 z-50 flex justify-center items-start pt-10 px-4 sm:px-6 lg:px-8 bg-black bg-opacity-50 overflow-y-auto"
-    x-data="{ 
-        show: false,
-        status: 'completed',
-        reason: '',
-        date: '',
-        openModal(data) {
-            this.status = data.status.toLowerCase();
-            this.reason = data.reason || '';
-            this.date = data.date || '';
-            this.show = true;
-        },
-        closeModal() {
-            this.show = false;
-        }
-    }"
-    x-show="show"
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0"
-    x-transition:enter-end="opacity-100"
-    x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100"
-    x-transition:leave-end="opacity-0"
-    @keydown.escape.window="closeModal()"
-    @click.self="closeModal()">
-    <div class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-xl w-full max-w-5xl p-6 space-y-6"
-        x-transition:enter="transition ease-out duration-300"
-        x-transition:enter-start="opacity-0 transform scale-95"
-        x-transition:enter-end="opacity-100 transform scale-100"
-        x-transition:leave="transition ease-in duration-200"
-        x-transition:leave-start="opacity-100 transform scale-100"
-        x-transition:leave-end="opacity-0 transform scale-95">
-        <!-- Modal Header -->
-        <div class="flex justify-between items-center border-b pb-4 dark:border-gray-700">
-            <h5 class="text-xl font-semibold text-gray-800 dark:text-white">
-                Booking Overview
-            </h5>
-            <button @click="closeModal()" class="text-gray-500 hover:text-red-500 text-2xl">&times;</button>
-        </div>
-
-        <!-- Content -->
-        <!-- Completed Booking View -->
-        <div x-show="status === 'completed'" class="space-y-6">
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Renter Info Card -->
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm space-y-4">
-                    <div class="flex items-center space-x-4">
-                        <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Renter"
-                            class="w-16 h-16 rounded-full border-2 border-gray-400 shadow-md">
-                        <div>
-                            <p class="text-lg font-semibold text-gray-800 dark:text-white">John Doe</p>
-                            <p class="text-sm text-gray-500 dark:text-gray-300">johndoe@example.com</p>
-                        </div>
-                    </div>
-                    <div class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
-                        <p><strong>Contact:</strong> +123 456 7890</p>
-                        <p><strong>License #:</strong> D12345678</p>
-                        <p><strong>Expiry:</strong> 2027-05-15</p>
-                    </div>
-                    <!-- Check Profile Button -->
-                    <div class="pt-4">
-                        <a href="#"
-                            class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg transition">
-                            Check Profile
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Vehicle Info Card -->
-                <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm space-y-4">
-                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                        alt="Vehicle" class="w-full h-40 object-cover rounded-xl shadow-sm">
-                    <div class="grid grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
-                        <p><strong>Type:</strong> SUV</p>
-                        <p><strong>Plate:</strong> ABC-1234</p>
-                        <p><strong>Fuel:</strong> Petrol</p>
-                        <p><strong>Transmission:</strong> Automatic</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Booking Details -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-sm space-y-4">
-                <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Booking Details</h3>
-                <div class="grid sm:grid-cols-2 gap-4 text-sm text-gray-700 dark:text-gray-300">
-                    <p><strong>Pickup Location:</strong> Main Street, City</p>
-                    <p><strong>Drop-off Location:</strong> Central Park, City</p>
-                    <p><strong>Pickup Date & Time:</strong> 2025-04-20 10:00 AM</p>
-                    <p><strong>Return Date & Time:</strong> 2025-04-25 10:00 AM</p>
-                    <!-- Booking Status -->
-                    <div class="sm:col-span-2">
-                        <strong>Status:</strong>
-                        <span class="ml-2 inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300">
-                            Completed
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Cancelled/Blacklisted Booking View -->
-        <div x-show="status === 'cancelled' || status === 'blacklisted'" class="space-y-6">
-            <!-- Status Card -->
-            <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-sm">
-                <div class="flex items-center justify-between mb-4">
-                    <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Booking Status</h3>
-                    <span x-show="status === 'cancelled'" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">
-                        Cancelled
-                    </span>
-                    <span x-show="status === 'blacklisted'" class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300">
-                        Blacklisted
-                    </span>
-                </div>
-                
-                <!-- Reason Section -->
-                <div class="space-y-4">
-                    <div>
-                        <h4 class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Reason</h4>
-                        <p class="text-sm text-gray-600 dark:text-gray-400" x-text="reason"></p>
-                    </div>
-                    
-                    <!-- Additional Info -->
-                    <div class="grid grid-cols-2 gap-4 text-sm">
-                        <div>
-                            <p class="text-gray-500 dark:text-gray-400">Date</p>
-                            <p class="text-gray-700 dark:text-gray-300" x-text="date"></p>
-                        </div>
-                        <div>
-                            <p class="text-gray-500 dark:text-gray-400">Action Taken By</p>
-                            <p class="text-gray-700 dark:text-gray-300">Admin User</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="flex justify-end gap-3 px-6 py-4 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
-            <button @click="closeModal()" type="button"
-                class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
-                Close
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- Update the view details button to use the new modal function -->
-<script>
-    function openBookingModal(bookingData) {
-        const modal = document.getElementById('viewdetail-modal');
-        modal.__x.$data.openModal(bookingData);
-    }
-</script>
-
 @endsection
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modalButtons = document.querySelectorAll('[data-modal-toggle]');
+        const modalHideButtons = document.querySelectorAll('[data-modal-hide]');
+        const modals = document.querySelectorAll('[id^="viewdetail-modal-"]');
+
+        // Show modal
+        modalButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-modal-target');
+                const modal = document.getElementById(targetId);
+                if (modal) {
+                    modal.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Hide modal
+        modalHideButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.getAttribute('data-modal-hide');
+                const modal = document.getElementById(targetId);
+                if (modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.add('hidden');
+                }
+            });
+        });
+
+        // Close modal when pressing ESC key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (!modal.classList.contains('hidden')) {
+                        modal.classList.add('hidden');
+                    }
+                });
+            }
+        });
+
+        // Filter functionality
+        const quickFilterButtons = document.querySelectorAll('[data-quick-filter]');
+        const dateFromInput = document.querySelector('input[name="date_from"]');
+        const dateToInput = document.querySelector('input[name="date_to"]');
+        const resetButton = document.getElementById('resetFilters');
+
+        // Quick filter buttons
+        quickFilterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const today = new Date();
+                let fromDate = new Date();
+
+                switch (button.dataset.quickFilter) {
+                    case 'today':
+                        fromDate = today;
+                        break;
+                    case '7days':
+                        fromDate.setDate(today.getDate() - 7);
+                        break;
+                    case '30days':
+                        fromDate.setDate(today.getDate() - 30);
+                        break;
+                    case 'month':
+                        fromDate = new Date(today.getFullYear(), today.getMonth(), 1);
+                        break;
+                }
+
+                dateFromInput.value = fromDate.toISOString().split('T')[0];
+                dateToInput.value = today.toISOString().split('T')[0];
+            });
+        });
+
+        // Reset filters
+        resetButton.addEventListener('click', () => {
+            const form = document.getElementById('filterForm');
+            const checkboxes = form.querySelectorAll('input[type="checkbox"]');
+            const dateInputs = form.querySelectorAll('input[type="date"]');
+            const searchInput = form.querySelector('input[type="search"]');
+
+            checkboxes.forEach(checkbox => checkbox.checked = false);
+            dateInputs.forEach(input => input.value = '');
+            if (searchInput) searchInput.value = '';
+
+            form.submit();
+        });
+    });
+</script>
+@endpush

@@ -14,6 +14,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Models\Payment;
+use App\Models\CarModel;
 
 class EmployeeController extends Controller
 {
@@ -151,11 +152,54 @@ class EmployeeController extends Controller
             ->paginate(6, ['*'], $status);
     }
 
-    public function booking_history(): View
+    public function booking_history(Request $request): View
     {
-        $booking_history = Booking::whereHas('latestStatus', function ($query) {
+        $query = Booking::whereHas('latestStatus', function ($query) use ($request) {
             $query->whereIn('status', ['Successful', 'Cancelled']);
-        })->get();
+            
+            // Apply status filter if selected
+            if ($request->has('status') && !empty($request->status)) {
+                $query->whereIn('status', $request->status);
+            }
+        })
+        ->with(['latestStatus', 'customer.user', 'car.carModel']);
+
+        // Apply date range filter
+        if ($request->filled('date_from')) {
+            $query->whereHas('latestStatus', function ($q) use ($request) {
+                $q->whereDate('status_date', '>=', $request->date_from);
+            });
+        }
+
+        if ($request->filled('date_to')) {
+            $query->whereHas('latestStatus', function ($q) use ($request) {
+                $q->whereDate('status_date', '<=', $request->date_to);
+            });
+        }
+
+        // Apply search filter
+        if ($request->filled('search')) {
+            $searchTerm = $request->search;
+            $query->whereHas('customer', function ($q) use ($searchTerm) {
+                $q->where(function ($q) use ($searchTerm) {
+                    $q->where('first_name', 'LIKE', "%{$searchTerm}%")
+                      ->orWhere('middle_name', 'LIKE', "%{$searchTerm}%")
+                      ->orWhere('last_name', 'LIKE', "%{$searchTerm}%");
+                });
+            });
+        }
+
+        // Order by latest status date
+        $query->orderBy(
+            BookingStatus::query()
+                ->whereColumn('booking_id', 'bookings.id')
+                ->orderBy('status_date', 'desc')
+                ->limit(1)
+                ->select('status_date'),
+            'desc'
+        );
+
+        $booking_history = $query->get();
     
         return view('employee.booking_history', ['booking_history' => $booking_history]);
     }
@@ -169,8 +213,17 @@ class EmployeeController extends Controller
     public function car_modification(): View
     {
         $cars = Car::all();
-        // dd($cars);
-        return view('employee.car_modification', ['cars' => $cars]);
+        $uniqueCarBrands = CarModel::select('brand')->distinct()->pluck('brand');
+        return view('employee.car_modification', ['cars' => $cars, 'uniqueCarBrands' => $uniqueCarBrands]);
+    }
+
+    public function getCarModelsByBrand(Request $request)
+    {
+        $brand = $request->brand;
+        $carModels = CarModel::where('brand', $brand)
+            ->select('id', 'model_name')
+            ->get();
+        return response()->json($carModels);
     }
 
     public function damagedCars(): View

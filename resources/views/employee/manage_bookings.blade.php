@@ -220,16 +220,17 @@
                                                     </label>
 
                                                     <!-- Cancel -->
-                                                    </label for="approval-toggle">
-                                                    <div data-modal-target="cancel-modal-{{ $unpaidBooking->id }}" data-modal-toggle="cancel-modal"
-                                                        class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
-                                                        <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                        Cancel
-                                                    </div>
+                                                    <label>
+                                                        <div data-modal-target="cancel-modal-{{ $unpaidBooking->id }}" 
+                                                             data-modal-toggle="cancel-modal-{{ $unpaidBooking->id }}"
+                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
+                                                            <svg class="w-5 h-5 text-white" fill="currentColor"
+                                                                viewBox="0 0 20 20">
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414  10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
+                                                            </svg>
+                                                            Cancel
+                                                        </div>
                                                     </label>
                                                 </div>
                                             </div>
@@ -1262,9 +1263,9 @@
                             <p><strong>Expiry:</strong> 2027-05-15</p>
                         </div>
                         <!-- Check Profile Button -->
-                        <div class="pt-4">
+                        <div class="pt-4 hidden">
                             <a href="#"
-                                class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg transition">
+                                class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg transition hidden">
                                 Check Profile
                             </a>
                         </div>
@@ -1350,7 +1351,7 @@
                         <p><strong>Expiry:</strong> {{ $booking->customer->license_expiration_date }}</p>
                     </div>
                     <!-- Check Profile Button -->
-                    <div class="pt-4">
+                    <div class="pt-4 hidden">
                         <a href="#"
                             class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg transition">
                             Check Profile
@@ -1719,79 +1720,87 @@
             </div>
 
             <!-- Body -->
-            <div class="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Textarea Column -->
-                <div>
-                    <label for="cancel-reason" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                        Please explain your reason for cancellation:
-                    </label>
-                    <textarea id="cancel-reason" rows="6" required
-                        class="w-full px-4 py-3 h-48 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-                        placeholder="Enter your reason here..."></textarea>
-                </div>
+            <form action="{{ route('employee-cancel-booking', ['booking' => $booking->id]) }}" method="POST" class="space-y-4">
+                @csrf
+                <input type="hidden" name="booking_id" value="{{ $booking->id }}">
+                <div class="px-6 py-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Textarea Column -->
+                    <div>
+                        <label for="cancel-reason-{{ $booking->id }}" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Please explain your reason for cancellation:
+                        </label>
+                        <textarea id="cancel-reason-{{ $booking->id }}" name="cancel_reason" rows="6" required
+                            class="w-full px-4 py-3 h-48 text-sm text-gray-900 bg-gray-50 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
+                            placeholder="Enter your reason here..."></textarea>
+                    </div>
 
-                <!-- Suggested Reasons -->
-                <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-inner overflow-y-auto max-h-60">
-                    <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Common Reasons:</p>
-                    <ul class="space-y-2">
-                        <li>
-                            <button
-                                class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
-                                data-reason="Change of travel plans">
-                                • Change of travel plans
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
-                                data-reason="Found a better deal elsewhere">
-                                • Found a better deal
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
-                                data-reason="No longer need the vehicle">
-                                • Vehicle no longer needed
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
-                                data-reason="Booking was made by mistake">
-                                • Booking mistake
-                            </button>
-                        </li>
-                        <li>
-                            <button
-                                class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
-                                data-reason="Emergency or unforeseen circumstance">
-                                • Emergency or unforeseen circumstances
-                            </button>
-                        </li>
-                    </ul>
+                    <!-- Suggested Reasons -->
+                    <div class="bg-gray-100 dark:bg-gray-700 p-4 rounded-lg shadow-inner overflow-y-auto max-h-60">
+                        <p class="text-sm font-semibold text-gray-700 dark:text-gray-200 mb-3">Common Reasons:</p>
+                        <ul class="space-y-2">
+                            <li>
+                                <button type="button"
+                                    class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
+                                    data-reason="Change of travel plans"
+                                    data-target="cancel-reason-{{ $booking->id }}">
+                                    • Change of travel plans
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button"
+                                    class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
+                                    data-reason="Found a better deal elsewhere"
+                                    data-target="cancel-reason-{{ $booking->id }}">
+                                    • Found a better deal
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button"
+                                    class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
+                                    data-reason="No longer need the vehicle"
+                                    data-target="cancel-reason-{{ $booking->id }}">
+                                    • Vehicle no longer needed
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button"
+                                    class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
+                                    data-reason="Booking was made by mistake"
+                                    data-target="cancel-reason-{{ $booking->id }}">
+                                    • Booking mistake
+                                </button>
+                            </li>
+                            <li>
+                                <button type="button"
+                                    class="suggest-btn w-full text-left text-sm text-gray-800 dark:text-white bg-white dark:bg-gray-800 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg px-4 py-2 transition"
+                                    data-reason="Emergency or unforeseen circumstance"
+                                    data-target="cancel-reason-{{ $booking->id }}">
+                                    • Emergency or unforeseen circumstances
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="px-6">
-                <label class="flex items-center text-sm text-gray-700 mb-3">
-                    <input type="checkbox" id="confirm-cancel" class="form-checkbox h-4 w-4 text-blue-600 transition"
-                        required>
-                    <span class="ms-2">I confirm that I understand and agree to proceed with the cancellation of my
-                        booking.</span>
-                </label>
-            </div>
-            <!-- Footer -->
-            <div
-                class="flex justify-end gap-3 px-6 py-2 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
-                <button data-modal-hide="cancel-modal-{{ $booking->id }}" type="submit"
-                    class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition">
-                    Submit Reason
-                </button>
-                <button data-modal-hide="cancel-modal-{{ $booking->id }}" type="button"
-                    class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
-                    Close
-                </button>
-            </div>
+                <div class="px-6">
+                    <label class="flex items-center text-sm text-gray-700 dark:text-gray-300 mb-3">
+                        <input type="checkbox" id="confirm-cancel-{{ $booking->id }}" name="confirm_cancel" class="form-checkbox h-4 w-4 text-blue-600 transition"
+                            required>
+                        <span class="ms-2">I confirm that I understand and agree to proceed with the cancellation of this booking.</span>
+                    </label>
+                </div>
+                <!-- Footer -->
+                <div
+                    class="flex justify-end gap-3 px-6 py-2 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900 rounded-b-2xl">
+                    <button type="submit"
+                        class="px-5 py-2.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-lg transition">
+                        Submit Reason
+                    </button>
+                    <button type="button" data-modal-hide="cancel-modal-{{ $booking->id }}"
+                        class="px-5 py-2.5 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-300 border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-sm font-medium rounded-lg transition">
+                        Close
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -2234,7 +2243,13 @@
         document.querySelectorAll('.suggest-btn').forEach(button => {
             button.addEventListener('click', () => {
                 const reason = button.getAttribute('data-reason');
-                document.getElementById('cancel-reason').value = reason;
+                const targetId = button.getAttribute('data-target');
+                if (targetId) {
+                    const targetTextarea = document.getElementById(targetId);
+                    if (targetTextarea) {
+                        targetTextarea.value = reason;
+                    }
+                }
             });
         });
 
