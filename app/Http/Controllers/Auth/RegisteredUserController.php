@@ -20,22 +20,15 @@ use Illuminate\Support\Facades\Http;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+
     public function create(): View
     {
         return view('auth.register');
     }
 
-    /**
-     * Handle an incoming registration request.
-     *
-     * @throws \Illuminate\Validation\ValidationException
-     */
+
     public function store(Request $request): RedirectResponse
     {   
-        // dd($request->all());
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'middlename' => ['required', 'string', 'max:255'],

@@ -71,19 +71,19 @@
                             <div class="flex flex-col items-center text-center">
                                 <img src={{ Auth::user()->picture_path }} alt="Profile Picture"
                                     class="w-32 h-32 rounded-full object-cover border-4 border-blue-500">
-                                <h3 class="mt-4 text-2xl font-bold">John Doe</h3>
+                                <h3 class="mt-4 text-2xl font-bold">{{ $customer-> first_name }} {{ $customer-> last_name }}</h3>
                             </div>
 
                             <!-- Card 2: Basic Info -->
                             <div class="bg-gray-50 w-full rounded-lg p-4 shadow-sm">
                                 <h4 class="text-lg font-semibold mb-3">Account Details</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <p><span class="font-medium">Email:</span> john@example.com</p>
-                                    <p><span class="font-medium">Phone:</span> +63 912 345 6789</p>
+                                    <p><span class="font-medium">Email:</span> {{ Auth::user()->email }}</p>
+                                    <p><span class="font-medium">Phone:</span> {{ $customer->phone_number }}</p>
                                     <p><span class="font-medium">Status:</span> <span
                                             class="text-green-600 font-semibold">Active</span></p>
-                                    <p><span class="font-medium">License No.:</span> D123456789</p>
-                                    <p><span class="font-medium">License Expiry:</span> December 31, 2026</p>
+                                    <p><span class="font-medium">License No.:</span> {{ $customer->driver_license_number }}</p>
+                                    <p><span class="font-medium">License Expiry:</span> {{ $customer->license_expiration_date }} </p>
                                 </div>
                             </div>
                         </div>
