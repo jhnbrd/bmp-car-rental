@@ -8,7 +8,6 @@
         </h2>
 
         <!-- CTA -->
-        @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
         <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-white rounded-lg shadow-md focus:outline-none focus:shadow-outline-blue" href="{{ url('/bookings/manage') }}"
             style="background-color: #0F3460;" href="https://github.com/estevanmaito/windmill-dashboard">
             <div class="flex items-center">
@@ -17,24 +16,10 @@
                         d="M10 3C5.455 3 1.731 6.28.458 10c1.273 3.72 4.997 7 9.542 7s8.269-3.28 9.542-7C18.269 6.28 14.545 3 10 3zm0 12c-3.163 0-5.95-2.058-7.003-5C4.05 7.058 6.837 5 10 5s5.95 2.058 7.003 5c-1.053 2.942-3.84 5-7.003 5zm0-8a3 3 0 110 6 3 3 0 010-6z">
                     </path>
                 </svg>
-                <span>View New Bookings</span>
+                <span>New bookings need updating</span>
             </div>
-            <span>View more &RightArrow;</span>
+            <span>View bookings &RightArrow;</span>
         </a>
-        @elseif(Auth::user()->employee->role == 'Mechanic')
-        <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-white rounded-lg shadow-md focus:outline-none focus:shadow-outline-blue" href="{{ url('/cars/manage') }}"
-            style="background-color: #0F3460;" href="https://github.com/estevanmaito/windmill-dashboard">
-            <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M10 3C5.455 3 1.731 6.28.458 10c1.273 3.72 4.997 7 9.542 7s8.269-3.28 9.542-7C18.269 6.28 14.545 3 10 3zm0 12c-3.163 0-5.95-2.058-7.003-5C4.05 7.058 6.837 5 10 5s5.95 2.058 7.003 5c-1.053 2.942-3.84 5-7.003 5zm0-8a3 3 0 110 6 3 3 0 010-6z">
-                    </path>
-                </svg>
-                <span>View Car Management</span>
-            </div>
-            <span>View more &RightArrow;</span>
-        </a>
-        @endif
 
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
             <!-- Card: Cars Available -->

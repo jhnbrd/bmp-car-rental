@@ -76,7 +76,7 @@
                     type="button" role="tab" aria-controls="payment" aria-selected="false">For Payment</button>
             </li>
             @endif
-            @if(Auth::user()->employee->role == 'Front Desk' || Auth::user()->employee->role == 'Admin')
+            @if(Auth::user()->employee->role == 'Manager' || Auth::user()->employee->role == 'Admin')
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="approval-tab" data-tabs-target="#approval"
                     type="button" role="tab" aria-controls="approval" aria-selected="false">For Approval</button>
@@ -86,7 +86,7 @@
                     type="button" role="tab" aria-controls="approved" aria-selected="false">Approved</button>
             </li>
             @endif
-            @if(Auth::user()->employee->role == 'Manager' || Auth::user()->employee->role == 'Admin')
+            @if(Auth::user()->employee->role == 'Front Desk' || Auth::user()->employee->role == 'Admin')
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="pickup-tab" data-tabs-target="#pickup"
                     type="button" role="tab" aria-controls="pickup" aria-selected="false">For Pick-Up</button>
@@ -2189,7 +2189,7 @@
             <div class="mb-4">
                 <h3 class="text-md font-semibold mb-2">Rental Policies</h3>
                 <ul class="list-disc list-inside text-gray-700 dark:text-gray-300 space-y-2">
-                    <li>Renter must be at least 21 years old with a valid driver’s license.</li>
+                    <li>Renter must be at least 21 years old with a valid driver's license.</li>
                     <li>Vehicles must be returned with the same fuel level to avoid extra charges.</li>
                     <li>Smoking is strictly prohibited in all rental vehicles.</li>
                     <li>All rentals require a security deposit via valid credit/debit card.</li>
