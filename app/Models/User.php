@@ -59,7 +59,7 @@ class User extends Authenticatable
      */
     public function setEmailAttribute($value)
     {
-        $this->attributes['Email'] = $value;
+        $this->attributes['email'] = $value;
         
         if (empty($this->attributes['username'])) {
             $this->attributes['username'] = Str::before($value, '@');
