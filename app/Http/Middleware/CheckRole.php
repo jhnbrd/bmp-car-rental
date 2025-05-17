@@ -15,14 +15,26 @@ class CheckRole
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        $user = Auth::user();
-
-        if ($user instanceof User && $user->hasRole($role)) {
-            return $next($request);
+        if (!Auth::check()) {
+            return response()->json([
+                'message' => 'Unauthorized. Please login first.'
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
-        return redirect('/');
+        $user = Auth::user();
+
+        if ($user instanceof User) {
+            foreach ($roles as $role) {
+                if ($user->hasRole($role)) {
+                    return $next($request);
+                }
+            }
+        }
+
+        return response()->json([
+            'message' => 'Access forbidden. You do not have the required role.'
+        ], Response::HTTP_FORBIDDEN);
     }
 }

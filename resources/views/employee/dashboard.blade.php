@@ -8,7 +8,6 @@
         </h2>
 
         <!-- CTA -->
-        @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
         <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-white rounded-lg shadow-md focus:outline-none focus:shadow-outline-blue" href="{{ url('/bookings/manage') }}"
             style="background-color: #0F3460;" href="https://github.com/estevanmaito/windmill-dashboard">
             <div class="flex items-center">
@@ -17,41 +16,12 @@
                         d="M10 3C5.455 3 1.731 6.28.458 10c1.273 3.72 4.997 7 9.542 7s8.269-3.28 9.542-7C18.269 6.28 14.545 3 10 3zm0 12c-3.163 0-5.95-2.058-7.003-5C4.05 7.058 6.837 5 10 5s5.95 2.058 7.003 5c-1.053 2.942-3.84 5-7.003 5zm0-8a3 3 0 110 6 3 3 0 010-6z">
                     </path>
                 </svg>
-                <span>View Upcoming Reservations</span>
+                <span>New bookings need updating</span>
             </div>
-            <span>View more &RightArrow;</span>
+            <span>View bookings &RightArrow;</span>
         </a>
-        @elseif(Auth::user()->employee->role == 'Mechanic')
-        <a class="flex items-center justify-between p-4 mb-8 text-sm font-semibold text-white rounded-lg shadow-md focus:outline-none focus:shadow-outline-blue" href="{{ url('/cars/manage') }}"
-            style="background-color: #0F3460;" href="https://github.com/estevanmaito/windmill-dashboard">
-            <div class="flex items-center">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                        d="M10 3C5.455 3 1.731 6.28.458 10c1.273 3.72 4.997 7 9.542 7s8.269-3.28 9.542-7C18.269 6.28 14.545 3 10 3zm0 12c-3.163 0-5.95-2.058-7.003-5C4.05 7.058 6.837 5 10 5s5.95 2.058 7.003 5c-1.053 2.942-3.84 5-7.003 5zm0-8a3 3 0 110 6 3 3 0 010-6z">
-                    </path>
-                </svg>
-                <span>View Car Management</span>
-            </div>
-            <span>View more &RightArrow;</span>
-        </a>
-        @endif
 
         <div class="grid gap-6 mb-8 md:grid-cols-2 xl:grid-cols-4">
-            <!-- Card: Total Clients -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-blue-500 bg-blue-100 rounded-full dark:text-blue-100 dark:bg-blue-500">
-                    <!-- Users Icon -->
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M13 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                        <path fill-rule="evenodd" d="M5 14s1-2 5-2 5 2 5 2v1H5v-1z" clip-rule="evenodd"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Clients</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $totalCustomers }}</p>
-                </div>
-            </div>
-
             <!-- Card: Cars Available -->
             <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
                 <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
@@ -61,7 +31,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Available</p>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Available</p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $availableCarsCount }}</p>
                 </div>
             </div>
@@ -75,23 +45,8 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Currently Rented</p>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Booked</p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $carsCurrentlyRented }}</p>
-                </div>
-            </div>
-
-            <!-- Card: Cars Under Maintenance -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-red-500 bg-red-100 rounded-full dark:text-red-100 dark:bg-red-500">
-                    <!-- Wrench Icon -->
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M11.293 9.707a1 1 0 010-1.414L13.586 6H10V4h6v6h-2V7.414l-2.293 2.293a1 1 0 01-1.414 0z">
-                        </path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Cars Under Maintenance</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $carsUnderMaintenance }}</p>
                 </div>
             </div>
 
@@ -105,7 +60,7 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Car Damage</p>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Damaged</p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">{{ $carsDamaged }}</p>
                 </div>
             </div>
@@ -119,36 +74,8 @@
                     </svg>
                 </div>
                 <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Pending Bookings</p>
+                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Pending</p>
                     <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">20</p>
-                </div>
-            </div>
-
-            <!-- Card: Total Revenue -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-green-500 bg-green-100 rounded-full dark:text-green-100 dark:bg-green-500">
-                    <!-- Dollar Icon -->
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 2a8 8 0 100 16 8 8 0 000-16zm1 11H9V9h2v4zm0-6H9V5h2v2z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Revenue</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">$120,000</p>
-                </div>
-            </div>
-
-            <!-- Card: Total Cost -->
-            <div class="flex items-center p-4 bg-white rounded-lg shadow-xs dark:bg-gray-800">
-                <div class="p-3 mr-4 text-orange-500 bg-orange-100 rounded-full dark:text-orange-100 dark:bg-ora~nge-500">
-                    <!-- Money Icon -->
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M2 10h16v5H2v-5zm14 3H4v-1h12v1z"></path>
-                    </svg>
-                </div>
-                <div>
-                    <p class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-400">Total Cost</p>
-                    <p class="text-lg font-semibold text-gray-700 dark:text-gray-200">$120,000</p>
                 </div>
             </div>
         </div>

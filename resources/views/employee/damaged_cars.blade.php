@@ -41,19 +41,15 @@
                     <div class="hidden md:flex items-center space-x-4">
                         <div class="flex items-center">
                             <span class="w-2 h-2 bg-yellow-500 rounded-full"></span>
-                            <span class="ml-2 text-sm text-gray-600">Under Repair: 1</span>
+                            <span class="ml-2 text-sm text-gray-600">Under Repair: {{ $carDamages->where('latestStatus.status', 'Under Repair')->count() }}</span>
                         </div>
                         <div class="flex items-center">
                             <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                            <span class="ml-2 text-sm text-gray-600">Completed: 1</span>
-                        </div>
-                        <div class="flex items-center">
-                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                            <span class="ml-2 text-sm text-gray-600">Total Cost: ₱40,000</span>
+                            <span class="ml-2 text-sm text-gray-600">Completed: {{ $carDamages->where('latestStatus.status', 'Complete')->count() }}</span>
                         </div>
                     </div>
                 </div>
--
+
                 </div>
             </div>
         </div>
@@ -98,6 +94,14 @@
 
             <!-- Damaged Cars Grid -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            @if($carDamages->isEmpty())
+                <div class="col-span-full flex justify-center items-center p-8">
+                    <div class="text-center">
+                        <i class="bi bi-car-front text-4xl text-gray-400 mb-3"></i>
+                        <p class="text-gray-500 text-lg">No damaged cars found</p>
+                    </div>
+                </div>
+            @else
             @foreach ($carDamages as $carDamage)
                 <!-- Single Car Card -->
                 <div class="bg-white p-3 rounded-lg shadow-sm border hover:shadow-md transition-shadow duration-200">
@@ -206,11 +210,13 @@
                     @endif
                 </div>
             @endforeach
+            @endif
             </div>
         </div>
     </div>
 </div>
 
+@foreach ($carDamages as $carDamage)
 <!-- Repair Status Modal -->
 <div id="repairModal-{{ $carDamage->id }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center">
     <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -270,6 +276,9 @@
         </div>
     </div>
 </div>
+@endforeach
+
+
 @if(session('success'))
 <div id="toast-success" class="fixed bottom-5 right-5 flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow dark:text-gray-400 dark:bg-gray-800" role="alert">
     <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
