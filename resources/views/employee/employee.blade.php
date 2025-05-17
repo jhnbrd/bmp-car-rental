@@ -226,7 +226,8 @@
                                     <select name="role" id="role"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                         <option selected="">Select role</option>
-                                        <option value="Admin">Admin</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Front Desk">Front Desk</option>
                                         <option value="Cashier">Cashier</option>
                                         <option value="Mechanic">Mechanic</option>
                                     </select>
@@ -331,6 +332,8 @@
                                     <select id="edit_role" name="role"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white">
                                         <option value="Admin">Admin</option>
+                                        <option value="Manager">Manager</option>
+                                        <option value="Front Desk">Front Desk</option>
                                         <option value="Mechanic">Mechanic</option>
                                         <option value="Cashier">Cashier</option>
                                     </select>

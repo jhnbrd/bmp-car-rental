@@ -24,7 +24,7 @@ class EmployeeController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'role' => ['required', 'string', 'in:Admin,Cashier,Mechanic'],
+            'role' => ['required', 'string', 'in:Manager,Front Desk,Cashier,Mechanic'],
             'username' => ['required', 'string', 'max:255', 'unique:users,username'],
             'password' => ['required', 'string', 'min:8'],
         ]);
@@ -54,7 +54,7 @@ class EmployeeController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255'],
-            'role' => ['required', 'string', 'in:Admin,Cashier,Mechanic'],
+            'role' => ['required', 'string', 'in:Admin,Manager,Front Desk,Cashier,Mechanic'],
             'is_active' => ['sometimes', 'in:0,1'],
         ]);
         // dd($request->all());

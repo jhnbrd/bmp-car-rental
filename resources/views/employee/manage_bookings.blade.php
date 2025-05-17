@@ -70,10 +70,13 @@
     <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="bookings-tab"
             data-tabs-toggle="#bookings-tab-content" role="tablist">
+            @if(Auth::user()->employee->role == 'Cashier' || Auth::user()->employee->role == 'Admin')
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="payment-tab" data-tabs-target="#payment"
                     type="button" role="tab" aria-controls="payment" aria-selected="false">For Payment</button>
             </li>
+            @endif
+            @if(Auth::user()->employee->role == 'Front Desk' || Auth::user()->employee->role == 'Admin')
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="approval-tab" data-tabs-target="#approval"
                     type="button" role="tab" aria-controls="approval" aria-selected="false">For Approval</button>
@@ -82,6 +85,8 @@
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="approved-tab" data-tabs-target="#approved"
                     type="button" role="tab" aria-controls="approved" aria-selected="false">Approved</button>
             </li>
+            @endif
+            @if(Auth::user()->employee->role == 'Manager' || Auth::user()->employee->role == 'Admin')
             <li class="me-2" role="presentation">
                 <button class="inline-block p-4 border-b-2 rounded-t-lg" id="pickup-tab" data-tabs-target="#pickup"
                     type="button" role="tab" aria-controls="pickup" aria-selected="false">For Pick-Up</button>
@@ -92,6 +97,8 @@
                     id="ongoing-tab" data-tabs-target="#ongoing" type="button" role="tab" aria-controls="ongoing"
                     aria-selected="false">Ongoing</button>
             </li>
+            @endif
+            @if(Auth::user()->employee->role == 'Mechanic' || Auth::user()->employee->role == 'Admin')
             <li class="me-2" role="presentation">
                 <button
                     class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
@@ -104,6 +111,7 @@
                     id="cancel-tab" data-tabs-target="#cancel" type="button" role="tab" aria-controls="cancel"
                     aria-selected="false">Reported/Unsettled</button>
             </li>
+            @endif
         </ul>
     </div>
 

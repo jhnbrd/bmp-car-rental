@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->enum('role', ['Admin', 'Mechanic', 'Cashier']);
+            $table->enum('role', ['Admin', 'Manager', 'Front Desk', 'Mechanic', 'Cashier']);
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

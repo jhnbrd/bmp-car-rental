@@ -77,7 +77,7 @@
               </li>
           </ul>
           <ul>
-              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Manager' || Auth::user()->employee->role == 'Front Desk' || Auth::user()->employee->role == 'Cashier' || Auth::user()->employee->role == 'Mechanic')
               <li class="relative px-6 py-3">
                   <button
                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -89,7 +89,7 @@
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
 
-                          <span class="ml-4">Booking</span>
+                          <span class="ml-4">Bookings</span>
                       </span>
                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -116,7 +116,7 @@
                   </template>
               </li>
               @endif
-              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Mechanic')
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Manager' || Auth::user()->employee->role == 'Front Desk' || Auth::user()->employee->role == 'Mechanic')
               <li class="relative px-6 py-3">
                   <button
                       class="inline-flex items-center justify-between w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
@@ -129,7 +129,7 @@
                               </path>
                           </svg>
 
-                          <span class="ml-4">Vehicle Management</span>
+                          <span class="ml-4">Vehicles</span>
                       </span>
                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -156,7 +156,7 @@
                   </template>
               </li>
               @endif
-              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Cashier')
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Manager' || Auth::user()->employee->role == 'Front Desk' || Auth::user()->employee->role == 'Cashier')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ url('/payment_history') }}">
@@ -164,11 +164,11 @@
                           stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                           <path d="M9 14l2-2-2-2m4 4l2-2-2-2M3 3h18M9 3v18m6-18v18M5 21h14" />
                       </svg>
-                      <span class="ml-4">Payment History</span>
+                      <span class="ml-4">Payments</span>
                   </a>
               </li>
               @endif
-              @if(Auth::user()->employee->role == 'Admin')
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Manager')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                       href="{{ url('/customers') }}">
@@ -178,11 +178,11 @@
                           <path d="M16 14H8a4 4 0 00-4 4v2h16v-2a4 4 0 00-4-4z"></path>
                           <path d="M17 8h4M17 12h3"></path>
                       </svg>
-                      <span class="ml-4">Customer Records</span>
+                      <span class="ml-4">Customers</span>
                   </a>
               </li>
               @endif
-              @if(Auth::user()->employee->role == 'Admin')
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Manager')
               <li class="relative px-6 py-3">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ url('/employees') }}">
@@ -195,11 +195,11 @@
                           <circle cx="19" cy="9" r="2"></circle>
                       </svg>
 
-                      <span class="ml-4">Employee</span>
+                      <span class="ml-4">Employees</span>
                   </a>
               </li>
               @endif
-              @if(Auth::user()->employee->role == 'Admin')
+              @if(Auth::user()->employee->role == 'Admin' || Auth::user()->employee->role == 'Manager')
               <li class="relative px-6 py-3 hidden">
                   <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ url('/audit-logs') }}">
@@ -269,7 +269,7 @@
                             d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
 
-                          <span class="ml-4">Booking</span>
+                          <span class="ml-4">Bookings</span>
                       </span>
                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -307,7 +307,7 @@
                               </path>
                           </svg>
 
-                          <span class="ml-4">Vehicle Management</span>
+                          <span class="ml-4">Vehicles</span>
                       </span>
                       <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20">
                           <path fill-rule="evenodd"
@@ -340,7 +340,7 @@
                           stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
                           <path d="M9 14l2-2-2-2m4 4l2-2-2-2M3 3h18M9 3v18m6-18v18M5 21h14" />
                       </svg>
-                      <span class="ml-4">Payment History</span>
+                      <span class="ml-4">Payments</span>
                   </a>
               </li>
               <li class="relative px-6 py-3">
@@ -367,7 +367,7 @@
                           <path d="M16 14H8a4 4 0 00-4 4v2h16v-2a4 4 0 00-4-4z"></path>
                           <path d="M17 8h4M17 12h3"></path>
                       </svg>
-                      <span class="ml-4">Customer Records</span>
+                      <span class="ml-4">Customers</span>
                   </a>
               </li>
               <li class="relative px-6 py-3">
@@ -394,11 +394,11 @@
                           <circle cx="19" cy="9" r="2"></circle>
                       </svg>
 
-                      <span class="ml-4">Employee</span>
+                      <span class="ml-4">Employees</span>
                   </a>
               </li>
-              <li class="relative px-6 py-3">
-                  <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+              <li class="relative px-6 py-3 hidden">
+                  <a class="hidden inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                   href="{{ url('/audit-logs') }}">
                       <svg class="w-5 h-5" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round"
                           stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">

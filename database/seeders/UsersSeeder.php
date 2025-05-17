@@ -18,6 +18,8 @@ class UsersSeeder extends Seeder
         $this->admin_account();
         $this->mechanic_account();
         $this->cashier_account();
+        $this->manager_account();
+        $this->front_desk_account();
         $this->test_customers();
     }
 
@@ -72,6 +74,42 @@ class UsersSeeder extends Seeder
             'last_name' => 'Cashier',
             'user_id' => $user->id,
             'role' => 'Cashier',
+        ]);
+    }
+
+    public function manager_account(): void
+    {
+        $user = User::create([
+            'username' => 'managertest',
+            'email' => 'manager@test.com',
+            'password' => Hash::make('bmpcars2025'),
+            'role' => 'Employee',
+            'picture_path' => 'assets/user_profile_pictures/managertest.png',
+        ]);
+
+        Employee::create([
+            'first_name' => 'System',
+            'last_name' => 'Manager',
+            'user_id' => $user->id,
+            'role' => 'Manager',
+        ]);
+    }
+
+    public function front_desk_account(): void
+    {
+        $user = User::create([
+            'username' => 'frontdesktest',
+            'email' => 'frontdesk@test.com',
+            'password' => Hash::make('bmpcars2025'),
+            'role' => 'Employee',
+            'picture_path' => 'assets/user_profile_pictures/frontdesktest.png',
+        ]);
+
+        Employee::create([
+            'first_name' => 'System',
+            'last_name' => 'Front Desk',
+            'user_id' => $user->id,
+            'role' => 'Front Desk',
         ]);
     }
 
