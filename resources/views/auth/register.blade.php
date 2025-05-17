@@ -41,7 +41,9 @@
         }" x-init="fetch('https://psgc.gitlab.io/api/provinces')
         .then(response => response.json())
         .then(data => provinces = data)">
-            <div class="grid grid-cols-3 gap-4">
+        
+        {{-- (SUGGESTED TO REMOVE DUE TO DATA PRIVACY) --}}
+            {{-- <div class="grid grid-cols-3 gap-4">
                 <!-- Province -->
                 <div class="mb-4">
                     <label for="province" class="block text-white mb-1">Province</label>
@@ -112,12 +114,12 @@
                     <p class="text-xs text-gray-300 mt-1">Format: 9XXXXXXXXX (without leading 0)</p>
                     <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                 </div>
-            </div>
+            </div> --}}
 
         </div>
 
-        <!-- Column 5-->
-        <div class="grid grid-cols-3 gap-4">
+        <!-- Column 5 (SUGGESTED TO REMOVE DUE TO DATA PRIVACY)--> 
+        {{-- <div class="grid grid-cols-3 gap-4">
             <!-- Driver License Number -->
             <div class="mb-4">
                 <label for="driver_license" class="block text-white mb-1">Driver License No.</label>
@@ -149,7 +151,7 @@
                 </div>
                 <x-input-error :messages="$errors->get('upload_img')" class="mt-2" />
             </div>
-        </div>
+        </div> --}}
 
         <!-- Column 6-->
         <div class="grid grid-cols-3 gap-4">

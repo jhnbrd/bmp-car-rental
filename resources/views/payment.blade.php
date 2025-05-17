@@ -54,7 +54,7 @@
 
                                     <div>
                                         <h3 class="text-lg font-semibold">II. Valid License Requirement</h3>
-                                        <p>The renter or any driver must possess a valid driver’s license.</p>
+                                        <p>The renter or any driver must possess a valid driver's license.</p>
                                     </div>
 
                                     <div>
@@ -142,26 +142,67 @@
                                         </p>
                                     </div>
                                 </div>
+                                <!-- Customer Details -->
                                 <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 mb-6 text-left">
                                     <div class="secondgroup mb-6">
                                         <img src="{{ asset('assets/customer_details.svg') }}" alt="Customer Details"
                                             class="w-12 h-12 object-contain mx-auto mb-4">
                                         <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Customer Details</h2>
-                                        <div class="mt-4 space-y-3">
-                                            <div>
-                                                <p class="text-black"><span class="font-medium">Name: </span>
-                                                    {{ auth()->user()->customer->first_name }}
-                                                    {{ auth()->user()->customer->last_name }}
-                                                </p>
-                                                <p class="text-black"><span class="font-medium">License No.: </span>
-                                                    {{ auth()->user()->customer->driver_license_number }}
-                                                </p>
-                                                <p class="text-black"><span class="font-medium">Email: </span>
-                                                    {{ auth()->user()->email }}
-                                                </p>
-                                                <p class="text-black"><span class="font-medium">Contact Number: </span>
-                                                    {{ auth()->user()->customer->phone_number }}
-                                                </p>
+                                        <div class="grid grid-cols-2 gap-4">
+                                            <!-- Left Column -->
+                                            <div class="space-y-4">
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">Full Name</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->first_name }}
+                                                        {{ auth()->user()->customer->last_name }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">Province</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->province ?? 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">City/Municipality</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->city ?? 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">Barangay</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->barangay ?? 'N/A' }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!-- Right Column -->
+                                            <div class="space-y-4">
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">Street Address</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->street_address ?? 'N/A' }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->phone_number }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">License Number</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->driver_license_number }}
+                                                    </p>
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm font-medium text-gray-700">License Expiration</label>
+                                                    <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                        {{ auth()->user()->customer->license_expiration ?? 'N/A' }}
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
