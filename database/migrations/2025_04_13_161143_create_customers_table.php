@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->string('first_name');
-            $table->string('middle_name')->nullable;
+            $table->string('middle_name')->nullable();
             $table->string('last_name');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('province');
-            $table->string('city');
-            $table->string('barangay');
-            $table->string('address');
-            $table->string('phone_number');
-            $table->string('driver_license_number')->unique();
-            $table->date('license_expiration_date');
-            $table->string('license_img_path');
+            $table->string('province')->nullable();
+            $table->string('city')->nullable();
+            $table->string('barangay')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('driver_license_number')->unique()->nullable();
+            $table->date('license_expiration_date')->nullable();
+            $table->string('license_img_path')->nullable();
             $table->boolean('is_banned')->default(false);
             $table->timestamps();
         });

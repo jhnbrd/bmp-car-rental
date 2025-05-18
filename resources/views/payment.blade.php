@@ -149,263 +149,181 @@
                             <!-- Customer Details -->
                             <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 mb-6 text-left">
                                 <div class="secondgroup mb-6">
-                                    {{-- <img src="{{ asset('assets/customer_details.svg') }}" alt="Customer Details"
-                                        class="w-12 h-12 object-contain mx-auto mb-4"> --}}
                                     <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Customer Details</h2>
                                     <div class="grid grid-cols-2 gap-4">
                                         <!-- Left Column -->
                                         <div class="space-y-4">
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-700">Full Name</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
+                                                <p class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
                                                     {{ auth()->user()->customer->first_name }}
                                                     {{ auth()->user()->customer->last_name }}
                                                 </p>
                                             </div>
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-700">Province</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->province ?? 'N/A' }}
-                                                </p>
+                                                <select id="province" name="province" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800" 
+                                                    @change="selectedProvince = $event.target.value;
+                                                    fetch(`https://psgc.gitlab.io/api/provinces/${selectedProvince}/cities-municipalities`)
+                                                    .then(response => response.json())
+                                                    .then(data => cities = data)" required>
+                                                    <option value="">Select Province</option>
+                                                    <template x-for="province in provinces" :key="province.code">
+                                                        <option :value="province.code" x-text="province.name" :selected="province.name === '{{ auth()->user()->customer->province }}'"></option>
+                                                    </template>
+                                                </select>
                                             </div>
                                             <div>
-                                                <label
-                                                    class="block text-sm font-medium text-gray-700">City/Municipality</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->city ?? 'N/A' }}
-                                                </p>
+                                                <label class="block text-sm font-medium text-gray-700">City/Municipality</label>
+                                                <select id="city" name="city" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800" 
+                                                    @change="selectedCity = $event.target.value;
+                                                    fetch(`https://psgc.gitlab.io/api/cities-municipalities/${selectedCity}/barangays`)
+                                                    .then(response => response.json())
+                                                    .then(data => barangays = data)" required>
+                                                    <option value="">Select City</option>
+                                                    <template x-for="city in cities" :key="city.code">
+                                                        <option :value="city.code" x-text="city.name" :selected="city.name === '{{ auth()->user()->customer->city }}'"></option>
+                                                    </template>
+                                                </select>
                                             </div>
                                             <div>
                                                 <label class="block text-sm font-medium text-gray-700">Barangay</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->barangay ?? 'N/A' }}
-                                                </p>
+                                                <select id="barangay" name="barangay" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800" required>
+                                                    <option value="">Select Barangay</option>
+                                                    <template x-for="barangay in barangays" :key="barangay.code">
+                                                        <option :value="barangay.code" x-text="barangay.name" :selected="barangay.name === '{{ auth()->user()->customer->barangay }}'"></option>
+                                                    </template>
+                                                </select>
                                             </div>
                                         </div>
                                         <!-- Right Column -->
                                         <div class="space-y-4">
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700">Street
-                                                    Address</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->street_address ?? 'N/A' }}
-                                                </p>
+                                                <label class="block text-sm font-medium text-gray-700">Street Address</label>
+                                                <input name="address" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800" 
+                                                    value="{{ auth()->user()->customer->street_address ?? '' }}" required />
                                             </div>
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700">Phone
-                                                    Number</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->phone_number }}
-                                                </p>
+                                                <label class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                                <div class="flex items-center">
+                                                    <span class="bg-gray-200 px-3 py-2 rounded-l-md text-gray-700 border border-r-0">+63</span>
+                                                    <input name="phone_number" type="text" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-r-md w-full text-gray-800" 
+                                                        value="{{ auth()->user()->customer->phone_number ?? '' }}" 
+                                                        placeholder="9XXXXXXXXX" required />
+                                                </div>
                                             </div>
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700">License
-                                                    Number</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->driver_license_number }}
-                                                </p>
+                                                <label class="block text-sm font-medium text-gray-700">License Number</label>
+                                                <input name="driver_license" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800" 
+                                                    value="{{ auth()->user()->customer->driver_license_number ?? '' }}" 
+                                                    placeholder="L0X-XX-XXXXXX" required />
                                             </div>
                                             <div>
-                                                <label class="block text-sm font-medium text-gray-700">License
-                                                    Expiration</label>
-                                                <p
-                                                    class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800">
-                                                    {{ auth()->user()->customer->license_expiration ?? 'N/A' }}
-                                                </p>
+                                                <label class="block text-sm font-medium text-gray-700">License Expiration</label>
+                                                <input name="license_expiration" type="date" class="mt-1 p-2 bg-gray-50 border border-gray-200 rounded-md w-full text-gray-800" 
+                                                    value="{{ auth()->user()->customer->license_expiration_date ?? '' }}" required />
                                             </div>
                                         </div>
                                         <div class="col-span-2">
-                                            <label class="block text-sm font-medium text-gray-700">License
-                                                Upload</label>
+                                            <label class="block text-sm font-medium text-gray-700">License Image Upload</label>
                                             <div class="flex items-center justify-center w-full">
-                                                <label for="dropzone-file"
-                                                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                                <label for="license_image" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
                                                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                                                            aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                            fill="none" viewBox="0 0 20 16">
-                                                            <path stroke="currentColor" stroke-linecap="round"
-                                                                stroke-linejoin="round" stroke-width="2"
-                                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
                                                         </svg>
-                                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                                                class="font-semibold">Click to upload</span> or drag and
-                                                            drop</p>
-                                                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG,
-                                                            JPG or GIF (MAX. 800x400px)</p>
+                                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload license</span> or drag and drop</p>
+                                                        <p class="text-xs text-gray-500">PNG, JPG or GIF (MAX. 2MB)</p>
                                                     </div>
-                                                    <input id="dropzone-file" type="file" class="hidden" />
+                                                    <input id="license_image" name="license_image" type="file" class="hidden" accept="image/*" required />
                                                 </label>
                                             </div>
-                                            {{-- <p class="mt-1 p-2 text-black">
-                                                <input type="file" name="license_upload" id="license_upload"
-                                                    class="w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]">
-                                            </p> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- Centered Payment Banner -->
-                            <form id="bookingForm" class="space-y-4 text-black"
-                                x-data="{ paymentMethod: '', agreed: false }"
-                                action="{{ route('process_add_booking') }}" method="POST">
-                                @csrf
-                                <input type="hidden" name="pickup_date" value="{{ $pickupDate }}">
-                                <input type="hidden" name="return_date" value="{{ $returnDate }}">
-                                <input type="hidden" name="car_model_id" value="{{ $carModel->id }}">
-                                <input type="hidden" name="total_amount" value="{{ $totalAmount }}">
+                            <!-- PAYMENT METHOD CARD-->
+                            <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 max-h-[670px]">
+                                <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Payment Method</h2>
 
-                                <!-- PAYMENT METHOD CARD-->
-                                <div class="bg-[#f9f9f9] rounded-lg shadow-lg p-6 max-h-[670px]">
-
-                                    {{-- <img src="{{ asset('assets/payment_method.png') }}" alt="Payment Logo"
-                                        class="w-15 h-15 object-contain mx-auto mb-4"> --}}
-                                    <h2 class="text-xl font-bold text-[#0f294c] mb-6 text-center">Payment Method</h2>
-
-                                    <!-- Option 1: PayMaya -->
-                                    <label
-                                        class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
-                                        <div class="flex items-center gap-3 flex-1">
-                                            <input type="radio" name="payment_method" value="paymaya"
-                                                x-model="paymentMethod" class="accent-[#0f294c]" required>
-                                            <p class="font-medium text-gray-800">PayMaya</p>
-                                        </div>
-                                        <div class="flex gap-2 items-center">
-                                            <img src="{{ asset('assets/payment_methods/paymaya.png') }}"
-                                                class="w-6 h-6 object-contain" alt="Paymaya">
-                                        </div>
-                                    </label>
-
-                                    <!-- PayMaya Extra Fields -->
-                                    <div class="space-y-3 my-3" x-show="paymentMethod === 'paymaya'" x-transition>
-                                        <div class="text-left">
-                                            {{-- REFERENCE NUMBER --}}
-                                            {{-- NAG SCRIPT RKO DRI NA PART PRE --}}
-                                            <div>
-                                                {{-- UPLOAD A RECEIPT --}}
-                                                <div class="flex items-center justify-center w-full">
-                                                    <label for="dropzone-file"
-                                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                        <div
-                                                            class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none" viewBox="0 0 20 16">
-                                                                <path stroke="currentColor" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2"
-                                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                            </svg>
-                                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                                <span class="font-semibold">Upload Receipt</span> or
-                                                                drag and
-                                                                drop
-                                                            </p>
-                                                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG,
-                                                                PNG,
-                                                                JPG or GIF (MAX. 800x400px)</p>
-                                                        </div>
-                                                        <input id="dropzone-file" type="file" class="hidden" />
-                                                    </label>
-                                                </div>
-                                                <p class="text-sm text-gray-600 mt-2 text-center mb-3">Note: Found at
-                                                    the header of e-receipt, input your Paymaya ref no.</p>
-                                            </div>
-
-                                            {{-- ACCOUNT NAME
-                                            <div class="my-3">
-                                                <label class="block text-sm text-gray-600">Account Name:</label>
-                                                <input type="name" name="paymaya_account_name"
-                                                    class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
-                                                    placeholder="Enter Account Name"
-                                                    :required="paymentMethod === 'paymaya'" />
-                                            </div> --}}
-                                        </div>
+                                <!-- Option 1: PayMaya -->
+                                <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
+                                    <div class="flex items-center gap-3 flex-1">
+                                        <input type="radio" name="payment_method" value="paymaya" x-model="paymentMethod" class="accent-[#0f294c]" required>
+                                        <p class="font-medium text-gray-800">PayMaya</p>
                                     </div>
-
-                                    <!-- Option 2: Gcash -->
-                                    <label
-                                        class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
-                                        <div class="flex items-center gap-3 flex-1">
-                                            <input type="radio" name="payment_method" value="gcash"
-                                                x-model="paymentMethod" class="accent-[#0f294c]" required>
-                                            <p class="font-medium text-gray-800">Gcash</p>
-                                        </div>
-                                        <div class="flex gap-2 items-center">
-                                            <img src="{{ asset('assets/payment_methods/gcash.png') }}"
-                                                class="w-6 h-6 object-contain" alt="Gcash">
-                                        </div>
-                                    </label>
-
-                                    <!-- Gcash Extra Fields -->
-                                    <div class="space-y-3 my-3" x-show="paymentMethod === 'gcash'" x-transition>
-                                        <div class="text-left">
-                                            <div>
-                                                {{-- UPLOAD A RECEIPT --}}
-                                                <div class="flex items-center justify-center w-full">
-                                                    <label for="dropzone-file"
-                                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                                        <div
-                                                            class="flex flex-col items-center justify-center pt-5 pb-6">
-                                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
-                                                                aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                                                fill="none" viewBox="0 0 20 16">
-                                                                <path stroke="currentColor" stroke-linecap="round"
-                                                                    stroke-linejoin="round" stroke-width="2"
-                                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                                            </svg>
-                                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                                                <span class="font-semibold">Upload Receipt</span> or
-                                                                drag and
-                                                                drop
-                                                            </p>
-                                                            <p class="text-xs text-gray-500 dark:text-gray-400">SVG,
-                                                                PNG,
-                                                                JPG or GIF (MAX. 800x400px)</p>
-                                                        </div>
-                                                        <input id="dropzone-file" type="file" class="hidden" />
-                                                    </label>
-                                                </div>
-                                                <p class="text-sm text-gray-600 mt-2 text-center mb-3">Note: Found at
-                                                    the header of e-receipt, input your Gcash ref no.</p>
-                                            </div>
-
-                                            {{-- ACCOUNT NUMBER
-                                            <div class="my-3">
-                                                <label class="block text-sm text-gray-600">Account Name:</label>
-                                                <input type="name" name="gcash_account_name"
-                                                    class="w-full bg-gray-100 border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-[#0f294c]"
-                                                    placeholder="Enter Account Name"
-                                                    :required="paymentMethod === 'paymaya'" />
-                                            </div> --}}
-                                        </div>
+                                    <div class="flex gap-2 items-center">
+                                        <img src="{{ asset('assets/payment_methods/paymaya.png') }}" class="w-6 h-6 object-contain" alt="Paymaya">
                                     </div>
+                                </label>
 
-                                    <!-- Option 3: Cash -->
-                                    <label
-                                        class="flex items-center p-4 mb-3 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
-                                        <div class="flex items-center gap-3 flex-1">
-                                            <input type="radio" name="payment_method" value="cash"
-                                                x-model="paymentMethod" class="accent-[#0f294c]" required>
-                                            <p class="font-medium text-gray-800">Pay at the counter</p>
+                                <!-- PayMaya Extra Fields -->
+                                <div class="space-y-3 my-3" x-show="paymentMethod === 'paymaya'" x-transition>
+                                    <div class="text-left">
+                                        <div>
+                                            <label for="paymaya_receipt" class="block text-sm font-medium text-gray-700 mb-2">Upload Payment Receipt</label>
+                                            <div class="flex items-center justify-center w-full">
+                                                <label for="paymaya_receipt" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
+                                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                        </svg>
+                                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload receipt</span> or drag and drop</p>
+                                                        <p class="text-xs text-gray-500">PNG, JPG or GIF (MAX. 2MB)</p>
+                                                    </div>
+                                                    <input id="paymaya_receipt" name="paymaya_receipt" type="file" class="hidden" accept="image/*" :required="paymentMethod === 'paymaya'" />
+                                                </label>
+                                            </div>
                                         </div>
-                                        <img src="{{ asset('assets/payment_methods/money.png') }}"
-                                            class="w-6 h-6 object-contain" alt="Cash">
-                                    </label>
-
-                                    {{-- Cash Extra Fields --}}
-                                    <div class="space-y-3" x-show="paymentMethod === 'cash'" x-transition>
-                                        <p class="text-sm text-gray-600 mt-2">Note: Pay the full amount at the counter.
-                                        </p>
                                     </div>
                                 </div>
 
+                                <!-- Option 2: Gcash -->
+                                <label class="flex items-center p-4 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
+                                    <div class="flex items-center gap-3 flex-1">
+                                        <input type="radio" name="payment_method" value="gcash" x-model="paymentMethod" class="accent-[#0f294c]" required>
+                                        <p class="font-medium text-gray-800">Gcash</p>
+                                    </div>
+                                    <div class="flex gap-2 items-center">
+                                        <img src="{{ asset('assets/payment_methods/gcash.png') }}" class="w-6 h-6 object-contain" alt="Gcash">
+                                    </div>
+                                </label>
+
+                                <!-- Gcash Extra Fields -->
+                                <div class="space-y-3 my-3" x-show="paymentMethod === 'gcash'" x-transition>
+                                    <div class="text-left">
+                                        <div>
+                                            <label for="gcash_receipt" class="block text-sm font-medium text-gray-700 mb-2">Upload Payment Receipt</label>
+                                            <div class="flex items-center justify-center w-full">
+                                                <label for="gcash_receipt" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
+                                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                                        <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                                        </svg>
+                                                        <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload receipt</span> or drag and drop</p>
+                                                        <p class="text-xs text-gray-500">PNG, JPG or GIF (MAX. 2MB)</p>
+                                                    </div>
+                                                    <input id="gcash_receipt" name="gcash_receipt" type="file" class="hidden" accept="image/*" :required="paymentMethod === 'gcash'" />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Option 3: Cash -->
+                                <label class="flex items-center p-4 mb-3 border border-gray-300 rounded-lg hover:border-[#0f294c] cursor-pointer transition-all">
+                                    <div class="flex items-center gap-3 flex-1">
+                                        <input type="radio" name="payment_method" value="cash" x-model="paymentMethod" class="accent-[#0f294c]" required>
+                                        <p class="font-medium text-gray-800">Pay at the counter</p>
+                                    </div>
+                                    <img src="{{ asset('assets/payment_methods/money.png') }}" class="w-6 h-6 object-contain" alt="Cash">
+                                </label>
+
+                                <!-- Cash Extra Fields -->
+                                <div class="space-y-3" x-show="paymentMethod === 'cash'" x-transition>
+                                    <p class="text-sm text-gray-600 mt-2">Note: Pay the full amount at the counter.</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -426,20 +344,15 @@
                             <p class="text-xl font-bold text-[#0f294c]">Php {{ $totalAmount }}.00</p>
                         </div>
                         <div class="mt-4 flex items-center">
-                            <input type="checkbox" id="agreement" name="agreement" x-model="agreed" class="mr-2"
-                                required>
+                            <input type="checkbox" id="agreement" name="agreement" x-model="agreed" class="mr-2" required>
                             <label for="agreement" class="text-sm text-gray-600">
-                                I agree to the <a class="text-[#0f294c] font-semibold">Terms and Conditions</a> of
-                                BMP
-                                Car Rental services.
+                                I agree to the <a class="text-[#0f294c] font-semibold">Terms and Conditions</a> of BMP Car Rental services.
                             </label>
                         </div>
                     </div>
 
-
                     <!-- Submit -->
-                    <button type="submit"
-                        @click.prevent="if (!agreed) { alert('Please agree to the Terms and Conditions.'); }"
+                    <button type="submit" @click.prevent="if (!agreed) { alert('Please agree to the Terms and Conditions.'); }"
                         class="w-full mt-6 bg-[#0f294c] text-white px-6 py-3 rounded-md text-lg font-semibold hover:bg-[#092136] transition">
                         Book Now
                     </button>

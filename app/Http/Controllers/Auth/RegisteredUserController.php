@@ -33,14 +33,6 @@ class RegisteredUserController extends Controller
             'firstname' => ['required', 'string', 'max:255'],
             'middlename' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
-            'province' => ['required', 'string', 'max:255'],
-            'city' => ['required', 'string', 'max:255'],
-            'barangay' => ['required', 'string', 'max:255'],
-            'address' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'string', 'max:20'],
-            'driver_license' => ['required', 'string', 'max:255'],
-            'licence_exp' => ['required', 'date'],
-            'upload_img' => ['required', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', 'min:8'],
             'is_banned' => ['required', 'boolean']
@@ -52,31 +44,8 @@ class RegisteredUserController extends Controller
             DB::beginTransaction();
             DB::enableQueryLog();
 
-            // dd($request->province, $request->city, $request->barangay);
-
-            $provinceName = $this->fetchNameFromApi($request->province, 'provinces');
-            $cityName = $this->fetchNameFromApi($request->city, 'cities');
-            $barangayName = $this->fetchNameFromApi($request->barangay, 'barangays');
-
-            // dd($provinceName, $cityName, $barangayName);
-
-            if (!$provinceName || !$cityName || !$barangayName) {
-                DB::rollback();
-                Log::error('Failed to fetch location names from the API.');
-                Log::info(DB::getQueryLog());
-                return back()->withErrors(['error' => 'Registration failed. Could not verify location details.']);
-            }
-
-            $username = Str::before($request->email, '@');
-            $uploadedImage = $request->file('upload_img');
-
-            $imageName = time() . '_' . $uploadedImage->getClientOriginalName();
-            $uploadedImage->move(public_path(path: 'license_images'), $imageName);
-            $licenseImgPath = 'license_images/' . $imageName;                                      
-
             // Create User
             $user = User::create([
-                'username' => $username,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
                 'role' => 'Customer',
@@ -87,18 +56,8 @@ class RegisteredUserController extends Controller
                 'middle_name' => $request->middlename,
                 'last_name' => $request->lastname,
                 'user_id' => $user->id,
-                'province' => $provinceName,
-                'city' => $cityName,
-                'barangay' => $barangayName,
-                'address' => $request->address,
-                'phone_number' => $request->phone_number,
-                'driver_license_number' => $request->driver_license,
-                'license_expiration_date' => $request->licence_exp,
-                'license_img_path' => $licenseImgPath,
                 'is_banned' => $request->is_banned, 
             ];
-
-            // dd($customerData);
 
             // Create Customer
             Customer::create($customerData);

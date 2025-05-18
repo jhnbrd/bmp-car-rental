@@ -17,6 +17,7 @@ return new class extends Migration
             $table->enum('payment_method', ['paymaya', 'gcash', 'cash']);
             $table->decimal('paid_amount', 8, 2);
             $table->string('ref_number')->nullable();
+            $table->string('receipt_img_path')->nullable();
             $table->enum('type', ['booking', 'penalty', 'repair'])->default('booking');
             $table->boolean('is_verified');
             $table->timestamps();
