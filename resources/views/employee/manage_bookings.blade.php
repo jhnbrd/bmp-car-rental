@@ -1,67 +1,6 @@
 @extends('layouts.administration')
 
 @section('content')
-    <?php
-    $clients = [
-        ['id' => '1', 'name' => 'Hans Burger', 'amount' => "$863.45", 'status' => 'Approved', 'date' => '6/10/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/1.jpg'],
-        ['id' => '2', 'name' => 'Sarah Lee', 'amount' => "$123.45", 'status' => 'Paid', 'date' => '5/12/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/2.jpg'],
-        ['id' => '3', 'name' => 'John Doe', 'amount' => "$245.67", 'status' => 'Ongoing', 'date' => '7/15/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/3.jpg'],
-        ['id' => '4', 'name' => 'Emily Clark', 'amount' => "$543.21", 'status' => 'Reported', 'date' => '4/5/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/4.jpg'],
-        ['id' => '5', 'name' => 'Mark Thompson', 'amount' => "$789.99", 'status' => 'Due', 'date' => '6/25/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/5.jpg'],
-        ['id' => '6', 'name' => 'Anna Swift', 'amount' => "$903.12", 'status' => 'Unpaid', 'date' => '3/18/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/6.jpg'],
-        ['id' => '7', 'name' => 'Jack Daniels', 'amount' => "$450.67", 'status' => 'Paid', 'date' => '2/11/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/7.jpg'],
-        ['id' => '8', 'name' => 'Lily Adams', 'amount' => "$654.88", 'status' => 'Approved', 'date' => '1/21/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/8.jpg'],
-        ['id' => '9', 'name' => 'Carlos Reyes', 'amount' => "$712.33", 'status' => 'Pick-Up', 'date' => '8/13/2021', 'avatar' => 'https://randomuser.me/api/portraits/men/9.jpg'],
-        ['id' => '10', 'name' => 'Mia Gonzalez', 'amount' => "$320.20", 'status' => 'Due', 'date' => '11/2/2021', 'avatar' => 'https://randomuser.me/api/portraits/women/10.jpg'],
-        ['id' => '11', 'name' => 'Noah Smith', 'amount' => "$615.49", 'status' => 'Ongoing', 'date' => '10/8/2022', 'avatar' => 'https://randomuser.me/api/portraits/men/11.jpg'],
-        ['id' => '12', 'name' => 'Olivia Johnson', 'amount' => "$982.00", 'status' => 'Unpaid', 'date' => '6/30/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/12.jpg'],
-        ['id' => '13', 'name' => 'William Brown', 'amount' => "$134.80", 'status' => 'Reported', 'date' => '4/18/2021', 'avatar' => 'https://randomuser.me/api/portraits/men/13.jpg'],
-        ['id' => '14', 'name' => 'Emma Davis', 'amount' => "$768.90", 'status' => 'Paid', 'date' => '9/5/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/14.jpg'],
-        ['id' => '15', 'name' => 'James Wilson', 'amount' => "$402.56", 'status' => 'Approved', 'date' => '7/19/2022', 'avatar' => 'https://randomuser.me/api/portraits/men/15.jpg'],
-        ['id' => '16', 'name' => 'Sophia Moore', 'amount' => "$823.47", 'status' => 'Paid', 'date' => '3/12/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/16.jpg'],
-        ['id' => '17', 'name' => 'Benjamin Taylor', 'amount' => "$553.21", 'status' => 'Ongoing', 'date' => '5/24/2023', 'avatar' => 'https://randomuser.me/api/portraits/men/17.jpg'],
-        ['id' => '18', 'name' => 'Isabella Martinez', 'amount' => "$731.95", 'status' => 'Due', 'date' => '10/29/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/18.jpg'],
-        ['id' => '19', 'name' => 'Logan Anderson', 'amount' => "$888.65", 'status' => 'Unsettle', 'date' => '9/2/2023', 'avatar' => 'https://randomuser.me/api/portraits/men/19.jpg'],
-        ['id' => '20', 'name' => 'Ava Thomas', 'amount' => "$610.77", 'status' => 'Unsettle', 'date' => '1/11/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/20.jpg'],
-        ['id' => '21', 'name' => 'Elijah Jackson', 'amount' => "$299.99", 'status' => 'Paid', 'date' => '2/5/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/21.jpg'],
-        ['id' => '22', 'name' => 'Charlotte White', 'amount' => "$753.88", 'status' => 'Approved', 'date' => '1/28/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/22.jpg'],
-        ['id' => '23', 'name' => 'Lucas Harris', 'amount' => "$480.34", 'status' => 'Ongoing', 'date' => '3/15/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/23.jpg'],
-        ['id' => '24', 'name' => 'Amelia Martin', 'amount' => "$199.99", 'status' => 'Due', 'date' => '3/30/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/24.jpg'],
-        ['id' => '25', 'name' => 'Henry Clark', 'amount' => "$920.65", 'status' => 'Unpaid', 'date' => '4/1/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/25.jpg'],
-        ['id' => '26', 'name' => 'Grace Lewis', 'amount' => "$330.20", 'status' => 'Paid', 'date' => '4/10/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/26.jpg'],
-        ['id' => '27', 'name' => 'Daniel Walker', 'amount' => "$875.50", 'status' => 'Pick-Up', 'date' => '4/15/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/27.jpg'],
-        ['id' => '28', 'name' => 'Chloe Hall', 'amount' => "$702.45", 'status' => 'Approved', 'date' => '4/18/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/28.jpg'],
-        ['id' => '29', 'name' => 'Matthew Allen', 'amount' => "$515.99", 'status' => 'Paid', 'date' => '4/19/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/29.jpg'],
-        ['id' => '30', 'name' => 'Harper Young', 'amount' => "$682.30", 'status' => 'Due', 'date' => '4/20/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/30.jpg'],
-    ];
-    
-    function getStatusBadge($status)
-    {
-        switch ($status) {
-            case 'Paid':
-                return ['text' => 'Paid', 'color' => 'bg-green-100 text-green-700'];
-            case 'Ongoing':
-                return ['text' => 'Ongoing', 'color' => 'bg-emerald-100 text-emerald-700'];
-            case 'Cancelled':
-                return ['text' => 'Cancelled', 'color' => 'bg-red-100 text-red-700'];
-            case 'Due for Return':
-                return ['text' => 'Due for Return', 'color' => 'bg-orange-100 text-orange-700'];
-            case 'Unsettled':
-                return ['text' => 'Unsettled', 'color' => 'bg-purple-100 text-purple-700'];
-            case 'Reported':
-                return ['text' => 'Reported', 'color' => 'bg-red-100 text-red-700'];
-            case 'Unpaid':
-                return ['text' => 'Unpaid', 'color' => 'bg-yellow-100 text-yellow-700'];
-            case 'Pick-Up':
-                return ['text' => 'For Pick-Up', 'color' => 'bg-cyan-100 text-cyan-700'];
-            case 'Approved':
-                return ['text' => 'Approved', 'color' => 'bg-blue-100 text-blue-700'];
-            default:
-                return ['text' => 'Unknown', 'color' => 'bg-gray-100 text-gray-700'];
-        }
-    }
-    ?>
-
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Manage Bookings
     </h2>
@@ -179,69 +118,34 @@
                                         <td class="px-4 py-3 text-sm">{{ $unpaidBooking->latestStatus->status_date }}</td>
 
                                         <!--  For Approval - Actions -->
-                                        <td class="px-4 py-3">
+                                        <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                            <!-- View Details Button -->
+                                            <button data-modal-target="viewdetail-modal-{{ $unpaidBooking->id }}"
+                                                data-modal-toggle="viewdetail-modal-{{ $unpaidBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </button>
 
-                                            <!-- Wrapper (Position Relative) -->
-                                            <div class="relative inline-block text-left">
-                                                <!-- Toggle Button -->
-                                                <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                                <label for="<?= $dropdownId ?>"
-                                                    class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                                    <!-- Three Dots Icon -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5 pointer-events-none">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                    </svg>
-                                                </label>
+                                            <!-- Approve Button -->
+                                            <button data-modal-target="approve-modal-{{ $unpaidBooking->id }}"
+                                                data-modal-toggle="approve-modal-{{ $unpaidBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-green-600 dark:text-green-500 rounded-full hover:bg-green-100 dark:hover:bg-green-700">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                                </svg>
+                                            </button>
 
-                                                <!-- Dropdown Menu -->
-                                                <div
-                                                    class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                                    <!-- View Details -->
-                                                    <label for="viewdetail-modal">
-                                                        <div data-modal-target="viewdetail-modal-{{ $unpaidBooking->id }}"
-                                                            data-modal-toggle="viewdetail-modal-{{ $unpaidBooking->id }}"
-                                                            class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white dark:text-gray-300"
-                                                                fill="currentColor" viewBox="0 0 24 24">
-                                                                <path
-                                                                    d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                            </svg>
-                                                            
-                                                        </div>
-                                                    </label>
-
-                                                    <!-- Approve -->
-                                                    <label for="payment-toggle">
-                                                        <div data-modal-target="payment-modal-{{ $unpaidBooking->id }}"
-                                                            data-modal-toggle="payment-modal-{{ $unpaidBooking->id }}"
-                                                            class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path
-                                                                    d="M2 4a2 2 0 012-2h12a2 2 0 012 2v1H2V4zm16 3v7a2 2 0 01-2 2H4a2 2 0 01-2-2V7h16zm-3 4a1 1 0 100 2h2a1 1 0 100-2h-2z" />
-                                                            </svg>
-                                                            
-                                                        </div>
-                                                    </label>
-
-                                                    <!-- Cancel -->
-                                                    <label>
-                                                        <div data-modal-target="cancel-modal-{{ $unpaidBooking->id }}" 
-                                                             data-modal-toggle="cancel-modal-{{ $unpaidBooking->id }}"
-                                                             class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414  10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
-                                                            </svg>
-                                                           
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <!-- Cancel Button -->
+                                            <button data-modal-target="cancel-modal-{{ $unpaidBooking->id }}"
+                                                data-modal-toggle="cancel-modal-{{ $unpaidBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-red-600 dark:text-red-500 rounded-full hover:bg-red-100 dark:hover:bg-red-700">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                     <!-- Loop Ending Point -->
@@ -326,68 +230,34 @@
                                         <td class="px-4 py-3 text-sm">{{ $paidBooking->latestStatus->status_date }}</td>
 
                                         <!--  For Approval - Actions -->
-                                        <td class="px-4 py-3">
+                                        <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                            <!-- View Details Button -->
+                                            <button data-modal-target="viewdetail-modal-{{ $paidBooking->id }}"
+                                                data-modal-toggle="viewdetail-modal-{{ $paidBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </button>
 
-                                            <!-- Wrapper (Position Relative) -->
-                                            <div class="relative inline-block text-left">
-                                                <!-- Toggle Button -->
-                                                <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                                <label for="<?= $dropdownId ?>"
-                                                    class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                                    <!-- Three Dots Icon -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5 pointer-events-none">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                    </svg>
-                                                </label>
+                                            <!-- Approve Type Button -->
+                                            <button data-modal-target="approvedtype-modal-{{ $paidBooking->id }}"
+                                                data-modal-toggle="approvedtype-modal-{{ $paidBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-green-600 dark:text-green-500 rounded-full hover:bg-green-100 dark:hover:bg-green-700">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                                </svg>
+                                            </button>
 
-                                                <!-- Dropdown Menu -->
-                                                <div
-                                                    class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                                    <!-- View Details -->
-                                                    <label for="viewdetail-modal">
-                                                        <div data-modal-target="viewdetail-modal-{{ $paidBooking->id }}"
-                                                            data-modal-toggle="viewdetail-modal-{{ $paidBooking->id }}"
-                                                            class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white dark:text-gray-300"
-                                                                fill="currentColor" viewBox="0 0 24 24">
-                                                                <path
-                                                                    d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                            </svg>
-                                                            
-                                                        </div>
-                                                    </label>
-
-                                                    <!-- Approve -->
-                                                    <label for="approval-toggle">
-                                                        <div data-modal-target="approve-modal-{{ $paidBooking->id }}"
-                                                            data-modal-toggle="approve-modal-{{ $paidBooking->id }}"
-                                                            class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" />
-                                                            </svg>
-                                                            
-                                                        </div>
-                                                    </label>
-
-                                                    <!-- Cancel -->
-                                                    </label for="approval-toggle">
-                                                    <div data-modal-target="cancel-modal-{{ $paidBooking->id }}" data-modal-toggle="cancel-modal-{{ $paidBooking->id }}"
-                                                        class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
-                                                        <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                            viewBox="0 0 20 20">
-                                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
-                                                        </svg>
-                                                        
-                                                    </div>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <!-- Cancel Button -->
+                                            <button data-modal-target="cancel-modal-{{ $paidBooking->id }}"
+                                                data-modal-toggle="cancel-modal-{{ $paidBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-red-600 dark:text-red-500 rounded-full hover:bg-red-100 dark:hover:bg-red-700">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                     <!-- Loop Ending Point -->
@@ -410,7 +280,7 @@
     </div>
 
 
-    <!-- Approved Bookings Section --!>
+    <!-- Approved Bookings Section -->
         <div id="bookings-tab-content">
             <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="approved" role="tabpanel"
                 aria-labelledby="approved-tab">
@@ -465,62 +335,34 @@
                                 <td class="px-4 py-3 text-sm">{{ $approvedBooking->latestStatus->status_date }}</td>
 
                                 <!--  For Approval - Actions -->
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                    <!-- View Details Button -->
+                                    <button data-modal-target="viewdetail-modal-{{ $approvedBooking->id }}"
+                                        data-modal-toggle="viewdetail-modal-{{ $approvedBooking->id }}"
+                                        class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </button>
 
-                                    <!-- Wrapper (Position Relative) -->
-                                    <div class="relative inline-block text-left">
-                                        <!-- Toggle Button -->
-                                        <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                        <label for="<?= $dropdownId ?>"
-                                            class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                            <!-- Three Dots Icon -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                stroke="currentColor" class="w-5 h-5 pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                            </svg>
-                                        </label>
+                                    <!-- Approve Type Button -->
+                                    <button data-modal-target="approvedtype-modal-{{ $approvedBooking->id }}"
+                                        data-modal-toggle="approvedtype-modal-{{ $approvedBooking->id }}"
+                                        class="flex justify-center items-center w-10 h-10 text-green-600 dark:text-green-500 rounded-full hover:bg-green-100 dark:hover:bg-green-700">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                    </button>
 
-                                        <!-- Dropdown Menu -->
-                                        <div
-                                            class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                            <!-- View Details -->
-                                            <label for="viewdetail-modal">
-                                                <div data-modal-target="viewdetail-modal-{{ $approvedBooking->id }}" data-modal-toggle="viewdetail-modal-{{ $approvedBooking->id }}"
-                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                    <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                    </svg>
-                                                    View Details
-                                                </div>
-                                            </label>
-
-                                            <!-- Approve -->
-                                            <label for="approvedtype-toggle">
-                                                <div data-modal-target="approvedtype-modal-{{ $approvedBooking->id }}" data-modal-toggle="approvedtype-modal-{{ $approvedBooking->id }}"
-                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
-                                                    <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M16.707 5.293a1 1 0 00-1.414 0L9 11.586 6.707 9.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" />
-                                                    </svg>
-                                                    Approved Type
-                                                </div>
-                                            </label>
-
-                                            <!-- Cancel -->
-                                            </label for="approval-toggle">
-                                            <div data-modal-target="cancel-modal-{{ $approvedBooking->id }}" data-modal-toggle="cancel-modal-{{ $approvedBooking->id }}"
-                                                class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
-                                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" />
-                                                </svg>
-                                                Cancel
-                                            </div>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <!-- Cancel Button -->
+                                    <button data-modal-target="cancel-modal-{{ $approvedBooking->id }}"
+                                        data-modal-toggle="cancel-modal-{{ $approvedBooking->id }}"
+                                        class="flex justify-center items-center w-10 h-10 text-red-600 dark:text-red-500 rounded-full hover:bg-red-100 dark:hover:bg-red-700">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
                                 </td>
                                 </tr>
                                 <!-- Loop Ending Point -->
@@ -601,55 +443,25 @@
                                         </td>
 
                                         <!--  For Approval - Actions -->
-                                        <td class="px-4 py-3">
+                                        <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                            <!-- View Details Button -->
+                                            <button data-modal-target="viewdetail-modal-{{ $forPickUpBooking->id }}"
+                                                data-modal-toggle="viewdetail-modal-{{ $forPickUpBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                </svg>
+                                            </button>
 
-                                            <!-- Wrapper (Position Relative) -->
-                                            <div class="relative inline-block text-left">
-                                                <!-- Toggle Button -->
-                                                <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                                <label for="<?= $dropdownId ?>"
-                                                    class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                                    <!-- Three Dots Icon -->
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                        class="w-5 h-5 pointer-events-none">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                    </svg>
-                                                </label>
-
-                                                <!-- Dropdown Menu -->
-                                                <div
-                                                    class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                                    <!-- View Details -->
-                                                    <label for="viewdetail-modal">
-                                                        <div data-modal-target="viewdetail-modal-{{ $forPickUpBooking->id }}"
-                                                            data-modal-toggle="viewdetail-modal-{{ $forPickUpBooking->id }}"
-                                                            class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white dark:text-gray-300"
-                                                                fill="currentColor" viewBox="0 0 24 24">
-                                                                <path
-                                                                    d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                            </svg>
-                                                            View Details
-                                                        </div>
-                                                    </label>
-
-                                                    <!-- Approve -->
-                                                    <label for="pickup-toggle">
-                                                        <div data-modal-target="pickup-modal-{{ $forPickUpBooking->id }}"
-                                                            data-modal-toggle="pickup-modal-{{ $forPickUpBooking->id }}"
-                                                            class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer transition mx-2 my-1">
-                                                            <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                                viewBox="0 0 20 20">
-                                                                <path fill-rule="evenodd" clip-rule="evenodd"
-                                                                    d="M16.293 4.293a1 1 0 00-1.414 0L8 10.586 5.707 8.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l7-7a1 1 0 000-1.414z" />
-                                                            </svg>
-                                                            Picked-up
-                                                        </div>
-                                                    </label>
-                                                </div>
-                                            </div>
+                                            <!-- Approve Button -->
+                                            <button data-modal-target="pickup-modal-{{ $forPickUpBooking->id }}"
+                                                data-modal-toggle="pickup-modal-{{ $forPickUpBooking->id }}"
+                                                class="flex justify-center items-center w-10 h-10 text-blue-600 dark:text-blue-500 rounded-full hover:bg-blue-100 dark:hover:bg-blue-700">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                                </svg>
+                                            </button>
                                         </td>
                                     </tr>
                                     <!-- Loop Ending Point -->
@@ -726,61 +538,34 @@
                             <td class="px-4 py-3 text-sm">{{ $ongoingBooking->latestStatus->status_date }}</td>
 
                             <!-- Ongoing - Actions -->
-                            <td class="px-4 py-3">
+                            <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                <!-- View Details Button -->
+                                <button data-modal-target="viewdetail-modal-{{ $ongoingBooking->id }}"
+                                    data-modal-toggle="viewdetail-modal-{{ $ongoingBooking->id }}"
+                                    class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                </button>
 
-                                <!-- Wrapper (Position Relative) -->
-                                <div class="relative inline-block text-left">
-                                    <!-- Toggle Button -->
-                                    <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                    <label for="<?= $dropdownId ?>"
-                                        class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                        <!-- Three Dots Icon -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-5 h-5 pointer-events-none">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                        </svg>
-                                    </label>
+                                <!-- Pickup Button -->
+                                <button data-modal-target="pickup-modal-{{ $ongoingBooking->id }}"
+                                    data-modal-toggle="pickup-modal-{{ $ongoingBooking->id }}"
+                                    class="flex justify-center items-center w-10 h-10 text-blue-600 dark:text-blue-500 rounded-full hover:bg-blue-100 dark:hover:bg-blue-700">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                                    </svg>
+                                </button>
 
-                                    <!-- Dropdown Menu -->
-                                    <div
-                                        class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                        <!-- View Details -->
-                                        <label for="viewdetail-modal">
-                                            <div data-modal-target="viewdetail-modal-{{ $ongoingBooking->id }}" data-modal-toggle="viewdetail-modal-{{ $ongoingBooking->id }}"
-                                                class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path
-                                                        d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                </svg>
-                                                View Details
-                                            </div>
-                                        </label>
-
-                                        <!-- Print Invoice -->
-                                        <button onclick="printInvoice()"
-                                            class="w-44 flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                            <svg class="w-5 h-5 text-white dark:text-gray-300" fill="none"
-                                                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9 17v-6h6v6M8 7h8M6 3h12a2 2 0 012 2v14a2 2 0 01-2 2H6a2 2 0 01-2-2V5a2 2 0 012-2z" />
-                                            </svg>
-                                            Print Invoice
-                                        </button>
-
-                                        <!-- Print Agreement -->
-                                        <button onclick="printAgreement()"
-                                            class="w-44 flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                            <svg class="w-5 h-5 text-white dark:text-gray-300" fill="none"
-                                                stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M8 16h8M8 12h8m-6 8h4a2 2 0 002-2V7a2 2 0 00-2-2H8a2 2 0 00-2 2v11a2 2 0 002 2z" />
-                                            </svg>
-                                            Print Agreement
-                                        </button>
-                                    </div>
-                                </div>
+                                <!-- Cancel Button -->
+                                <button data-modal-target="cancel-modal-{{ $ongoingBooking->id }}"
+                                    data-modal-toggle="cancel-modal-{{ $ongoingBooking->id }}"
+                                    class="flex justify-center items-center w-10 h-10 text-red-600 dark:text-red-500 rounded-full hover:bg-red-100 dark:hover:bg-red-700">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                </button>
                             </td>
                         </tr>
                         <!-- End of one Ongoing item -->
@@ -855,65 +640,34 @@
                                 <!-- Due - Date -->
                                 <td class="px-4 py-3 text-sm">{{ $dueForReturnBooking->latestStatus->status_date }}</td>
 
-                                <td class="px-4 py-3">
+                                <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                    <!-- View Details Button -->
+                                    <button data-modal-target="viewdetail-modal-{{ $dueForReturnBooking->id }}"
+                                        data-modal-toggle="viewdetail-modal-{{ $dueForReturnBooking->id }}"
+                                        class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                    </button>
 
-                                    <!-- Wrapper (Position Relative) -->
-                                    <div class="relative inline-block text-left">
-                                        <!-- Toggle Button -->
-                                        <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                        <label for="<?= $dropdownId ?>"
-                                            class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                            <!-- Three Dots Icon -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor"
-                                                class="w-5 h-5 pointer-events-none">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                            </svg>
-                                        </label>
+                                    <!-- Return Button -->
+                                    <button data-modal-target="return-modal-{{ $dueForReturnBooking->id }}"
+                                        data-modal-toggle="return-modal-{{ $dueForReturnBooking->id }}"
+                                        class="flex justify-center items-center w-10 h-10 text-yellow-600 dark:text-yellow-500 rounded-full hover:bg-yellow-100 dark:hover:bg-yellow-700">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 15v-1a4 4 0 00-4-4H8m0 0l3 3m-3-3l3-3m9 14V5a2 2 0 00-2-2H6a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"></path>
+                                        </svg>
+                                    </button>
 
-                                        <!-- Dropdown Menu -->
-                                        <div
-                                            class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                            <!-- View Details -->
-                                            <label for="viewdetail-modal">
-                                                <div data-modal-target="viewdetail-modal-{{ $dueForReturnBooking->id }}"
-                                                    data-modal-toggle="viewdetail-modal-{{ $dueForReturnBooking->id }}"
-                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                    <svg class="w-5 h-5 text-white dark:text-gray-300" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path
-                                                            d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                    </svg>
-                                                    View Details
-                                                </div>
-                                            </label>
-
-                                            <!-- Approve -->
-                                            <label for="return-modal">
-                                                <div data-modal-target="return-modal-{{ $dueForReturnBooking->id }}" data-modal-toggle="return-modal-{{ $dueForReturnBooking->id }}"
-                                                    class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-green-600 rounded-md shadow hover:bg-green-700 dark:bg-green-500 dark:hover:bg-green-600 cursor-pointer transition mx-2 my-1">
-                                                    <svg class="w-5 h-5 text-white" fill="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path d="M16 12H8v-3l-4 4 4 4v-3h8z" />
-                                                    </svg>
-                                                    Returned
-                                                </div>
-                                            </label>
-
-                                            <!-- Report -->
-                                            </label for="report-renter-modal">
-                                            <div data-modal-target="report-renter-modal-{{ $dueForReturnBooking->id }}"
-                                                data-modal-toggle="report-renter-modal"-{{ $dueForReturnBooking->id }}
-                                                class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
-                                                <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path d="M4 4h16v2H4zm0 4h10v2H4zm0 4h16v2H4zm0 4h10v2H4z" />
-                                                </svg>
-                                                Report
-                                            </div>
-                                            </label>
-                                        </div>
-                                    </div>
+                                    <!-- Cancel Button -->
+                                    <button data-modal-target="cancel-modal-{{ $dueForReturnBooking->id }}"
+                                        data-modal-toggle="cancel-modal-{{ $dueForReturnBooking->id }}"
+                                        class="flex justify-center items-center w-10 h-10 text-red-600 dark:text-red-500 rounded-full hover:bg-red-100 dark:hover:bg-red-700">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                        </svg>
+                                    </button>
                                 </td>
                             </tr>
                             @endforeach
@@ -994,71 +748,34 @@
                                     <td class="px-4 py-3 text-sm">{{ $reportedBooking->latestStatus->status_date }}</td>
 
                                     <!-- Reported - Actions -->
-                                    <td class="px-4 py-3">
+                                    <td class="px-4 py-3 flex items-center justify-center space-x-2">
+                                        <!-- View Details Button -->
+                                        <button data-modal-target="viewdetail-modal-{{ $reportedBooking->id }}"
+                                            data-modal-toggle="viewdetail-modal-{{ $reportedBooking->id }}"
+                                            class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                        </button>
 
-                                        <!-- Wrapper (Position Relative) -->
-                                        <div class="relative inline-block text-left">
-                                            <!-- Toggle Button -->
-                                            <input type="checkbox" id="<?= $dropdownId ?>" class="peer hidden" />
-                                            <label for="<?= $dropdownId ?>"
-                                                class="flex justify-center items-center w-10 h-10 text-gray-600 dark:text-gray-300 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">
-                                                <!-- Three Dots Icon -->
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                    class="w-5 h-5 pointer-events-none">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M12 6.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 12.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM12 18.75a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Z" />
-                                                </svg>
-                                            </label>
+                                        <!-- Resolve Button -->
+                                        <button data-modal-target="resolve-modal-{{ $reportedBooking->id }}"
+                                            data-modal-toggle="resolve-modal-{{ $reportedBooking->id }}"
+                                            class="flex justify-center items-center w-10 h-10 text-blue-600 dark:text-blue-500 rounded-full hover:bg-blue-100 dark:hover:bg-blue-700">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </button>
 
-                                            <!-- Dropdown Menu -->
-                                            <div
-                                                class="absolute right-0 mt-2 w-48 bg-white translate-y-ful bottom-50 rounded-md shadow-lg opacity-0 peer-checked:opacity-100 peer-checked:scale-100 peer-checked:block hidden transition-all duration-200 z-40">
-                                                <!-- View Details -->
-                                                <label for="viewdetail-modal">
-                                                    <div data-modal-target="viewdetail-modal-{{ $reportedBooking->id }}"
-                                                        data-modal-toggle="viewdetail-modal-{{ $reportedBooking->id }}"
-                                                        class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 cursor-pointer transition mx-2 my-1">
-                                                        <svg class="w-5 h-5 text-white dark:text-gray-300"
-                                                            fill="currentColor" viewBox="0 0 24 24">
-                                                            <path
-                                                                d="M12 4.5C7.03 4.5 3 7.61 3 10.5C3 13.39 7.03 16.5 12 16.5C16.97 16.5 21 13.39 21 10.5C21 7.61 16.97 4.5 12 4.5ZM12 14C9.79 14 8 11.77 8 10.5C8 9.23 9.79 7 12 7C14.21 7 16 9.23 16 10.5C16 11.77 14.21 14 12 14ZM12 9.5C11.17 9.5 10.5 10.17 10.5 11C10.5 11.83 11.17 12.5 12 12.5C12.83 12.5 13.5 11.83 13.5 11C13.5 10.17 12.83 9.5 12 9.5Z" />
-                                                        </svg>
-                                                        View Details
-                                                    </div>
-                                                </label>
-
-                                                <!-- Resolve Button -->
-                                                <label for="resolve-modal">
-                                                    <div data-modal-target="resolve-modal-{{ $reportedBooking->id }}"
-                                                        data-modal-toggle="resolve-modal-{{ $reportedBooking->id }}"
-                                                        class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-blue-600 rounded-md shadow hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 cursor-pointer transition mx-2 my-1">
-                                                        <svg class="w-5 h-5 text-white" fill="none"
-                                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M5 13l4 4L19 7" />
-                                                        </svg>
-                                                        Resolve
-                                                    </div>
-                                                </label>
-
-                                                <!-- Blacklisted Button -->
-                                                <label for="blacklist-modal">
-                                                    <div data-modal-target="blacklist-modal-{{ $reportedBooking->id }}"
-                                                        data-modal-toggle="blacklist-modal-{{ $reportedBooking->id }}"
-                                                        class="flex items-center gap-2 px-4 py-2 text-sm text-white bg-red-600 rounded-md shadow hover:bg-red-700 dark:bg-red-500 dark:hover:bg-red-600 cursor-pointer transition mx-2 my-1">
-                                                        <svg class="w-5 h-5 text-white" fill="none"
-                                                            stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"
-                                                            xmlns="http://www.w3.org/2000/svg">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                d="M6 18L18 6M6 6l12 12" />
-                                                        </svg>
-                                                        Blacklisted
-                                                    </div>
-                                                </label>
-                                            </div>
-                                        </div>
+                                        <!-- Blacklisted Button -->
+                                        <button data-modal-target="blacklist-modal-{{ $reportedBooking->id }}"
+                                            data-modal-toggle="blacklist-modal-{{ $reportedBooking->id }}"
+                                            class="flex justify-center items-center w-10 h-10 text-red-600 dark:text-red-500 rounded-full hover:bg-red-100 dark:hover:bg-red-700">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                            </svg>
+                                        </button>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -1951,17 +1668,23 @@
                     </div>
                     <div>
                         <label class="block font-semibold text-gray-800 dark:text-gray-200 mb-1">Upload Evidence</label>
-                        <div
-                            class="flex items-center justify-between p-4 border border-gray-300 bg-white rounded-lg shadow-lg cursor-pointer hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-300">
-                            <input type="file" id="car-image" name="car-image" accept="image/*"
-                                :required="selectedOption === 'returned-damage'"/>
+                        <div class="flex items-center justify-center w-full">
                             <label for="car-image"
-                                class="flex items-center space-x-3 text-sm text-gray-700 cursor-pointer">
-                                <span class="flex items-center">
-                                    <i class="bi bi-card-image"></i>&nbsp;&nbsp;
-                                    <span>Choose Image</span>
-                                </span>
-                                <span class="text-gray-400 text-xs text-end">PNG, JPG up to 2mb</span>
+                                class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                        fill="none" viewBox="0 0 20 16">
+                                        <path stroke="currentColor" stroke-linecap="round"
+                                            stroke-linejoin="round" stroke-width="2"
+                                            d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                            class="font-semibold">Click to upload</span> or drag and drop</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG,
+                                        JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="car-image" name="car-image" type="file" class="hidden" accept="image/png,image/jpeg,image/jpg,image/gif" :required="selectedOption === 'returned-damage'" />
                             </label>
                         </div>
                     </div>
@@ -2542,7 +2265,7 @@
                         text: "Do you want to approve this booking?",
                         icon: 'warning',
                         showCancelButton: true,
-                        confirmButtonColor: '#3085d6 !important',
+                        confirmButtonColor: '#ffffff !important',
                         cancelButtonColor: '#d33 !important',
                         confirmButtonText: 'Yes, approve it!'
                     }).then((result) => {
