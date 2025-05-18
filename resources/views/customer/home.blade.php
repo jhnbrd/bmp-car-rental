@@ -35,7 +35,8 @@
                     <img src="{{ asset('assets/carright.svg') }}" class="w-[35%]" alt="Car Right">
                 </div>
                 <div class="relative z-10 container mx-auto px-6">
-                    <img src="{{ asset('assets/bmp_logo.png') }}" alt="BMP Logo" class="h-15 mx-auto mb-5 brightness-0 invert">
+                    <img src="{{ asset('assets/bmp_logo.png') }}" alt="BMP Logo"
+                        class="h-15 mx-auto mb-5 brightness-0 invert">
                     <h1 class="text-5xl font-bold uppercase">RENT A CAR TODAY</h1>
                     <p class="mt-2 text-lg uppercase font-semibold tracking-wide">EXCLUSIVE & LOW COST CAR RENTAL</p>
                     <p class="mt-2 text-sm max-w-2xl mx-auto">
@@ -54,95 +55,110 @@
 
             <!-- SECOND CONTAINER -->
             <!-- Main Section -->
-            <section class="py-12 bg-white text-black text-center">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-16 items-start max-w-6xl mx-auto">
+            <section class="py-8 md:py-12 bg-white text-black">
+                <div class="container mx-auto px-4">
+                    <!-- Three Column Grid Section -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 md:gap-12 items-start max-w-6xl mx-auto">
 
-                    <!-- Locations Section -->
-                    <div class="pb-8 md:pb-0">
-                        <h2 class="text-2xl font-bold mb-6">VISIT ANY OF OUR LOCATIONS</h2>
-                        <div class="grid grid-cols-2 gap-6 text-lg font-medium text-[#0f294c]">
-                            <span class="flex items-center gap-2 justify-center">
-                                <i class="fa-solid fa-map-marker-alt text-[#0f294c] text-2xl"></i> Davao, Mintal
-                            </span>
-                            <span class="flex items-center gap-2 justify-center">
-                                <i class="fa-solid fa-map-marker-alt text-[#0f294c] text-2xl"></i> Davao, Ula
-                            </span>
-                            <span class="flex items-center gap-2 justify-center">
-                                <i class="fa-solid fa-map-marker-alt text-[#0f294c] text-2xl"></i> Davao, Mudiang
-                            </span>
+                        <!-- Locations Section -->
+                        <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                            <h2 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center lg:text-left">OUR BRANCH
+                            </h2>
+                            <div class="flex flex-col space-y-4 text-base md:text-lg font-medium text-[#0f294c]">
+                                <div class="flex items-center gap-3 p-3 bg-white rounded-lg shadow-xs">
+                                    <i class="fa-solid fa-map-marker-alt text-primary text-xl"></i>
+                                    <span>Davao, Ecoland</span>
+                                </div>
+                                <!-- Add more locations if needed -->
+                            </div>
+                        </div>
+
+                        <!-- Services Section -->
+                        <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                            <h2 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center lg:text-left">OUR SERVICES
+                            </h2>
+                            <ul class="space-y-4 text-[#0f294c]">
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-xs">
+                                    <i class="fa-solid fa-check-circle text-primary text-lg mt-1"></i>
+                                    <div>
+                                        <h3 class="font-bold text-base md:text-lg">Daily and Long-Term Rentals</h3>
+                                        <p class="text-gray-600 text-sm md:text-base mt-1">
+                                            Flexible rental options for any duration to suit your travel needs.
+                                        </p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3 p-3 bg-white rounded-lg shadow-xs">
+                                    <i class="fa-solid fa-check-circle text-primary text-lg mt-1"></i>
+                                    <div>
+                                        <h3 class="font-bold text-base md:text-lg">Wide Vehicle Selection</h3>
+                                        <p class="text-gray-600 text-sm md:text-base mt-1">
+                                            From economy to luxury vehicles, we have the perfect car for your journey.
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Car Brands Section -->
+                        <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
+                            <h2 class="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-center lg:text-left">OUR CAR
+                                BRANDS</h2>
+                            <div class="grid grid-cols-3 gap-4 md:gap-6">
+                                <div class="bg-white p-4 rounded-lg shadow-xs flex justify-center">
+                                    <img src="{{ asset('assets/body2/brands/icon_toyota.png') }}" alt="Toyota"
+                                        class="h-12 md:h-16">
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-xs flex justify-center">
+                                    <img src="{{ asset('assets/body2/brands/icon_honda.png') }}" alt="Honda"
+                                        class="h-12 md:h-16">
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-xs flex justify-center">
+                                    <img src="{{ asset('assets/body2/brands/icon_ford.png') }}" alt="Ford"
+                                        class="h-12 md:h-16">
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-xs flex justify-center">
+                                    <img src="{{ asset('assets/body2/brands/icon_mitshubishi.png') }}" alt="Mitsubishi"
+                                        class="h-10 md:h-14">
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-xs flex justify-center">
+                                    <img src="{{ asset('assets/body2/brands/icon_suzuki.png') }}" alt="Suzuki"
+                                        class="h-10 md:h-14">
+                                </div>
+                                <div class="bg-white p-4 rounded-lg shadow-xs flex justify-center">
+                                    <img src="{{ asset('assets/body2/brands/icon_nissan.png') }}" alt="Nissan"
+                                        class="h-12 md:h-16">
+                                </div>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <!-- THIRD CONTAINER -->
-                    <!-- Services Section -->
-                    <div class="pb-8 md:pb-0">
-                        <h2 class="text-2xl font-bold mb-6">OUR SERVICES</h2>
-                        <ul class="text-left text-[#0f294c] text-lg font-medium space-y-6">
-                            <li class="flex items-start gap-3">
-                                <i class="fa-solid fa-check-circle text-[#0f294c] text-xl"></i>
-                                <div>
-                                    <span class="font-bold">Daily and Long-Term Rentals</span><br>
-                                    <span class="text-gray-600 text-sm">
-                                        Flexible rental options, whether you need a car for a day, a week, or longer.
-                                    </span>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <i class="fa-solid fa-check-circle text-[#0f294c] text-xl"></i>
-                                <div>
-                                    <span class="font-bold">Wide Vehicle Selection</span><br>
-                                    <span class="text-gray-600 text-sm">
-                                        Choose from economy cars, SUVs, luxury vehicles, and more to match your needs.
-                                    </span>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
 
-                    <!-- Car booking Section -->
-                    <div>
-                        <h2 class="text-2xl font-bold mb-6">OUR CAR booking</h2>
-                        <div class="grid grid-cols-3 gap-8 justify-center items-center">
-                            <img src="{{ asset('assets/body2/brands/icon_toyota.png') }}" alt="Toyota"
-                                class="h-20 mx-auto">
-                            <img src="{{ asset('assets/body2/brands/icon_honda.png') }}" alt="Honda"
-                                class="h-20 mx-auto">
-                            <img src="{{ asset('assets/body2/brands/icon_ford.png') }}" alt="Ford" class="h-20 mx-auto">
-                            <img src="{{ asset('assets/body2/brands/icon_mitshubishi.png') }}" alt="Mitsubishi"
-                                class="h-15 mx-auto">
-                            <img src="{{ asset('assets/body2/brands/icon_suzuki.png') }}" alt="Suzuki"
-                                class="h-15 mx-auto">
-                            <img src="{{ asset('assets/body2/brands/icon_nissan.png') }}" alt="Nissan"
-                                class="h-20 mx-auto">
-                        </div>
-                    </div>
+            <div class="flex flex-row gap-4 py-12 bg-white text-black max-w-6xl mx-auto">
+                <div class="flex flex-between">
+                    <img src="{{ asset('assets/body2/car/mercedes.png') }}" alt="Mercedes"
+                        class="h-auto object-contain">
 
                 </div>
 
-
-                <div class="flex flex-row gap-4 py-12 bg-white text-black max-w-6xl mx-auto">
-                    <div class="flex flex-between">
-                        <img src="{{ asset('assets/body2/car/mercedes.png') }}" alt="Mercedes" class="h-auto object-contain">
-
-                    </div>
-
-                    <div class="">
-                        <span class="font-bold text-4xl">FEEL THE BEST EXPERIENCEWITH OUR RENTAL DEALS</span><br>
-                        <p class="text-[#ffff] text-2xl text-left  bg-[#0f294c] px-8 py-8 rounded-md">
-                            <img src="{{ asset('assets/body/logo/handshake.svg') }}" alt="handshake" class="h-20">
-                            <b class="">DEAL FOR EVERY BUDGET</b>
-                            <br>
-                            looking for a car rental for your next trip? Here are some tips to help you find.
-                        </p>
+                <div class="">
+                    <span class="font-bold text-4xl">FEEL THE BEST EXPERIENCEWITH OUR RENTAL DEALS</span><br>
+                    <p class="text-[#ffff] text-2xl text-left  bg-[#0f294c] px-8 py-8 rounded-md">
+                        <img src="{{ asset('assets/body/logo/handshake.svg') }}" alt="handshake" class="h-20">
+                        <b class="">DEAL FOR EVERY BUDGET</b>
                         <br>
-                        <p class="text-[#ffff] text-2xl text-left  bg-[#0f294c] px-8 py-8 rounded-md">
-                            <img src="{{ asset('assets/body/logo/tag_price.svg') }}" alt="tag price" class="h-20">
-                            <b>BEST PRICE GUARANTEED</b>
-                            <br>
-                            looking for a car rental for your next trip? Here are some tips to help you find.
-                        </p>
-                    </div>
+                        looking for a car rental for your next trip? Here are some tips to help you find.
+                    </p>
+                    <br>
+                    <p class="text-[#ffff] text-2xl text-left  bg-[#0f294c] px-8 py-8 rounded-md">
+                        <img src="{{ asset('assets/body/logo/tag_price.svg') }}" alt="tag price" class="h-20">
+                        <b>BEST PRICE GUARANTEED</b>
+                        <br>
+                        looking for a car rental for your next trip? Here are some tips to help you find.
+                    </p>
                 </div>
+            </div>
 
             </section>
             <!-- FORTH CONTAINER -->
