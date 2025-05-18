@@ -1,67 +1,6 @@
 @extends('layouts.administration')
 
 @section('content')
-    <?php
-    $clients = [
-        ['id' => '1', 'name' => 'Hans Burger', 'amount' => "$863.45", 'status' => 'Approved', 'date' => '6/10/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/1.jpg'],
-        ['id' => '2', 'name' => 'Sarah Lee', 'amount' => "$123.45", 'status' => 'Paid', 'date' => '5/12/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/2.jpg'],
-        ['id' => '3', 'name' => 'John Doe', 'amount' => "$245.67", 'status' => 'Ongoing', 'date' => '7/15/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/3.jpg'],
-        ['id' => '4', 'name' => 'Emily Clark', 'amount' => "$543.21", 'status' => 'Reported', 'date' => '4/5/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/4.jpg'],
-        ['id' => '5', 'name' => 'Mark Thompson', 'amount' => "$789.99", 'status' => 'Due', 'date' => '6/25/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/5.jpg'],
-        ['id' => '6', 'name' => 'Anna Swift', 'amount' => "$903.12", 'status' => 'Unpaid', 'date' => '3/18/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/6.jpg'],
-        ['id' => '7', 'name' => 'Jack Daniels', 'amount' => "$450.67", 'status' => 'Paid', 'date' => '2/11/2020', 'avatar' => 'https://randomuser.me/api/portraits/men/7.jpg'],
-        ['id' => '8', 'name' => 'Lily Adams', 'amount' => "$654.88", 'status' => 'Approved', 'date' => '1/21/2020', 'avatar' => 'https://randomuser.me/api/portraits/women/8.jpg'],
-        ['id' => '9', 'name' => 'Carlos Reyes', 'amount' => "$712.33", 'status' => 'Pick-Up', 'date' => '8/13/2021', 'avatar' => 'https://randomuser.me/api/portraits/men/9.jpg'],
-        ['id' => '10', 'name' => 'Mia Gonzalez', 'amount' => "$320.20", 'status' => 'Due', 'date' => '11/2/2021', 'avatar' => 'https://randomuser.me/api/portraits/women/10.jpg'],
-        ['id' => '11', 'name' => 'Noah Smith', 'amount' => "$615.49", 'status' => 'Ongoing', 'date' => '10/8/2022', 'avatar' => 'https://randomuser.me/api/portraits/men/11.jpg'],
-        ['id' => '12', 'name' => 'Olivia Johnson', 'amount' => "$982.00", 'status' => 'Unpaid', 'date' => '6/30/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/12.jpg'],
-        ['id' => '13', 'name' => 'William Brown', 'amount' => "$134.80", 'status' => 'Reported', 'date' => '4/18/2021', 'avatar' => 'https://randomuser.me/api/portraits/men/13.jpg'],
-        ['id' => '14', 'name' => 'Emma Davis', 'amount' => "$768.90", 'status' => 'Paid', 'date' => '9/5/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/14.jpg'],
-        ['id' => '15', 'name' => 'James Wilson', 'amount' => "$402.56", 'status' => 'Approved', 'date' => '7/19/2022', 'avatar' => 'https://randomuser.me/api/portraits/men/15.jpg'],
-        ['id' => '16', 'name' => 'Sophia Moore', 'amount' => "$823.47", 'status' => 'Paid', 'date' => '3/12/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/16.jpg'],
-        ['id' => '17', 'name' => 'Benjamin Taylor', 'amount' => "$553.21", 'status' => 'Ongoing', 'date' => '5/24/2023', 'avatar' => 'https://randomuser.me/api/portraits/men/17.jpg'],
-        ['id' => '18', 'name' => 'Isabella Martinez', 'amount' => "$731.95", 'status' => 'Due', 'date' => '10/29/2023', 'avatar' => 'https://randomuser.me/api/portraits/women/18.jpg'],
-        ['id' => '19', 'name' => 'Logan Anderson', 'amount' => "$888.65", 'status' => 'Unsettle', 'date' => '9/2/2023', 'avatar' => 'https://randomuser.me/api/portraits/men/19.jpg'],
-        ['id' => '20', 'name' => 'Ava Thomas', 'amount' => "$610.77", 'status' => 'Unsettle', 'date' => '1/11/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/20.jpg'],
-        ['id' => '21', 'name' => 'Elijah Jackson', 'amount' => "$299.99", 'status' => 'Paid', 'date' => '2/5/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/21.jpg'],
-        ['id' => '22', 'name' => 'Charlotte White', 'amount' => "$753.88", 'status' => 'Approved', 'date' => '1/28/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/22.jpg'],
-        ['id' => '23', 'name' => 'Lucas Harris', 'amount' => "$480.34", 'status' => 'Ongoing', 'date' => '3/15/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/23.jpg'],
-        ['id' => '24', 'name' => 'Amelia Martin', 'amount' => "$199.99", 'status' => 'Due', 'date' => '3/30/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/24.jpg'],
-        ['id' => '25', 'name' => 'Henry Clark', 'amount' => "$920.65", 'status' => 'Unpaid', 'date' => '4/1/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/25.jpg'],
-        ['id' => '26', 'name' => 'Grace Lewis', 'amount' => "$330.20", 'status' => 'Paid', 'date' => '4/10/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/26.jpg'],
-        ['id' => '27', 'name' => 'Daniel Walker', 'amount' => "$875.50", 'status' => 'Pick-Up', 'date' => '4/15/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/27.jpg'],
-        ['id' => '28', 'name' => 'Chloe Hall', 'amount' => "$702.45", 'status' => 'Approved', 'date' => '4/18/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/28.jpg'],
-        ['id' => '29', 'name' => 'Matthew Allen', 'amount' => "$515.99", 'status' => 'Paid', 'date' => '4/19/2024', 'avatar' => 'https://randomuser.me/api/portraits/men/29.jpg'],
-        ['id' => '30', 'name' => 'Harper Young', 'amount' => "$682.30", 'status' => 'Due', 'date' => '4/20/2024', 'avatar' => 'https://randomuser.me/api/portraits/women/30.jpg'],
-    ];
-    
-    function getStatusBadge($status)
-    {
-        switch ($status) {
-            case 'Paid':
-                return ['text' => 'Paid', 'color' => 'bg-green-100 text-green-700'];
-            case 'Ongoing':
-                return ['text' => 'Ongoing', 'color' => 'bg-emerald-600 text-white'];
-            case 'Cancelled':
-                return ['text' => 'Cancelled', 'color' => 'bg-red-100 text-red-700'];
-            case 'Due for Return':
-                return ['text' => 'Due for Return', 'color' => 'bg-orange-500 text-white'];
-            case 'Unsettled':
-                return ['text' => 'Unsettled', 'color' => 'bg-purple-100 text-purple-700'];
-            case 'Reported':
-                return ['text' => 'Reported', 'color' => 'bg-red-300 text-white-700'];
-            case 'Unpaid':
-                return ['text' => 'Unpaid', 'color' => 'bg-yellow-300 text-black'];
-            case 'Pick-Up':
-                return ['text' => 'For Pick-Up', 'color' => 'bg-cyan-100 text-black-700'];
-            case 'Approved':
-                return ['text' => 'Approved', 'color' => 'bg-blue-300 text-white'];
-            default:
-                return ['text' => 'Unknown', 'color' => 'bg-gray-100 text-black'];
-        }
-    }
-    ?>
-
     <h2 class="my-6 text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Manage Bookings
     </h2>
@@ -341,7 +280,7 @@
     </div>
 
 
-    <!-- Approved Bookings Section --!>
+    <!-- Approved Bookings Section -->
         <div id="bookings-tab-content">
             <div class="hidden p-4 rounded-lg bg-gray-50 dark:bg-gray-800" id="approved" role="tabpanel"
                 aria-labelledby="approved-tab">
