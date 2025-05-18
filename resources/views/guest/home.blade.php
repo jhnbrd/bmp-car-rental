@@ -9,15 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-        darkMode: 'class', // or 'media'
-        theme: {
-          extend: {
-            colors: {
-              primary: '#1D4ED8',
+            darkMode: 'class', // or 'media'
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1D4ED8',
+                    },
+                },
             },
-          },
-        },
-      }
+        }
     </script>
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
 
@@ -49,8 +49,9 @@
                     <img src="{{ asset('assets/carright.svg') }}" class="w-[35%]" alt="Car Right">
                 </div>
                 <div class="relative z-10 container mx-auto px-6">
-                    <h1 class="text-5xl font-bold uppercase">RENT A CAR <span class="text-[#ff335f] italic">TODAY</span>
-                    </h1>
+                    <img src="{{ asset('assets/bmp_logo.png') }}" alt="BMP Logo"
+                        class="h-15 mx-auto mb-5 brightness-0 invert">
+                    <h1 class="text-5xl font-bold uppercase">RENT A CAR TODAY</h1>
                     <p class="mt-2 text-lg uppercase font-semibold tracking-wide">EXCLUSIVE & LOW COST CAR RENTAL</p>
                     <p class="mt-2 text-sm max-w-2xl mx-auto">
                         Find the perfect rental car for your family and enjoy a smooth, stress-free journey wherever you
@@ -136,7 +137,8 @@
 
                 <div class="flex flex-row gap-4 py-12 bg-white text-black max-w-6xl mx-auto">
                     <div class="flex flex-row">
-                        <img src="{{ asset('assets/body2/car/mercedes.png') }}" alt="Mercedes" class="h-auto object-contain">
+                        <img src="{{ asset('assets/body2/car/mercedes.png') }}" alt="Mercedes"
+                            class="h-auto object-contain">
 
                     </div>
 

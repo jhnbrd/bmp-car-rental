@@ -45,7 +45,7 @@
                     <!-- BOTTOM GRID: Contact Cards Left | Form Right -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-start">
                         <!-- LEFT: Contact Cards -->
-                        <div class="space-y-6">
+                        <div class="space-y-9">
                             <!-- Sales Contact Card -->
                             <div class="bg-white shadow-lg rounded-lg p-7 text-center text-gray-800">
                                 <img src="{{ asset('assets/body5/telephone.svg') }}" alt="telephone"
@@ -53,7 +53,7 @@
                                 <h3 class="font-bold text-xl mt-4">TALK TO SALES</h3>
                                 <p class="text-gray-600">Connect with our sales team for personalized recommendations
                                     and exclusive deals.</p>
-                                <p class="mt-2 font-semibold text-blue-600">+639 123 456 88</p>
+                                {{-- <p class="mt-2 font-semibold text-blue-600">+639 123 456 88</p> --}}
                                 <p class="font-semibold text-blue-600">+639 987 621 31</p>
                             </div>
 
@@ -68,14 +68,17 @@
                         </div>
 
                         <!-- RIGHT: Contact Form -->
-                        <div class="bg-white rounded-lg shadow-lg p-8 text-gray-800 space-y-6">
+                        <div class="bg-white rounded-lg shadow-lg p-8 text-gray-800 space-y-5">
                             <h3 class="font-bold text-xl text-center">VISIT US</h3>
                             <input type="text" placeholder="Enter your Name"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" name="name" id="name">
+                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                name="name" id="name">
                             <input type="email" placeholder="Enter your Email"
-                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600" name="email" id="email">
+                                class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                name="email" id="email">
                             <textarea placeholder="Your Message"
-                                class="w-full p-3 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600" name="message" id="message"></textarea>
+                                class="w-full p-3 border border-gray-300 rounded-md h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-600"
+                                name="message" id="message"></textarea>
                             <button
                                 class="bg-blue-600 text-white px-6 py-3 rounded-md w-full hover:bg-blue-700 transition duration-300">Find
                                 Us</button>

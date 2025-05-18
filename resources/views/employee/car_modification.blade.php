@@ -3,9 +3,9 @@
 function getCarStatusColor($status) {
     switch ($status) {
         case 'Available':
-            return ['text' => 'Available', 'color' => 'bg-green-100 text-green-800']; // Green
+            return ['text' => 'Available', 'color' => 'bg-emerald-600 text-white']; // Green
         case 'Booked':
-            return ['text' => 'Booked', 'color' => 'bg-yellow-100 text-yellow-800']; // Yellow
+            return ['text' => 'Booked', 'color' => 'bg-yellow-300 text-black']; // Yellow
         case 'Under Maintenance':
             return ['text' => 'Under Maintenance', 'color' => 'bg-blue-100 text-blue-800']; // Blue
         case 'Damaged':
@@ -13,7 +13,7 @@ function getCarStatusColor($status) {
         case 'Expired':
             return ['text' => 'Expired', 'color' => 'bg-gray-100 text-gray-800']; // Gray
         case 'Unavailable':
-            return ['text' => 'Unavailable', 'color' => 'bg-purple-100 text-purple-800']; // Purple
+            return ['text' => 'Unavailable', 'color' => 'bg-purple-500 text-white']; // Purple
         case 'Missing':
             return ['text' => 'Missing', 'color' => 'bg-orange-100 text-orange-800']; // Orange (or another color you prefer)
         default:
@@ -150,21 +150,15 @@ function getCarStatusColor($status) {
                             <!-- Car Model and Dropdown -->
                             <div class="flex justify-between items-center mb-2">
                                 <h3 class="font-semibold text-lg">{{ $car->carModel->brand }} {{ $car->carModel->model_name }} {{ $car->carModel->model_year }}</h3>
-                                <!-- Three Dots Dropdown -->
-                                <div class="relative">
-                                    <button id="dropdownMenuButton-{{ $car->id }}" data-dropdown-toggle="dropdownMenu-{{ $car->id }}"
-                                        class="text-dark font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center"
-                                        type="button"><i class="bi bi-three-dots-vertical"></i></button>
-                                    <!-- Dropdown Menu -->
-                                    <div id="dropdownMenu-{{ $car->id }}"
-                                        class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32">
-                                        <ul class="py-2 text-sm text-gray-700">
-                                            <li>
-                                                <button data-modal-target="editCarModal-{{ $car->id }}" data-modal-toggle="editCarModal-{{ $car->id }}" class="w-full text-left px-4 py-2 hover:bg-gray-100">Edit</button>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <!-- Edit Button -->
+                                <button data-modal-target="editCarModal-{{ $car->id }}" 
+                                    data-modal-toggle="editCarModal-{{ $car->id }}"
+                                    class="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-100 rounded-full transition-all duration-200">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                    </svg>
+                                </button>
                             </div>
 
                             <!-- Car Type and Brand with Status Badge -->

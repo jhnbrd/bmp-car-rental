@@ -35,8 +35,8 @@
                     <img src="{{ asset('assets/carright.svg') }}" class="w-[35%]" alt="Car Right">
                 </div>
                 <div class="relative z-10 container mx-auto px-6">
-                    <h1 class="text-5xl font-bold uppercase">RENT A CAR <span class="text-[#ff335f] italic">TODAY</span>
-                    </h1>
+                    <img src="{{ asset('assets/bmp_logo.png') }}" alt="BMP Logo" class="h-15 mx-auto mb-5 brightness-0 invert">
+                    <h1 class="text-5xl font-bold uppercase">RENT A CAR TODAY</h1>
                     <p class="mt-2 text-lg uppercase font-semibold tracking-wide">EXCLUSIVE & LOW COST CAR RENTAL</p>
                     <p class="mt-2 text-sm max-w-2xl mx-auto">
                         Find the perfect rental car for your family and enjoy a smooth, stress-free journey wherever you
