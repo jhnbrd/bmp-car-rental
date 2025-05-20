@@ -455,7 +455,7 @@
                             <div class="h-64 bg-[#0F3460] flex items-center justify-center">
                                 <div class="h-40 w-40 rounded-full bg-white p-1 flex items-center justify-center">
                                     <img src="{{ asset('assets/devpics/magcalas.jpg') }}"
-                                        alt="John Andre Magcalas" class="h-full w-full rounded-full object-cover">
+                                        alt="Josh Andrei Magcalas" class="h-full w-full rounded-full object-cover">
                                 </div>
                             </div>
                             <div class="p-6 text-center">
@@ -465,7 +465,7 @@
                                     Crafts intuitive user interfaces that make car rental simple and enjoyable for our
                                     customers.
                                 </p>
-                                <a href="#" target="_blank"
+                                <a href="https://jam04241.github.io/" target="_blank"
                                     class="inline-block mt-6 px-6 py-2.5 bg-[#0F3460] text-white rounded-md font-medium hover:bg-blue-800 transition-colors">
                                     View Portfolio
                                 </a>
