@@ -48,6 +48,16 @@
         </div>
 
         <p class="mt-5 text-sm">© 2025, BMP Car Rental. All Rights Reserved</p>
-        <p class="text-xs mt-1">Developed by  Jhianne Jose Berida, Josh Andrei Magcalas, John Rex Partoza</p>
+        <p class="text-xs mt-1 hidden md:block">Developed by Jhianne Jose Berida, Josh Andrei Magcalas, John Rex
+            Partoza</p>
+
+        <div class="text-xs text-center mt-1 md:hidden">
+            <p class="mb-1">Developed by</p>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-1">
+                <p>Jhianne Jose Berida</p>
+                <p>Josh Andrei Magcalas</p>
+                <p>John Rex Partoza</p>
+            </div>
+        </div>
     </div>
 </footer>

@@ -49,11 +49,12 @@
                     <img src="{{ asset('assets/carleft.svg') }}" class="hidden md:block w-[35%]" alt="Car Left">
                     <img src="{{ asset('assets/carright.svg') }}" class="hidden md:block w-[35%]" alt="Car Right">
                 </div>
-                <div class="relative z-10 container mx-auto px-4 md:px-6">
+                <div class="relative z-10 container mx-auto px-4 md:px-6 py-20">
                     <!-- Smaller logo on mobile -->
                     <img src="{{ asset('assets/bmp_logo.png') }}" alt="BMP Logo"
-                        class="h-8 md:h-15 mx-auto mb-4 md:mb-5 brightness-0 invert">
-                    <h1 class="text-2xl md:text-5xl font-bold uppercase">RENT A CAR TODAY</h1>
+                        class="h-8 md:h-16 mx-auto mb-4 md:mb-5 brightness-0 invert">
+                    <h1 class="text-2xl md:text-5xl font-bold uppercase italic">RENT A CAR TODAY</h1>
+                    <div class="w-24 h-1 bg-primary mx-auto mt-4 mb-3"></div>
                     <p class="mt-2 text-sm md:text-lg uppercase font-semibold tracking-wide">EXCLUSIVE & LOW COST CAR
                         RENTAL</p>
                     <p class="mt-2 text-xs md:text-sm max-w-2xl mx-auto">
@@ -154,7 +155,7 @@
                 <div class="container mx-auto px-5 sm:px-8 max-w-7xl">
                     <!-- Mobile: Heading above image -->
                     <div class="pb-10">
-                        <h3 class="lg:hidden text-3xl font-bold uppercase italic text-[#0F3460]">FEEL THE BEST
+                        <h3 class="lg:hidden text-4xl font-bold uppercase italic text-[#0F3460]">FEEL THE BEST
                             EXPERIENCE WITH OUR RENTAL DEALS</h3>
                     </div>
 
